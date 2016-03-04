@@ -24,6 +24,27 @@ public class List<T extends Comparable<T>> {
   }
 
   /**
+   *  Getter tail.
+   */
+  public Node<T> getTail () {
+    return tail;
+  }
+
+  /**
+   *
+   */
+  public void setHead (Node<T> head) {
+    this.head = head;
+  }
+
+  /**
+   *
+   */
+  public void setTail (Node<T> tail) {
+    this.tail = tail;
+  }
+
+  /**
    *  Test whether the list is empty or not.
    *
    *  @return True if the list is empty, or false otherwise
