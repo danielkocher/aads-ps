@@ -1,3 +1,12 @@
+/**
+ *  Main class implementing the merge algorithm(s) and in-/output.
+ *
+ *  Assignment 01, Advanced Algorithms & Data Structures, Summer term 2016.
+ *  Department of Computer Sciences, University of Salzburg.
+ *
+ *  @author Daniel Kocher, 0926293
+ */
+
 import java.util.Scanner;
 
 public class MergeLists {
@@ -28,7 +37,9 @@ public class MergeLists {
   }
 
   /**
-   *  Needs constant additional memory (three references).
+   *  Needs constant additional memory (three references). Only the references
+   *  of the nodes of the two lists are modified such that a the elements, which
+   *  already exist, form the merged list.
    */
   public static <T extends Comparable<T>> List<T> merge(List<T> l, List<T> m) {
     // last element of the first list is smaller than the first element of the
@@ -47,7 +58,8 @@ public class MergeLists {
       return m;
     }
 
-    // otherwise => general merge
+    // otherwise => general merge => needs three additional references = constant
+    // amount of additional memory
     List<T>.Node<T> lcurrent = l.getHead();
     List<T>.Node<T> mcurrent = m.getHead();
     List<T>.Node<T> previous = null;

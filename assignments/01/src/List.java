@@ -1,10 +1,12 @@
 /**
+ *  Implementation of a sorted singly linked list.
+ *  Contains head and tail references, and the end of the list is represented
+ *  as a reference to 'null'.
+ *
  *  Assignment 01, Advanced Algorithms & Data Structures, Summer term 2016.
  *  Department of Computer Sciences, University of Salzburg.
  *
- *  Authors/Group:
- *    Daniel Kocher, 0926293
- *    Christian Mueller, xxxxxxx
+ *  @author Daniel Kocher, 0926293
  */
 
 public class List<T extends Comparable<T>> {
@@ -31,14 +33,14 @@ public class List<T extends Comparable<T>> {
   }
 
   /**
-   *
+   *  Setter head.
    */
   public void setHead (Node<T> head) {
     this.head = head;
   }
 
   /**
-   *
+   *  Setter tail.
    */
   public void setTail (Node<T> tail) {
     this.tail = tail;
@@ -198,7 +200,7 @@ public class List<T extends Comparable<T>> {
   }
 
   /**
-   *
+   *  Simple node class with a next pointer and a data field.
    */
   public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
     public Node<T> next;
