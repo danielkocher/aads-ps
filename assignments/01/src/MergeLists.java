@@ -64,11 +64,7 @@ public class MergeLists {
     List<T>.Node<T> mcurrent = m.getHead();
     List<T>.Node<T> previous = null;
 
-    while (lcurrent != null || mcurrent != null) {
-      if (lcurrent == null || mcurrent == null) {
-        break;
-      }
-
+    while (lcurrent != null && mcurrent != null) {
       if (lcurrent.compareTo(mcurrent) <= 0) {
         while (lcurrent != null && lcurrent.compareTo(mcurrent) <= 0) {
           previous = lcurrent;
