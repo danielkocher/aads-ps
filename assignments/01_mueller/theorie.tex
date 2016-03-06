@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage[]{algorithm2e}
+\begin{document}
+
+\title{Advanced Algorithms and Datastructures (Assignment 1)}
+\author{Christian Müller, Daniel Kocher}
+\maketitle
+\newpage
+\begin{algorithm}[H]
+
+\SetKwProg{Fn}{Function}{}{}
+\SetKwInOut{Input}{input}
+\SetKwInOut{Output}{output}
+
+ \Input{Menge von horizontalen Segmenten $H$  und eine Menge von vertikalen Segmenten $V$. Sei $H^{\ast}$ die Menge der Endpunkte der horizontalen Segmente und $S=H^{\ast} \cup V$.}
+ \Output{Paare $(h,v)$ mit $h \in H$ und $v \in V$.}
+Sortiere Element von S gemäß ihrer horizontalen Position.\;
+ReportCuts($S$,$L_{S}$,$R_{S}$,$V_{S}$)\;
+\Fn{ReportCuts ($S$,$L_{S}$,$R_{S}$,$V_{S}$)}{
+
+ \eIf{$|S|==1$ \tcp*{Sei p dieses Element}}{
+   \Begin{
+        \Switch{p}{
+            \Case{p ist linker Endpunkt}{
+                $L_{S}\leftarrow p_{y}$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow \emptyset$ \Return;
+            }
+             \Case{p ist rechter Endpunkt}{
+                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow p_{y}$, $V_{S}\leftarrow \emptyset$ \Return;
+            }
+              \Case{p vertikales Segment}{
+                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow (p_{y1},p_{y2})$ \Return;
+            }
+        }
+    }
+   
+   }{
+   Wähle eine geeignete vertikale Trennlinie (dh. beliebige x-Koordinate), welche die Menge S in zwei gleich große Teilmengen $S1$ und $S2$ teilt\;
+    ReportCuts($S1$,$L_{S1}$,$R_{S1}$,$V_{S1}$)\;
+    ReportCuts($S2$,$L_{S2}$,$R_{S2}$,$V_{S2}$)\;
+    $tmp \leftarrow L_{S1} \cap R_{S2}$\;
+    \tcc{$tmp$ enhält so alle horizontalen Segmente, die in $S1$ beginnen und in $S2$ enden.}
+    print($(L_{S1} \setminus tmp) \odot V_{S2}$)\;
+    \tcc{$(L_{S1} \setminus tmp)$ enhält  alle horizontalen Segmente, die in $S1$ beginnen und nicht in $S2$ enden. $h \odot V_{2}$ liefert alle $v \in V_{S2}$, die $h_{y}$ enthalten. Genaue Vorgehensweise ist den Folien der Vorlesung zu entnehmen.}
+    print($(R_{S2} \setminus tmp) \odot V_{S1}$)\;
+     \tcc{analog zu letztem print. Horizontale Segmente die in $S2$ enden und ihren Anfangspunkt nicht in $S1$ haben geschnitten mit den vertikalen Segmenten aus $S1$.}
+    $L_{S}\leftarrow (L_{S1} \setminus tmp) \cup L_{S2}$\;
+   	$R_{S}\leftarrow (R_{S2} \setminus tmp) \cup R_{S1}$\;
+   	$V_{S}\leftarrow V_{S1} \cup V_{S2}$\;
+   	\Return\;
+  }
+  
+}
+\caption{PLG}
+ \caption{CutReporter}
+\end{algorithm}
+
+\end{document}
