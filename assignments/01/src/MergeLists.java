@@ -4,6 +4,7 @@
  *  Assignment 01, Advanced Algorithms & Data Structures, Summer term 2016.
  *  Department of Computer Sciences, University of Salzburg.
  *
+ *  @author Christian Mueller, 1123410
  *  @author Daniel Kocher, 0926293
  */
 
