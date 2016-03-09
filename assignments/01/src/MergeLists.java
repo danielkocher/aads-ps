@@ -83,7 +83,7 @@ public class MergeLists {
       }
     }
 
-    return (l.getHead().compareTo(m.getHead()) < 0 ? l : m);
+    return (l.getHead().compareTo(m.getHead()) <= 0 ? l : m);
   }
 
   /**
