@@ -2,7 +2,7 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage[linesnumbered]{algorithm2e}
-\usepackage[margin=.75in]{geometry}
+\usepackage[margin=.6in]{geometry}
 \begin{document}
 %
 \title{Assignment 1 \\ Advanced Algorithms \& Data Structures PS}%
@@ -22,7 +22,8 @@ Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportC
 %
   \Input{
     Menge $S$ bestehend aus vertikalen Segmenten und Endpunkten von horizontalen Segmenten. \\
-    $S$ sei nach horizontalen Koordinaten sortiert (Algorithmus ist leicht zu adaptieren falls nicht).
+    $S$ sei nach horizontalen Koordinaten sortiert. Falls $S$ unsortiert vorliegt, muss $S$ vor jedem \\
+    \texttt{Divide Schritt} nach horizontalen Koordinaten sortiert werden.
   }%
   \Output{Alle Schnittpunkte von vertikalen Segmenten mit horizontalen Segmenten, von denen mindestens ein Endpunkt in $S$ ist}%
   \Variables{
@@ -45,9 +46,9 @@ Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportC
       \BlankLine%
       \Return \tcp*{Rekursionsende}%
     }%
-    \BlankLine%
-    \If{$S$ ist nicht nach horizontalen Koordinaten sortiert}{Sortiere $S$ nach horizontalen Koordinaten\;}%
-    \BlankLine\BlankLine%
+    %\BlankLine%
+    %\If{$S$ ist nicht nach horizontalen Koordinaten sortiert}{Sortiere $S$ nach horizontalen Koordinaten\;}%
+    %\BlankLine\BlankLine%
     \tcp{Divide Schritt}%
     Teile $S$ per vertikaler Trennlinie in zwei (nahezu) gleich gro{\ss}e Teile $S_1$ und $S_2$ auf\;%
     \BlankLine\BlankLine%
@@ -56,7 +57,7 @@ Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportC
     ReportCuts($S_2$)\;%
     \BlankLine\BlankLine%
     \tcp{$L(S_i)$, $R(S_i)$, $V(S_i)$ f{\"u}r $i = 1, 2$ bekannt $\Rightarrow$ Merge Schritt}
-    \tcp{Berichte Segmentschnittpunkte (Paare $(h, v)$)}
+    \tcp{Berichte Segmentschnittpunkte (Paare $(h, v)$); $y(x)$ sei die y-Koordinate von $x$}
     Bestimme alle Paare $(h, v)$ f{\"u}r die entweder ($hv_1$) oder ($hv_2$) gilt\;
     \Begin($hv_1$){%
       Sei $y(h)\in R(S_2) \setminus L(S_1)$ und $[y_{unten}(v), y_{oben}(v)]\in V(S_1)$\;%
@@ -69,58 +70,60 @@ Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportC
     }
     \BlankLine\BlankLine%
     \tcp{Aktualisiere $L(S)$, $R(S)$ und $V(S)$ f{\"u}r $S = S_1 \cup S_2$}
-    $L(S) = \left( L(S_1) \setminus R(S_2) \right) \cup L(S_2)$\;
-    $R(S) = \left( R(S_2) \setminus L(S_1) \right) \cup R(S_1)$\;
+    \ForEach{Paar zusammengeh{\"o}riger horizontaler Endpunkte}{%
+      $L(S) = \left( L(S_1) \setminus R(S_2) \right) \cup L(S_2)$\;
+      $R(S) = \left( R(S_2) \setminus L(S_1) \right) \cup R(S_1)$\;
+    }
     $V(S) = V(S_1) \cup V(S_2)$\;
   }%
 \end{algorithm}
 
-\begin{algorithm}[H]
-
-\SetKwProg{Fn}{Function}{}{}
-\SetKwInOut{Input}{input}
-\SetKwInOut{Output}{output}
-
- \Input{Menge von horizontalen Segmenten $H$  und eine Menge von vertikalen Segmenten $V$. Sei $H^{\ast}$ die Menge der Endpunkte der horizontalen Segmente und $S=H^{\ast} \cup V$.}
- \Output{Paare $(h,v)$ mit $h \in H$ und $v \in V$.}
-Sortiere Element von S gemäß ihrer horizontalen Position.\;
-ReportCuts($S$,$L_{S}$,$R_{S}$,$V_{S}$)\;
-\Fn{ReportCuts ($S$,$L_{S}$,$R_{S}$,$V_{S}$)}{
-
- \eIf{$|S|==1$ \tcp*{Sei p dieses Element}}{
-   \Begin{
-        \Switch{p}{
-            \Case{p ist linker Endpunkt}{
-                $L_{S}\leftarrow p_{y}$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow \emptyset$ \Return;
-            }
-             \Case{p ist rechter Endpunkt}{
-                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow p_{y}$, $V_{S}\leftarrow \emptyset$ \Return;
-            }
-              \Case{p vertikales Segment}{
-                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow (p_{y1},p_{y2})$ \Return;
-            }
-        }
-    }
-   
-   }{
-   Wähle eine geeignete vertikale Trennlinie (dh. beliebige x-Koordinate), welche die Menge S in zwei gleich große Teilmengen $S1$ und $S2$ teilt\;
-    ReportCuts($S1$,$L_{S1}$,$R_{S1}$,$V_{S1}$)\;
-    ReportCuts($S2$,$L_{S2}$,$R_{S2}$,$V_{S2}$)\;
-    $tmp \leftarrow L_{S1} \cap R_{S2}$\;
-    \tcc{$tmp$ enhält so alle horizontalen Segmente, die in $S1$ beginnen und in $S2$ enden.}
-    print($(L_{S1} \setminus tmp) \odot V_{S2}$)\;
-    \tcc{$(L_{S1} \setminus tmp)$ enhält  alle horizontalen Segmente, die in $S1$ beginnen und nicht in $S2$ enden. $h \odot V_{2}$ liefert alle $v \in V_{S2}$, die $h_{y}$ enthalten. Genaue Vorgehensweise ist den Folien der Vorlesung zu entnehmen.}
-    print($(R_{S2} \setminus tmp) \odot V_{S1}$)\;
-     \tcc{analog zu letztem print. Horizontale Segmente die in $S2$ enden und ihren Anfangspunkt nicht in $S1$ haben geschnitten mit den vertikalen Segmenten aus $S1$.}
-    $L_{S}\leftarrow (L_{S1} \setminus tmp) \cup L_{S2}$\;
-   	$R_{S}\leftarrow (R_{S2} \setminus tmp) \cup R_{S1}$\;
-   	$V_{S}\leftarrow V_{S1} \cup V_{S2}$\;
-   	\Return\;
-  }
-  
-}
-\caption{PLG}
- \caption{CutReporter}
-\end{algorithm}
+%\begin{algorithm}[H]
+%
+%\SetKwProg{Fn}{Function}{}{}
+%\SetKwInOut{Input}{input}
+%\SetKwInOut{Output}{output}
+%
+% \Input{Menge von horizontalen Segmenten $H$  und eine Menge von vertikalen Segmenten $V$. Sei $H^{\ast}$ die Menge der Endpunkte der horizontalen Segmente und $S=H^{\ast} \cup V$.}
+% \Output{Paare $(h,v)$ mit $h \in H$ und $v \in V$.}
+%Sortiere Element von S gemäß ihrer horizontalen Position.\;
+%ReportCuts($S$,$L_{S}$,$R_{S}$,$V_{S}$)\;
+%\Fn{ReportCuts ($S$,$L_{S}$,$R_{S}$,$V_{S}$)}{
+%
+% \eIf{$|S|==1$ \tcp*{Sei p dieses Element}}{
+%   \Begin{
+%        \Switch{p}{
+%            \Case{p ist linker Endpunkt}{
+%                $L_{S}\leftarrow p_{y}$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow \emptyset$ \Return;
+%            }
+%             \Case{p ist rechter Endpunkt}{
+%                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow p_{y}$, $V_{S}\leftarrow \emptyset$ \Return;
+%            }
+%              \Case{p vertikales Segment}{
+%                $L_{S}\leftarrow \emptyset$, $R_{S}\leftarrow \emptyset$, $V_{S}\leftarrow (p_{y1},p_{y2})$ \Return;
+%            }
+%        }
+%    }
+%   
+%   }{
+%   Wähle eine geeignete vertikale Trennlinie (dh. beliebige x-Koordinate), welche die Menge S in zwei gleich große Teilmengen $S1$ und $S2$ teilt\;
+%    ReportCuts($S1$,$L_{S1}$,$R_{S1}$,$V_{S1}$)\;
+%    ReportCuts($S2$,$L_{S2}$,$R_{S2}$,$V_{S2}$)\;
+%    $tmp \leftarrow L_{S1} \cap R_{S2}$\;
+%    \tcc{$tmp$ enhält so alle horizontalen Segmente, die in $S1$ beginnen und in $S2$ enden.}
+%    print($(L_{S1} \setminus tmp) \odot V_{S2}$)\;
+%    \tcc{$(L_{S1} \setminus tmp)$ enhält  alle horizontalen Segmente, die in $S1$ beginnen und nicht in $S2$ enden. $h \odot V_{2}$ liefert alle $v \in V_{S2}$, die $h_{y}$ enthalten. Genaue Vorgehensweise ist den Folien der Vorlesung zu entnehmen.}
+%    print($(R_{S2} \setminus tmp) \odot V_{S1}$)\;
+%     \tcc{analog zu letztem print. Horizontale Segmente die in $S2$ enden und ihren Anfangspunkt nicht in $S1$ haben geschnitten mit den vertikalen Segmenten aus $S1$.}
+%    $L_{S}\leftarrow (L_{S1} \setminus tmp) \cup L_{S2}$\;
+%   	$R_{S}\leftarrow (R_{S2} \setminus tmp) \cup R_{S1}$\;
+%   	$V_{S}\leftarrow V_{S1} \cup V_{S2}$\;
+%   	\Return\;
+%  }
+% 
+%}
+%\caption{PLG}
+% \caption{CutReporter}
+%\end{algorithm}
 
 \end{document}
