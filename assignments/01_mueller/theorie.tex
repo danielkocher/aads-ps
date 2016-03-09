@@ -14,15 +14,16 @@
 {\bfseries Aufgabe 2} \newline%
 Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportCuts} aus der Vorlesung an.%
 
-\vspace{1cm}%
-\noindent {\bfseries Vorschlag Kocher}%
 \begin{algorithm}[ht]
   \SetKwProg{Fn}{Function}{}{}%
   \SetKwInOut{Input}{Input}%
   \SetKwInOut{Output}{Output}%
   \SetKwInOut{Variables}{Variables}%
 %
-  \Input{Menge $S$ bestehend aus vertikalen Segmenten und Endpunkten von horizontalen Segmenten}%
+  \Input{
+    Menge $S$ bestehend aus vertikalen Segmenten und Endpunkten von horizontalen Segmenten. \\
+    $S$ sei nach horizontalen Koordinaten sortiert (Algorithmus ist leicht zu adaptieren falls nicht).
+  }%
   \Output{Alle Schnittpunkte von vertikalen Segmenten mit horizontalen Segmenten, von denen mindestens ein Endpunkt in $S$ ist}%
   \Variables{
     $L(S)$ enth{\"a}lt die y-Koordinaten aller linken Eckpunkte in $S$, deren rechter Partner nicht in $S$. \\
@@ -56,11 +57,16 @@ Geben Sie einen Pseudocode f{\"u}r das Divide\&Conquer Verfahren \texttt{ReportC
     \BlankLine\BlankLine%
     \tcp{$L(S_i)$, $R(S_i)$, $V(S_i)$ f{\"u}r $i = 1, 2$ bekannt $\Rightarrow$ Merge Schritt}
     \tcp{Berichte Segmentschnittpunkte (Paare $(h, v)$)}
-    Sei $y(h)\in R(S_2) \setminus L(S_1)$ und $[y_{unten}(v), y_{oben}(v)]\in V(S_1)$\;%
-    \lIf{$y_{unten}(v) \le y(h) \le y_{oben}(v)$}{print $(h, v)$}%
+    Bestimme alle Paare $(h, v)$ f{\"u}r die entweder ($hv_1$) oder ($hv_2$) gilt\;
+    \Begin($hv_1$){%
+      Sei $y(h)\in R(S_2) \setminus L(S_1)$ und $[y_{unten}(v), y_{oben}(v)]\in V(S_1)$\;%
+      \lIf{$y_{unten}(v) \le y(h) \le y_{oben}(v)$}{print $(h, v)$}%
+    }
     \BlankLine\BlankLine%
-    Sei $y(h)\in L(S_1) \setminus R(S_2)$ und $[y_{unten}(v), y_{oben}(v)]\in V(S_2)$\;%
-    \lIf{$y_{unten}(v) \le y(h) \le y_{oben}(v)$}{print $(h, v)$}%
+    \Begin($hv_2$){%
+      Sei $y(h)\in L(S_1) \setminus R(S_2)$ und $[y_{unten}(v), y_{oben}(v)]\in V(S_2)$\;%
+      \lIf{$y_{unten}(v) \le y(h) \le y_{oben}(v)$}{print $(h, v)$}%
+    }
     \BlankLine\BlankLine%
     \tcp{Aktualisiere $L(S)$, $R(S)$ und $V(S)$ f{\"u}r $S = S_1 \cup S_2$}
     $L(S) = \left( L(S_1) \setminus R(S_2) \right) \cup L(S_2)$\;
