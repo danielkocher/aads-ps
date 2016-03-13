@@ -6,22 +6,25 @@
  *  Assignment 01, Advanced Algorithms & Data Structures, Summer term 2016.
  *  Department of Computer Sciences, University of Salzburg.
  *
- *  @author Christian Mueller, 1123410
  *  @author Daniel Kocher, 0926293
  */
+
+import java.util.Comparator;
 
 public class List<T extends Comparable<T>> {
   private Node<T> head = null;
   private Node<T> tail = null; // optimization
   private int size = 0;
+  private Comparator<T> comparator = null; // enables different sorting
 
   /**
    *  Default constructor.
    */
-  public List () {
+  public List (Comparator<T> comparator) {
     head = null;
     tail = null;
     size = 0;
+    this.comparator = comparator;
   }
 
   /**
@@ -41,7 +44,6 @@ public class List<T extends Comparable<T>> {
     Node<T> current = head;
 
     // get to the half of this list
-    System.out.println(sizeHalf);
     for (int i = 0; i < sizeHalf && current != null; ++i) {
       current = current.next;
     }
@@ -69,6 +71,13 @@ public class List<T extends Comparable<T>> {
    */
   public void setTail (Node<T> tail) {
     this.tail = tail;
+  }
+
+  /**
+   *  Getter comparator.
+   */
+  public Comparator<T> getComparator () {
+    return comparator;
   }
 
   /**
@@ -115,13 +124,13 @@ public class List<T extends Comparable<T>> {
     }
     
     // list contains n = 1 entry => no iteration necessary
-    if (head.compareTo(node) >= 0) {
+    if (comparator.compare(head.data, node.data) >= 0) {
       head = new Node<T>(element, head);
       ++size;
       return;
     } 
 
-    if (tail.compareTo(node) <= 0) {
+    if (comparator.compare(tail.data, node.data) <= 0) {
       tail.next = node;
       tail = node;
       ++size;
@@ -131,7 +140,7 @@ public class List<T extends Comparable<T>> {
     // list contains n >= 2 entries (insert in between) => iterate
     Node<T> previous = null;
     Node<T> current = head;
-    while (current != null && current.compareTo(node) < 0) {
+    while (current != null && comparator.compare(current.data, node.data) < 0) {
       previous = current;
       current = current.next;
     }
@@ -141,6 +150,24 @@ public class List<T extends Comparable<T>> {
       previous.next = node;
     }
     ++size;
+  }
+
+  /**
+   *  Inserts all elements of a given list 'other' into this list and keeps the
+   *  ordering.
+   *
+   *  @param other The other list (source of the elements to be inserted)
+   */
+  public void insert (List<T> other) {
+    if (other == null || other.isEmpty()) {
+      return;
+    }
+    
+    Node<T> current = other.getHead();
+    while (current != null) {
+      insert(current.data);
+      current = current.next;
+    }
   }
 
   /**
@@ -156,12 +183,14 @@ public class List<T extends Comparable<T>> {
     Node<T> node = new Node<T>(element, null);
 
     // check head and tail upfront
-    if (head.compareTo(node) > 0 || tail.compareTo(node) < 0) {
+    if (comparator.compare(head.data, node.data) > 0 ||
+        comparator.compare(tail.data, node.data) < 0)
+    {
       return;
     }
 
     // deletion of the head
-    if (head.compareTo(node) == 0) {
+    if (comparator.compare(head.data, node.data) == 0) {
       head = head.next;
       --size;
       return;
@@ -170,7 +199,8 @@ public class List<T extends Comparable<T>> {
     // deletion in between two elements
     Node<T> previous = null;
     Node<T> current = head;
-    while (current != null && current.compareTo(node) != 0) {
+    while (current != null && comparator.compare(current.data, node.data) != 0)
+    {
       previous = current;
       current = current.next;
     }
@@ -204,21 +234,25 @@ public class List<T extends Comparable<T>> {
     Node<T> node = new Node<T>(element, null);
 
     // check head and tail upfront
-    if (head.compareTo(node) > 0 || tail.compareTo(node) < 0) {
+    /*
+    if (comparator.compare(head.data, node.data) > 0 ||
+        comparator.compare(tail.data, node.data) < 0)
+    {
       return null;
     }
 
-    if (head.compareTo(node) == 0) {
+    if (comparator.compare(head.data, node.data) == 0) {
       return head;
     }
 
-    if (tail.compareTo(node) == 0) {
+    if (comparator.compare(tail.data, node.data) == 0) {
       return tail;
     }
+    */
     
     Node<T> current = head;
     while (current != null) {
-      if (current.compareTo(node) == 0) {
+      if (current.data.equals(node.data)) {
         return current;
       }
 
@@ -226,6 +260,17 @@ public class List<T extends Comparable<T>> {
     }
     
     return null;
+  }
+
+  public boolean containsRef (T ref) {
+    Node<T> current = head;
+    while (current != null) {
+      if (current == ref) {
+        return true;
+      }
+      current = current.next;
+    }
+    return false;
   }
 
   @Override
@@ -247,18 +292,13 @@ public class List<T extends Comparable<T>> {
   /**
    *  Simple node class with a next pointer and a data field.
    */
-  public class Node<T extends Comparable<T>> implements Comparable<Node<T>> {
+  public class Node<T extends Comparable<T>> {
     public Node<T> next;
     public T data;
 
     public Node (T data, Node<T> next) {
       this.data = data;
       this.next = next;
-    }
-
-    @Override
-    public int compareTo (Node<T> other) {
-      return data.compareTo(other.data);
     }
 
     @Override
@@ -290,8 +330,8 @@ public class List<T extends Comparable<T>> {
         // disconnect
         current.next = null;
         // adjust sizes
+        toDisconnect.setSize(original.size() - (int)Math.ceil(original.size() / 2));
         original.setSize((int)Math.ceil(original.size() / 2));
-        toDisconnect.setSize(toDisconnect.size() - (int)Math.ceil(toDisconnect.size() / 2));
         // adjust tails
         toDisconnect.setTail(original.getTail());
         original.setTail(current);
