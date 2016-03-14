@@ -144,8 +144,9 @@ Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
       \BlankLine%
       \Return \tcp*{Rekursionsende}%
     }%
-  
-    \BlankLine\BlankLine%
+    \BlankLine%
+    \lIf{$S$ ist nicht bez{\"u}glich x-Koordinaten sortiert}{Sortiere $S$ bez{\"u}glich x-Koordinaten}%
+    \BlankLine%
     \tcc{
       Divide Schritt. \newline
       $m$ sei ein Integer (repr{\"a}sentiert die Mitte der Liste $S$). \newline
@@ -156,18 +157,18 @@ Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
     \lElse{$m \leftarrow \lceil |S| / 2 \rceil$}%
     $S_1 \leftarrow $ Liste der ersten $m$ Elemente aus $S$\;
     $S_2 \leftarrow $ Liste der letzten $\left( |S| - m \right)$ Elemente aus $S$\;
-    \BlankLine\BlankLine%
+    \BlankLine%
     \tcp{Conquer Schritt}%
     ReportCuts($S_1$)\;%
     ReportCuts($S_2$)\;%
-    \BlankLine\BlankLine%
+    \BlankLine%
     \tcc{
       $L(S_i)$, $R(S_i)$, $V(S_i)$ f{\"u}r $i = 1, 2$ bekannt $\Rightarrow$ Merge
       Schritt \newline%
       Berichte Segmentschnittpunkte (Paare $(h, v)$)%
     }%
     $h_1 \leftarrow R(S_2)$\;
-    DeletePartners($h_1$, $L(S_1)$)\;
+    DeletePartnersOf($h_1$, $L(S_1)$)\;
     $v_1 \leftarrow V(S_1)$\;
     IntersectAndReport($h_1$, $v_1$)\;
     \BlankLine%
@@ -176,7 +177,7 @@ Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
     $v_2 \leftarrow V(S_2)$\;
     IntersectAndReport($h_2$, $v_2$)\;
     
-    \BlankLine\BlankLine%
+    \BlankLine%
     \tcp{Aktualisiere $L(S)$, $R(S)$ und $V(S)$ f{\"u}r $S = S_1 \cup S_2$}
     $L(S) \leftarrow L(S_1)$\;
     $L(S)$.DeleteAll($R(S_2)$)\;
