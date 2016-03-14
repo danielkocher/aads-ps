@@ -98,8 +98,6 @@ einfach verketteten Liste. Solche Listen haben mindestens folgende Felder:
 \noindent
 Weiters stellen sie folgende Funktionen zur Verf{\"u}gung:
 \begin{itemize}
-  \item[-] $l_1$.deleteAll($l_2$) \ldots Entfernt alle Element von Liste $l_2$ aus
-    Liste $l1$.
   \item[-] $l_1$.insertAll($l_2$) \ldots F{\"u}gt alle Element von Liste $l_2$ zu
     Liste $l_1$ hinzu.
   %\item[-] $l$.getHead() \ldots Gibt den ersten Knoten der Liste $l$ zur{\"u}ck.
@@ -168,23 +166,21 @@ Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
       Berichte Segmentschnittpunkte (Paare $(h, v)$)%
     }%
     $h_1 \leftarrow R(S_2)$\;
-    DeletePartnersOf($h_1$, $L(S_1)$)\;
+    DeletePartnersOf($h_1$, $L(S_1)$) \tcp*{$h_1$ wird f{\"u}r Aktualisierung von $R(S)$ wiederverwendet (*1)}
     $v_1 \leftarrow V(S_1)$\;
     IntersectAndReport($h_1$, $v_1$)\;
     \BlankLine%
     $h_2 \leftarrow L(S_1)$\;
-    DeletePartnersOf($h_2$, $R(S_2)$)\;
+    DeletePartnersOf($h_2$, $R(S_2)$) \tcp*{$h_2$ wird f{\"u}r Aktualisierung von $L(S)$ wiederverwendet (*2)}
     $v_2 \leftarrow V(S_2)$\;
     IntersectAndReport($h_2$, $v_2$)\;
     
     \BlankLine%
     \tcp{Aktualisiere $L(S)$, $R(S)$ und $V(S)$ f{\"u}r $S = S_1 \cup S_2$}
-    $L(S) \leftarrow L(S_1)$\;
-    $L(S)$.DeleteAll($R(S_2)$)\;
+    $L(S) \leftarrow h_2$ \tcp*{$h_2$ ist bereits $L(S_1) \setminus R(S_2)$, siehe (*2)}
     $L(S)$.InsertAll($L(S_2)$)\;
     \BlankLine%
-    $R(S) \leftarrow R(S_2)$\;
-    $R(S)$.DeleteAll($L(S_1)$)\;
+    $R(S) \leftarrow h_1$ \tcp*{$h_1$ ist bereits $R(S_2) \setminus L(S_1)$, siehe (*1)}
     $R(S)$.InsertAll($R(S_1)$)\;
     \BlankLine%
     $V(S) \leftarrow V(S_1)$\;
