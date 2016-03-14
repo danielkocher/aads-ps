@@ -251,10 +251,10 @@ public class Segments {
         }
        
         currV = currV.next;
-      }
-
-      if (currV != null && currH.data.y() < ((VSegment)currV.data).lowerY()) {
-        currH = currH.next;
+      } else {
+        if (currV != null) {
+          currH = currH.next;
+        }
       }
     }
   }
