@@ -188,14 +188,16 @@ public class Segments {
     
     // update L, R, V
     List<Point> newL = new List<Point>(new Point.ComparatorY());
-    newL.insert(mapL.get(s1));
-    deleteIfAssociateExists(newL, mapR.get(s2));
+    // first statement is equivalent to the following sequence of statements:
+    // newL.insert(mapL.get(s1)); deleteIfAssociateExists(newL, mapR.get(s2));
+    newL.insert(h2);
     newL.insert(mapL.get(s2));
     mapL.put(s, newL);
 
     List<Point> newR = new List<Point>(new Point.ComparatorY());
-    newR.insert(mapR.get(s2));
-    deleteIfAssociateExists(newR, mapL.get(s1));
+    // first statement is equivalent to the following sequence of statements:
+    // newR.insert(mapR.get(s2)); deleteIfAssociateExists(newR, mapL.get(s1));
+    newR.insert(h1);
     newR.insert(mapR.get(s1));
     mapR.put(s, newR);
 
