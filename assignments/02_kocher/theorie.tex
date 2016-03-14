@@ -26,7 +26,7 @@
 \noindent
 F{\"u}r den Divide-\&-Conquer Algorithmus zur Berechnung von Segmentschnittpunkten
 werden zuerst zwei Datenstrukturen definiert, welche verwendet werden um die
-Elemente der Menge $S$ darzustellen.
+Elemente der Liste $S$ darzustellen.
 
 \paragraph{Endpunkt}
 Stellt einen Endpunkt eines horizontalen Segments dar.
@@ -36,6 +36,20 @@ Jeder Endpunkt besitzt mindestens drei Felder:
   \item[-] $y$ \ldots repr{\"a}sentiert die y-Koordinate des Endpunktes.
   \item[-] $ass$ \ldots Pointer zum zugeh{\"o}rigen Partner-Endpunkt.
 \end{itemize}
+
+\emph{Beispiel}: Das horizontale Segment mit den Endpunkten $(1, 2)$ und $(4, 2)$ wird
+durch zwei {\bfseries Endpunkte} $e_{1, 2}$ repr{\"a}sentiert. Die Felder von
+$e_{1, 2}$ sind wie folgt belegt:
+
+\begin{center}
+\begin{tabular}{l||l|l|l|}
+  \hline
+  $e_1$ & $.x = 1$ & $.y = 2$ & $.ass = e_2$ \tabularnewline
+  \hline
+  $e_2$ & $.x = 4$ & $.y = 2$ & $.ass = e_1$ \tabularnewline
+  \hline
+\end{tabular}
+\end{center}
 
 \paragraph{VertSegment}
 Stellt ein vertikales Segment dar. Jedes vertikale Segment besitzt mindestens
@@ -47,8 +61,21 @@ drei Felder:
   \item[-] $y_{oben}$ \ldots repr{\"a}sentiert die obere y-Koordinate des
     vertikalen Segments.
 \end{itemize}
+
+\emph{Beispiel}: Das vertikale Segment mit den Endpunkten $(1, 6)$ und $(1, 1)$
+wird durch ein {\bfseries VertSegment} $v$ repr{\"a}sentiert. Die Felder von $v$
+sind wie folgt belegt:
+
+\begin{center}
+\begin{tabular}{l||l|l|l|}
+  \hline
+  $v$ & $.x = 1$ & $.y_{unten} = 1$ & $.y_{oben} = 6$ \tabularnewline
+  \hline
+\end{tabular}
+\end{center}
+
 %
-Desweiteren werden f{\"u}r jede Menge $S_i$ jeweils drei Listen $L(S_i)$, $R(S_i)$
+Desweiteren werden f{\"u}r jede Liste $S_i$ jeweils drei Listen $L(S_i)$, $R(S_i)$
 und $V(S_i)$ global verwaltet. Dies k{\"o}nnten auch lokale Listen sein,
 allerdings geht nachfolgender Algorithmus von global verwalteten Listen aus.
 
@@ -58,19 +85,18 @@ die y-Koordinaten aller rechten Endpunkte in $S_i$, deren linker Partner ($ass$)
 nicht in $S_i$ liegt. $V(S_i$) hingegen enth{\"a}lt die y-Intervalle ($y_{unten}$
 bis $y_{oben}$) der vertikalen Segmente in $S_i$.
 
-$L(S)$ und $R(S)$ sind nach steigenden y-Koordinaten sortierte, einfach verkettete
-Listen. $V(S)$ sind nach steigenden unteren Endpunkten ($y_{unten}$) sortierte,
-einfach verkettete Listen.
+$L(S_i)$ und $R(S_i)$ sind nach steigenden y-Koordinaten sortierte, einfach
+verkettete Listen. $V(S_i)$ sind nach steigenden unteren Endpunkten ($y_{unten}$)
+sortierte, einfach verkettete Listen.
 
 Seien $l$, $l_i$ einfach verkettete Listen und $d$ ein Wert gespeichert in einer
-einfach verketteten Liste. Einfach verkettete Listen haben mindestens folgende
-Felder:
+einfach verketteten Liste. Solche Listen haben mindestens folgende Felder:
 \begin{itemize}
   \item[-] $head$ \ldots Erster Knoten einer Liste.
 \end{itemize}
 
 \noindent
-Weiters stellen einfach verketteten Listen folgende Funktionen zur Verf{\"u}gung:
+Weiters stellen sie folgende Funktionen zur Verf{\"u}gung:
 \begin{itemize}
   \item[-] $l_1$.deleteAll($l_2$) \ldots Entfernt alle Element von Liste $l_2$ aus
     Liste $l1$.
@@ -83,8 +109,7 @@ Weiters stellen einfach verketteten Listen folgende Funktionen zur Verf{\"u}gung
   \item[-] $l$.delete($d$) \ldots Entfernt das Element $d$ aus Liste $l$.
 \end{itemize}
 %
-Knoten einer einfach verketteten Liste stellen mindestens die folgenden Felder
-bereit:
+Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
 \begin{itemize}
   \item[-] $next$ \ldots N{\"a}chster Knoten.
   %\item[-] $data$ \ldots Korrespondierender Datensatz.
@@ -98,8 +123,7 @@ bereit:
 %
   \Input{
     Liste $S$ bestehend aus vertikalen Segmenten ({\bfseries VertSegment}) und
-    Endpunkten ({\bfseries Endpunkt}) von horizontalen Segmenten, welche bezüglich
-    ihrer x- und y Koordinaten  paarweise verschieden sind. \\
+    Endpunkten ({\bfseries Endpunkt}) von horizontalen Segmenten. \newline%
     $S$ sei nach horizontalen Koordinaten sortiert (Algorithmus ist leicht zu
     adaptieren falls nicht).
   }%
@@ -214,7 +238,7 @@ bereit:
   \Output{
     Berichtet alle Schnittpunkte zwischen Elementen aus $v$ und Elementen aus $h$.
   }%
-  \Fn{IntersectAndReport($H(S)$,$V(S)$)}{
+  \Fn{IntersectAndReport($h$, $v$)}{
     \tcp{Keine Schnittpunkte m{\"o}glich}%
     \lIf{$h$ ist leer \textbf{oder} $v$ ist leer}{\Return}%
     \BlankLine%
