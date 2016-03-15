@@ -122,7 +122,11 @@ Knoten einer solchen Liste stellen mindestens die folgenden Felder bereit:
     Liste $S$ bestehend aus vertikalen Segmenten ({\bfseries VertSegment}) und
     Endpunkten ({\bfseries Endpunkt}) von horizontalen Segmenten. \newline%
     $S$ sei nach horizontalen Koordinaten sortiert (Algorithmus ist leicht zu
-    adaptieren falls nicht).
+    adaptieren falls nicht). \newline%
+    Listen $L(S)$, $R(S)$ und $V(S)$, welche beim ersten (initialen) Aufruf der
+    Funktion leer sind. \newline%
+    Im Laufe der Rekursion werden diese drei Listen nach und nach mit Elementen
+    bef{\"u}llt.
   }%
   \Output{
     Alle Schnittpunkte von vertikalen Segmenten mit horizontalen Segmenten
