@@ -1,0 +1,74 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{commath}
+\usepackage{mathtools}
+
+\usepackage[utf8]{inputenc}
+\begin{document}
+\title{Assignment 4 \\ Advanced Algorithms \& Data Structures PS}%
+\author{Christian Müller 1123410 \\ Daniel Kocher, 0926293}%
+\maketitle
+
+{\noindent\bfseries Aufgabe 7}%
+\medskip%
+ 
+\newpage
+{\noindent\bfseries Aufgabe 8}%
+\medskip%
+
+Es sei $n \in \mathbb{N}$, $w \in \{ 1, \ldots, n \}$, $r \in \mathbb{N}$ mit
+\begin{center}
+  $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}$, mit $c \geq 2$.
+\end{center}
+Eine Urne enthalte $n$ B{\"a}lle, von denen $w$ wei0 und $(n - w)$ schwarz sind.
+Zieht man zuf{\"a}llig $r$ B{\"a}lle aus der Urne, ohne diese zwischendurch
+zur{\"u}ckzulegen, so ist
+\begin{center}
+  Pr[ genau ein wei{\ss}er Ball wurde gezogen ] = ?
+\end{center}
+
+\begin{proof}
+  Pr[ genau ein wei{\ss}er Ball wurde gezogen ]
+    = $\frac{\binom{w}{1} \cdot \binom{n - w}{r - 1}}{\binom{n}{r}}$
+
+    = $w \cdot \frac{(n - w)!}{(n - w - r + 1)! \cdot (r - 1)!} \cdot \frac{r! \cdot (n - r)!}{n!}$
+    = $w \cdot r \cdot \frac{(n - w)!}{(n - w - r + 1)!} \cdot \frac{(n - r)!}{n!}$
+
+    = $w \cdot r \cdot \left( \prod\limits_{i = 0}^{w - 1} \frac{1}{n - i} \right) \cdot \left( \prod\limits_{i = 0}^{w - 2} \left( \left( n - r \right) - i \right) \right)$
+    = $w \cdot r \cdot \frac{1}{n} \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - i}{n - i - 1} \right)$
+
+    $\geq \frac{w \cdot r}{n} \cdot \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - w + 1}{n - w} \right)$
+    = $\frac{w \cdot r}{n} \cdot \left( \frac{\left( n - w \right) - \left( r - 1 \right)}{n - w} \right)^{w - 1}$
+    = $\frac{w \cdot r}{n} \left( 1 - \frac{r - 1}{n - w} \right)^{w - 1}$
+   
+  \bigskip
+  \noindent
+  Weiters wissen wir, dass
+  \begin{enumerate}
+    \item[i.)] $\frac{r - 1}{n - w} \leq \frac{1}{w}
+        \Longleftrightarrow r \cdot  - w \leq n - w
+        \Longleftrightarrow r \cdot w \leq n \text{ (per Lemma)}
+      $
+    \item[ii.)] $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}
+        \Longleftrightarrow \frac{1}{2 \cdot c} \leq \frac{w \cdot r}{n} \leq \frac{n}{c}
+      $
+    \item[iii.)] $\left( 1 - \frac{1}{k} \right)^k \rightarrow \frac{1}{c}$ und
+      $\left( 1 - \frac{1}{k} \right)^{k - 1} \geq \frac{1}{e}$
+  \end{enumerate}
+
+  \bigskip
+  \noindent
+  Setzt man nun i.) - iii.) in obige Formel ein, dann folgt:
+
+  $\geq \frac{1}{2 \cdot c} \cdot \left( 1 - \frac{1}{w} \right)^{w - 1}$
+  $\geq \frac{1}{2 \cdot c} \cdot \frac{1}{e} = \frac{1}{2 \cdot c \cdot e},
+    \qquad \forall c \geq 2
+  $
+\end{proof}
+
+\noindent
+Daraus folgt, je gr{\"o}{\ss}er $c$ gew{\"a}hlt wird, desto kleiner wird die
+Wahrscheinlichkeit genau einen wei{\ss}en Ball aus den $n$ B{\"a}llen zu ziehen.
+
+\end{document}
