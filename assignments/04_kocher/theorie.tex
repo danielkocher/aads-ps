@@ -3,6 +3,11 @@
 \usepackage{amsmath,amsthm,amssymb}
 \usepackage{commath}
 \usepackage{mathtools}
+\usepackage[linesnumbered]{algorithm2e}
+\usepackage[margin=.75in]{geometry}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
 
 \usepackage[utf8]{inputenc}
 \begin{document}
@@ -12,11 +17,165 @@
 
 {\noindent\bfseries Aufgabe 7}%
 \medskip%
- 
+
+\begin{algorithm}
+  \SetKwProg{Fn}{Function}{}{}%
+  \SetKwInOut{Input}{Input}%
+%
+  \Input{
+    Boolsche Matrizen $A$, $B \in \{ 0, 1 \}^{n \times n}$
+  }%
+  \Fn{BPWM($A$, $B$)}{%
+    \tcp{berechnet eine Zeugenmatrix $W$ f{\"u}r $P = A * B$}%
+    $W = -AB$ \tcp{$W_{ij} < 0 \Longleftrightarrow$ Zeuge f{\"u}r $P_{ij}$ muss noch gefunden werden}
+    \tcp{teste alle Zweierpotenzen $r = 2^t$ zwischen $1$ und $n$}
+    \For{$t = 0, \ldots, \left\lfloor log(n) \right\rfloor$}{
+      $r = 2^t$\;
+      \Repeat{$\left\lceil 7.18 log(n) \right\rceil$ times done}{ \tcp{f{\"u}r $O(log(n))$ Runden}
+        w{\"a}hle $R \subseteq \{ 1, \ldots, n \}$ mit $|R| = r$\;
+        berechne $A^R$ und $B^R$ \tcp{vgl. Lemma (Folie 21)}
+        $Z = A^R B^R$\;
+        \tcp{teste ob neuer Zeuge f{\"u}r $P_{ij}$ gefunden wurde}
+        \ForAll{$(i, j)$}{
+          \lIf{$W_{ij}$ und $Z_{ij}$ ist Zeuge f{\"u}r $P_{ij}$}{$W_{ij} = Z_{ij}$}
+        }
+      }
+    }
+    \ForAll{$(i, j)$}{
+      \If{$W_{ij} < 0$}{
+        \tcp{kein Zeuge f{\"u}r $P_{ij}$ gefunden}
+        berechne $W_{ij}$ mit dem trivialen Algorithmus
+      }
+    }
+  }%
+\end{algorithm}
+
+\noindent
+Der $BPWM$-Algorithmus entspricht grunds{\"a}tzlich genau dem Algorithmus, der
+in der Vorlesung vorgestellt wurde (Folie 23 vom 07.04.2016. Es gibt lediglich
+eine {\"A}nderung: der konstante Faktor der inneren Schleife wurde von $3.77$ auf
+$7.18$ erh{\"o}ht. Genau diese {\"A}nderung hat dann auch den gew{\"u}nschten
+Effekt, dass der $BPWM$-Algorithmus die Laufzeit
+$O \left( MM \left( n \right) \cdot log^2(n) \right)$ mit
+Wahrscheinlichkeit $1 - n^{-2}$ garantiert. Dies wird nun bewiesen.
+
+{\bfseries F{\"u}r den urspr{\"u}nglichen Fall:} \newline
+Aus der Vorlesung wissen wir, dass die Wahrscheinlichkeit sehr gering ist, dass
+der $BPWM$-Algorithmus keinen eindeutigen Zeugen findet:
+
+\begin{equation}
+  \left( 1 - \frac{1}{2e} \right) \quad \text{\ldots Wahrscheinlichkeit, dass
+    kein eindeutiger Zeuge gefunden wird (ein Lauf)}
+\end{equation}
+
+\begin{equation}
+  \left( 1 - \frac{1}{2e} \right)^{\left\lceil 3.77log(n) \right\rceil} \quad
+    \text{\ldots Wahrscheinlichkeit, dass kein eindeutiger Zeuge gefunden wird
+    ($\left\lceil 3.77log(n) \right\rceil$ L{\"a}ufe)}
+\end{equation}
+
+Ist $P_{ij} = 1$, so wird im randomisierten Teil des $BPWM$-Algorithmus ein Zeuge
+mit Wahrscheinlichkeit $\geq 1 - \frac{1}{n}$ gefunden.
+$\Longleftrightarrow$ da mit Wahrscheinlichkeit
+
+\begin{equation}
+  \left( 1 - \frac{1}{2e} \right)^{\left\lceil 3.77log(n) \right\rceil} \leq \frac{1}{n}
+\end{equation}
+
+kein eindeutiger Zeuge gefunden wird, wird also mit
+
+\begin{equation}
+  1 - \left( 1 - \frac{1}{2e} \right)^{\left\lceil 3.77log(n) \right\rceil} \geq 1 - \frac{1}{n} = 1 - n^{-1}
+\end{equation}
+
+ein eindeutiger Zeuge gefunden.
+
+Diese Schranke soll nun durch Erh{\"o}hung des konstanten Faktor von $3.77$ auf
+$7.18$ so angepasst werden, dass mit Wahrscheinlichkeit
+
+\begin{equation}
+  \geq 1 - n^{-2} = 1 - \frac{1}{n^2}
+\end{equation}
+
+die Laufzeit von $O \left( MM \left( n \right) \cdot log^2(n) \right)$ garantiert
+werden kann.
+
+{\bfseries F{\"u}r den angepassten Fall:} \newline
+Die Laufzeit $O \left( MM \left( n \right) \cdot log^2(n) \right)$ folgt, wenn
+der triviale Algorithmus nicht zu oft aufgerufen werden muss.
+
+Die Anpassung des konstanten Faktors auf $7.18$ soll also folgendes garantieren:
+\newline
+Ist $P_{ij} = 1$, so wird im randomisierten Teil ein eindeutiger Zeuge mit
+Wahrscheinlichkeit $\geq 1 - n^{-2}$ gefunden.
+
+\begin{proof}
+  Wir bezeichnen die Anzahl der Zeugen f{\"u}r $P_{ij}$ mit $w$.
+
+  Die {\"a}u{\ss}ere Schleife wird mindestens mit einem $r$ durchlaufen, sodass
+  $\frac{n}{2} \leq wr \leq n$ gilt. Die Wahrscheinlichkeit, dass in diesem Lauf
+  $R$ keinen eindeutigen Zeugen f{\"u}r $P_{ij}$ enth{\"a}lt, ist maximal
+
+  \begin{equation}
+    \left( 1 - \frac{1}{2e} \right)
+  \end{equation}
+
+  Die Wahrscheinlichkeit, dass kein eindeutiger Zeuge f{\"u}r $P_{ij}$ gefunden
+  wird, ist damit maximal
+  
+  \begin{equation}
+    \left( 1 - \frac{1}{2e} \right)^{\left\lceil 7.18 log(n) \right\rceil} \leq n^{-2}
+  \end{equation}
+
+  Damit ergibt sich mit der Gegenwahrscheinlichkeit, dass ein eindeutiger Zeuge
+  mit einer Wahrscheinlichkeit
+
+  \begin{equation}
+    \geq 1 - n^{-2}
+  \end{equation}
+
+  gefunden wird.
+
+  Dass $7.18$ diese Ungleichung erf{\"u}llt, zeigen wir im Folgenden:
+
+  Die folgende Ungleichung muss erf{\"u}llt sein, damit Gleichung (8) gilt:
+
+  \begin{equation}
+    \left( 1 - \frac{1}{2e} \right)^{x log(n)} \leq n^{-2}
+  \end{equation}
+
+  Aus Gleichung (9) kann nun eine Schranke f{\"u}r $x$ berechnet werden.
+
+  \begin{equation}
+    \left( 1 - \frac{1}{2e} \right)^{x log(n)} \leq n^{-2}
+  \end{equation}
+
+  \begin{equation}
+    log \left( \left( 1 - \frac{1}{2e} \right)^{x log(n)} \right) \leq log \left( n^{-2} \right)
+  \end{equation}
+
+  \begin{equation}
+    x \cdot log \left( n \right) \cdot log \left( 1 - \frac{1}{2e} \right) \leq (-2) \cdot log \left( n \right)
+  \end{equation}
+
+  \begin{equation}
+    x \cdot log \left( 1 - \frac{1}{2e} \right) \leq -2
+  \end{equation}
+
+  \begin{equation}
+    x \leq \frac{-2}{log(1 - \frac{1}{2e}} = 6.8175866
+  \end{equation}
+
+  Aus Gleichung (14) ergibt sich also, dass alle $x \leq 6.8175866$ Gleichung (9)
+  erf{\"u}llen. \newline
+  Daraus folgt, dass Gleichung (8) f{\"u}r alle $x \leq 6.8175866$ g{\"u}ltig ist.
+\end{proof}
+
 \newpage
 {\noindent\bfseries Aufgabe 8}%
 \medskip%
 
+\noindent
 Es sei $n \in \mathbb{N}$, $w \in \{ 1, \ldots, n \}$, $r \in \mathbb{N}$ mit
 \begin{center}
   $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}$, mit $c \geq 2$.
