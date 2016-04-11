@@ -205,9 +205,11 @@ Wahrscheinlichkeit $\geq 1 - n^{-2}$ gefunden.
 
 \noindent
 Es sei $n \in \mathbb{N}$, $w \in \{ 1, \ldots, n \}$, $r \in \mathbb{N}$ mit
-\begin{center}
-  $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}$, mit $c \geq 2$.
-\end{center}
+
+\begin{equation}
+  \frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}\text{, mit} c \geq 2
+\end{equation}
+
 Eine Urne enthalte $n$ B{\"a}lle, von denen $w$ wei{\ss} und $(n - w)$ schwarz sind.
 Zieht man zuf{\"a}llig $r$ B{\"a}lle aus der Urne, ohne diese zwischendurch
 zur{\"u}ckzulegen, so ist
@@ -216,42 +218,68 @@ zur{\"u}ckzulegen, so ist
 \end{center}
 
 \begin{proof}
-  Pr[ genau ein wei{\ss}er Ball wurde gezogen ]
-    = $\frac{\binom{w}{1} \cdot \binom{n - w}{r - 1}}{\binom{n}{r}}$
+  \begin{equation}
+    \text{Pr[ genau ein wei{\ss}er Ball wurde gezogen ]}
+      = \frac{\binom{w}{1} \cdot \binom{n - w}{r - 1}}{\binom{n}{r}}
+  \end{equation}
 
-    = $w \cdot \frac{(n - w)!}{(n - w - r + 1)! \cdot (r - 1)!} \cdot \frac{r! \cdot (n - r)!}{n!}$
-    = $w \cdot r \cdot \frac{(n - w)!}{(n - w - r + 1)!} \cdot \frac{(n - r)!}{n!}$
+  \begin{equation}
+    = w \cdot \frac{(n - w)!}{(n - w - r + 1)! \cdot (r - 1)!} \cdot \frac{r! \cdot (n - r)!}{n!}
+  \end{equation}
 
-    = $w \cdot r \cdot \left( \prod\limits_{i = 0}^{w - 1} \frac{1}{n - i} \right) \cdot \left( \prod\limits_{i = 0}^{w - 2} \left( \left( n - r \right) - i \right) \right)$
-    = $w \cdot r \cdot \frac{1}{n} \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - i}{n - i - 1} \right)$
+  \begin{equation}
+    = w \cdot r \cdot \frac{(n - w)!}{(n - w - r + 1)!} \cdot \frac{(n - r)!}{n!}
+  \end{equation}
 
-    $\geq \frac{w \cdot r}{n} \cdot \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - w + 1}{n - w} \right)$
-    = $\frac{w \cdot r}{n} \cdot \left( \frac{\left( n - w \right) - \left( r - 1 \right)}{n - w} \right)^{w - 1}$
-    = $\frac{w \cdot r}{n} \left( 1 - \frac{r - 1}{n - w} \right)^{w - 1}$
+  \begin{equation}
+    = w \cdot r \cdot \left( \prod\limits_{i = 0}^{w - 1} \frac{1}{n - i} \right) \cdot \left( \prod\limits_{i = 0}^{w - 2} \left( \left( n - r \right) - i \right) \right)
+  \end{equation}
+
+  \begin{equation}
+    = w \cdot r \cdot \frac{1}{n} \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - i}{n - i - 1} \right)
+  \end{equation}
+
+  \begin{equation}
+    \geq \frac{w \cdot r}{n} \cdot \left( \prod\limits_{i = 0}^{w - 2} \frac{n - r - w + 1}{n - w} \right)
+  \end{equation}
+
+  \begin{equation}
+    = \frac{w \cdot r}{n} \cdot \left( \frac{\left( n - w \right) - \left( r - 1 \right)}{n - w} \right)^{w - 1}
+  \end{equation}
+
+  \begin{equation}
+    = \frac{w \cdot r}{n} \left( 1 - \frac{r - 1}{n - w} \right)^{w - 1}
+  \end{equation}
    
   \bigskip
   \noindent
   Weiters wissen wir, dass
-  \begin{enumerate}
-    \item[i.)] $\frac{r - 1}{n - w} \leq \frac{1}{w}
-        \Longleftrightarrow r \cdot  - w \leq n - w
-        \Longleftrightarrow r \cdot w \leq n \text{ (per Lemma)}
-      $
-    \item[ii.)] $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}
-        \Longleftrightarrow \frac{1}{2 \cdot c} \leq \frac{w \cdot r}{n} \leq \frac{1}{c}
-      $
-    \item[iii.)] $\left( 1 - \frac{1}{k} \right)^k \rightarrow \frac{1}{c}$ und
-      $\left( 1 - \frac{1}{k} \right)^{k - 1} \geq \frac{1}{e}$
-  \end{enumerate}
+
+  \begin{equation}
+    \frac{r - 1}{n - w} \leq \frac{1}{w}
+      \Longleftrightarrow r \cdot  - w \leq n - w
+      \Longleftrightarrow r \cdot w \leq n \text{ (per Lemma)}
+  \end{equation}
+
+  \begin{equation}
+    \frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}
+      \Longleftrightarrow \frac{1}{2 \cdot c} \leq \frac{w \cdot r}{n} \leq \frac{1}{c}
+  \end{equation}
+
+  \begin{equation}
+    \left( 1 - \frac{1}{k} \right)^k \rightarrow \frac{1}{c} \text{ und }
+    \left( 1 - \frac{1}{k} \right)^{k - 1} \geq \frac{1}{e}
+  \end{equation}
 
   \bigskip
   \noindent
-  Setzt man nun i.) - iii.) in obige Formel ein, dann folgt:
+  Setzt man nun (25) - (27) in obige Formel ein, dann folgt:
 
-  $\geq \frac{1}{2 \cdot c} \cdot \left( 1 - \frac{1}{w} \right)^{w - 1}$
-  $\geq \frac{1}{2 \cdot c} \cdot \frac{1}{e} = \frac{1}{2 \cdot c \cdot e},
+  \begin{equation}
+    \geq \frac{1}{2 \cdot c} \cdot \left( 1 - \frac{1}{w} \right)^{w - 1}
+    \geq \frac{1}{2 \cdot c} \cdot \frac{1}{e} = \frac{1}{2 \cdot c \cdot e},
     \qquad \forall c \geq 2
-  $
+  \end{equation}
 \end{proof}
 
 \noindent
