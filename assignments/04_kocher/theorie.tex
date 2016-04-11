@@ -31,7 +31,7 @@
     \tcp{teste alle Zweierpotenzen $r = 2^t$ zwischen $1$ und $n$}
     \For{$t = 0, \ldots, \left\lfloor log(n) \right\rfloor$}{
       $r = 2^t$\;
-      \Repeat{$\left\lceil 7.18 log(n) \right\rceil$ times done}{ \tcp{f{\"u}r $O(log(n))$ Runden}
+      \Repeat{$\left\lceil 6.95 log(n) \right\rceil$ times done}{ \tcp{f{\"u}r $O(log(n))$ Runden}
         w{\"a}hle $R \subseteq \{ 1, \ldots, n \}$ mit $|R| = r$\;
         berechne $A^R$ und $B^R$ \tcp{vgl. Lemma (Folie 21)}
         $Z = A^R B^R$\;
@@ -52,12 +52,14 @@
 
 \noindent
 Der $BPWM$-Algorithmus entspricht grunds{\"a}tzlich genau dem Algorithmus, der
-in der Vorlesung vorgestellt wurde (Folie 23 vom 07.04.2016. Es gibt lediglich
+in der Vorlesung vorgestellt wurde (Folie 23 vom 07.04.2016). Es gibt lediglich
 eine {\"A}nderung: der konstante Faktor der inneren Schleife wurde von $3.77$ auf
-$7.18$ erh{\"o}ht. Genau diese {\"A}nderung hat dann auch den gew{\"u}nschten
+$6.95$ erh{\"o}ht. Genau diese {\"A}nderung hat dann auch den gew{\"u}nschten
 Effekt, dass der $BPWM$-Algorithmus die Laufzeit
 $O \left( MM \left( n \right) \cdot log^2(n) \right)$ mit
 Wahrscheinlichkeit $1 - n^{-2}$ garantiert. Dies wird nun bewiesen.
+
+\clearpage
 
 {\bfseries F{\"u}r den urspr{\"u}nglichen Fall:} \newline
 Aus der Vorlesung wissen wir, dass die Wahrscheinlichkeit sehr gering ist, dass
@@ -91,10 +93,10 @@ kein eindeutiger Zeuge gefunden wird, wird also mit
 ein eindeutiger Zeuge gefunden.
 
 Diese Schranke soll nun durch Erh{\"o}hung des konstanten Faktor von $3.77$ auf
-$7.18$ so angepasst werden, dass mit Wahrscheinlichkeit
+$6.95$ so angepasst werden, dass mit Wahrscheinlichkeit
 
 \begin{equation}
-  \geq 1 - n^{-2} = 1 - \frac{1}{n^2}
+  \geq 1 - \frac{1}{n^2} = 1 - n^{-2}
 \end{equation}
 
 die Laufzeit von $O \left( MM \left( n \right) \cdot log^2(n) \right)$ garantiert
@@ -104,7 +106,7 @@ werden kann.
 Die Laufzeit $O \left( MM \left( n \right) \cdot log^2(n) \right)$ folgt, wenn
 der triviale Algorithmus nicht zu oft aufgerufen werden muss.
 
-Die Anpassung des konstanten Faktors auf $7.18$ soll also folgendes garantieren:
+Die Anpassung des konstanten Faktors auf $6.95$ soll also folgendes garantieren:
 \newline
 Ist $P_{ij} = 1$, so wird im randomisierten Teil ein eindeutiger Zeuge mit
 Wahrscheinlichkeit $\geq 1 - n^{-2}$ gefunden.
@@ -121,22 +123,25 @@ Wahrscheinlichkeit $\geq 1 - n^{-2}$ gefunden.
   \end{equation}
 
   Die Wahrscheinlichkeit, dass kein eindeutiger Zeuge f{\"u}r $P_{ij}$ gefunden
-  wird, ist damit maximal
+  wird, ist damit (f{\"u}r $\left\lceil 6.95 log(n) \right\rceil$ L{\"a}ufe)
+  maximal
   
   \begin{equation}
-    \left( 1 - \frac{1}{2e} \right)^{\left\lceil 7.18 log(n) \right\rceil} \leq n^{-2}
+    \left( 1 - \frac{1}{2e} \right)^{\left\lceil 6.95 log(n) \right\rceil} \leq n^{-2}
   \end{equation}
+
+  \clearpage
 
   Damit ergibt sich mit der Gegenwahrscheinlichkeit, dass ein eindeutiger Zeuge
   mit einer Wahrscheinlichkeit
 
   \begin{equation}
-    \geq 1 - n^{-2}
+    1 - \left( 1 - \frac{1}{2e} \right)^{\left\lceil 6.95 log(n) \right\rceil} \geq 1 - n^{-2}
   \end{equation}
 
   gefunden wird.
 
-  Dass $7.18$ diese Ungleichung erf{\"u}llt, zeigen wir im Folgenden:
+  Dass $x = 6.95$ diese Ungleichung erf{\"u}llt, zeigen wir im Folgenden:
 
   Die folgende Ungleichung muss erf{\"u}llt sein, damit Gleichung (8) gilt:
 
@@ -162,13 +167,22 @@ Wahrscheinlichkeit $\geq 1 - n^{-2}$ gefunden.
     x \cdot log \left( 1 - \frac{1}{2e} \right) \leq -2
   \end{equation}
 
+  Da $log \left( 1 - \frac{1}{2e} \right)$ eine negative Zahl ist, muss beim
+  Aufl{\"o}sen der Ungleichung auch $\leq$ in $\geq$ ge{\"a}ndert werden.
+
   \begin{equation}
-    x \leq \frac{-2}{log(1 - \frac{1}{2e}} = 6.8175866
+    x \geq \frac{-2}{log \left( 1 - \frac{1}{2e} \right)} = 6.82006
   \end{equation}
 
-  Aus Gleichung (14) ergibt sich also, dass alle $x \leq 6.8175866$ Gleichung (9)
+  Aus Gleichung (14) ergibt sich also, dass alle $x \geq 6.82006$ Gleichung (9)
   erf{\"u}llen. \newline
+
   Daraus folgt, dass Gleichung (8) f{\"u}r alle $x \leq 6.8175866$ g{\"u}ltig ist.
+
+  Wir w{\"a}hlen nun $x = 6.95$, was Gleichung (14) erf{\"u}llt. \newline
+  Damit garantiert der angepasste $BPWM$-Algorithmus (vgl. Beginn Aufgabe 7),
+  eine Laufzeit von $O \left( MM \left( n \right) \cdot log^2(n) \right)$ mit
+  Wahrscheinlichkeit $1 - n^{-2}$  (vgl. Gleichung (8)).
 
   Dass die Zeilen 14 - 18 (bzw. die Zeilen 14 - 16 vom originalen Code auf Folie
   23) entfernt werden k{\"o}nnen, ergibt sich, da nachdem der randomisierte
@@ -194,7 +208,7 @@ Es sei $n \in \mathbb{N}$, $w \in \{ 1, \ldots, n \}$, $r \in \mathbb{N}$ mit
 \begin{center}
   $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}$, mit $c \geq 2$.
 \end{center}
-Eine Urne enthalte $n$ B{\"a}lle, von denen $w$ wei0 und $(n - w)$ schwarz sind.
+Eine Urne enthalte $n$ B{\"a}lle, von denen $w$ wei{\ss} und $(n - w)$ schwarz sind.
 Zieht man zuf{\"a}llig $r$ B{\"a}lle aus der Urne, ohne diese zwischendurch
 zur{\"u}ckzulegen, so ist
 \begin{center}
@@ -224,7 +238,7 @@ zur{\"u}ckzulegen, so ist
         \Longleftrightarrow r \cdot w \leq n \text{ (per Lemma)}
       $
     \item[ii.)] $\frac{n}{2 \cdot c} \leq w \cdot r \leq \frac{n}{c}
-        \Longleftrightarrow \frac{1}{2 \cdot c} \leq \frac{w \cdot r}{n} \leq \frac{n}{c}
+        \Longleftrightarrow \frac{1}{2 \cdot c} \leq \frac{w \cdot r}{n} \leq \frac{1}{c}
       $
     \item[iii.)] $\left( 1 - \frac{1}{k} \right)^k \rightarrow \frac{1}{c}$ und
       $\left( 1 - \frac{1}{k} \right)^{k - 1} \geq \frac{1}{e}$
