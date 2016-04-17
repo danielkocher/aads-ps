@@ -1,3 +1,7 @@
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Random;
+
 public class Graph implements GraphInterface {
   /**
    * Initialize the graph with the given number of nodes.
@@ -27,7 +31,49 @@ public class Graph implements GraphInterface {
    */
   public int[][] APSP () {
     int[][] D = APD(A);
-    return D;
+
+    //printMatrix(D, "D");
+
+    Map<Integer, int[][]> Ds = new HashMap<Integer, int[][]>() {{
+      put(0, new int[D.length][D.length]);
+      put(1, new int[D.length][D.length]);
+      put(2, new int[D.length][D.length]);
+    }};
+    Map<Integer, int[][]> Ws = new HashMap<Integer, int[][]>() {{
+      put(0, new int[D.length][D.length]);
+      put(1, new int[D.length][D.length]);
+      put(2, new int[D.length][D.length]);
+    }};
+
+    int j = 0, k = 0;
+    for (int s = 0; s <= 2; ++s) {
+      for (k = 0; k < D.length; ++k) {
+        for (j = 0; j < D.length; ++j) {
+          if ((D[k][j] + 1) % 3 == s) {
+            Ds.get(s)[k][j] = 1;
+          }
+        }
+      }
+
+      //printMatrix(Ds.get(s), "Ds(" + s + ")");
+      Ws.put(s, BPWM(A, Ds.get(s)));
+    }
+
+    /*
+    for (Map.Entry<Integer, int[][]> ws: Ws.entrySet()) {
+      printMatrix(ws.getValue(), "Ws(" + ws.getKey() + ")");
+    }
+    */
+
+    int[][] S = new int[D.length][D.length];
+
+    for (int i = 0; i < S.length; ++i) {
+      for (j = 0; j < S.length; ++j) {
+        S[i][j] = Ws.get(D[i][j] % 3)[i][j];
+      }
+    }
+
+    return S;
   }
 
   /**
@@ -39,7 +85,7 @@ public class Graph implements GraphInterface {
    */
   public int[][] APD (int[][] A) {
     int[][] D = new int[A.length][A.length];
-    int[][] Z = matrixMultiply(A, A);
+    int[][] Z = matrixMultiply(A, A, 1);
 
     //printMatrix(Z, "Z");
 
@@ -75,7 +121,7 @@ public class Graph implements GraphInterface {
     }
 
     int[][] D_ = APD(A_);
-    int[][] S = matrixMultiply(A, D_);
+    int[][] S = matrixMultiply(A, D_, 1);
 
     for (int i = 0; i < D.length; ++i) {
       for (j = 0; j < D.length; ++j) {
@@ -90,7 +136,7 @@ public class Graph implements GraphInterface {
     return D;
   }
 
-  public int[][] matrixMultiply (int[][] A, int[][] B) {
+  public int[][] matrixMultiply (int[][] A, int[][] B, int factor) {
     int[][] C = new int[A.length][A.length];
     
     int j = 0, k = 0;
@@ -101,12 +147,87 @@ public class Graph implements GraphInterface {
           //C[i][j] = Math.min(C[i][j], A[i][k] + B[k][j]);
           C[i][j] += A[i][k] * B[k][j];
         }
+
+        C[i][j] *= factor;
       }
     }
 
     //printMatrix(C, "C");
 
     return C;
+  }
+
+  public int[][] BPWM (int[][] A, int[][] B) {
+    //printMatrix(A, "A");
+    //printMatrix(B, "B");
+    
+    int[][] W = matrixMultiply(A, B, -1);
+
+    //printMatrix(W, "W");
+
+    int i = 0, j = 0, r = 0, u = 0, v = 0, k = 0, toKeep = 0;
+    int[][] Z = null;
+    Random random = new Random();
+    double bound = Math.log10(A.length);
+    for (int t = 0; t <= Math.floor(bound); ++t) {
+      r = ((int)Math.pow(2, t));
+      for (u = 0; u < Math.ceil(4 * bound); ++u) {
+        int[][] AR = new int[A.length][A.length];
+        int[][] BR = new int[A.length][A.length];
+        int[] Rk = new int[A.length];
+
+        for (i = 0; i < r; ++i) {
+          Rk[random.nextInt(A.length)] = 1;
+        }
+
+        for (i = 0; i < A.length; ++i) {
+          for (k = 0; k < A.length; ++k) {
+            AR[i][k] = k * Rk[k] * A[i][k];
+          }
+        }
+
+        for (k = 0; k < A.length; ++k) {
+          for (j = 0; j < A.length; ++j) {
+            BR[k][j] = Rk[k] * B[k][j];
+          }
+        }
+
+        //printMatrix(AR, "AR");
+        //printMatrix(BR, "BR");
+
+        Z = matrixMultiply(AR, BR, 1);
+
+        //printMatrix(Z, "Z = AR * BR");
+
+        for (i = 0; i < W.length; ++i) {
+          for (j = 0; j < W.length; ++j) {
+            if (W[i][j] < 0) {
+              for (k = 0; k < A.length; ++k) {
+                if (AR[i][k] == 1 && BR[k][j] == 1) {
+                  W[i][j] = Z[i][j];
+                  break;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    for (i = 0; i < W.length; ++i) {
+      for (j = 0; j < W.length; ++j) {
+        if (W[i][j] < 0) {
+          for (k = 0; k < W.length; ++k) {
+            if (A[i][k] == 1 && B[k][j] == 1) {
+              W[i][j] = k;
+              break;
+            }
+          }
+        }
+      }
+    }
+
+    return W;
   }
 
   public void printMatrix (int[][] A, String name) {
@@ -119,6 +240,24 @@ public class Graph implements GraphInterface {
     }
   }
 
+  public int[][] trivialBPWM (int[][] A, int[][] B) {
+    int[][] W = new int[A.length][A.length];
+
+    int i = 0, j = 0, k = 0;
+    for (i = 0; i < W.length; ++i) {
+      for (j = 0; j < W.length; ++j) {
+        for (k = 0; k < W.length; ++k) {
+          if (A[i][k] == 1 && B[k][j] == 1) {
+            W[i][j] = k;
+            break;
+          }
+        }
+      }
+    }
+
+    return W;
+  }
+
   private int numberOfNodes = 0;
-  private int[][] A = null; // adjancency matrix
+  private int[][] A = null; // adjacency matrix
 }
