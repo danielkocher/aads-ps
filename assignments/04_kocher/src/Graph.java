@@ -9,8 +9,8 @@ public class Graph implements GraphInterface {
    * @param numberOfNodes The number of nodes
    */
   public void setNumberOfNodes (int numberOfNodes) {
-    this.numberOfNodes = numberOfNodes;
-    A = new int[numberOfNodes][numberOfNodes];
+    this.numberOfNodes = numberOfNodes + 1;
+    A = new int[this.numberOfNodes][this.numberOfNodes];
   }
 
   /**
@@ -21,6 +21,13 @@ public class Graph implements GraphInterface {
    */
   public void addEdge (int nodeA, int nodeB) {
     A[nodeA][nodeB] = A[nodeB][nodeA] = 1;
+  }
+
+  /**
+   *  
+   */
+  public int getBase () {
+    return 1;
   }
 
   /**
@@ -47,8 +54,8 @@ public class Graph implements GraphInterface {
 
     int j = 0, k = 0;
     for (int s = 0; s <= 2; ++s) {
-      for (k = 0; k < D.length; ++k) {
-        for (j = 0; j < D.length; ++j) {
+      for (k = 1; k < D.length; ++k) {
+        for (j = 1; j < D.length; ++j) {
           if ((D[k][j] + 1) % 3 == s) {
             Ds.get(s)[k][j] = 1;
           }
@@ -66,10 +73,12 @@ public class Graph implements GraphInterface {
     */
 
     int[][] S = new int[D.length][D.length];
-
-    for (int i = 0; i < S.length; ++i) {
-      for (j = 0; j < S.length; ++j) {
+    for (int i = 1; i < S.length; ++i) {
+      for (j = 1; j < S.length; ++j) {
         S[i][j] = Ws.get(D[i][j] % 3)[i][j];
+        if (i == j) {
+          S[i][j] = 0 ;
+        }
       }
     }
 
@@ -92,8 +101,8 @@ public class Graph implements GraphInterface {
     // A[i][j] = 1 <=> es existiert Weg der Laenge 1 oder 2 von i nach j
     int[][] A_ = new int[A.length][A.length];
     int j = 0;
-    for (int i = 0; i < A_.length; ++i) {
-      for (j = 0; j < A_.length; ++j) {
+    for (int i = 1; i < A_.length; ++i) {
+      for (j = 1; j < A_.length; ++j) {
         if (i != j && (A[i][j] == 1 || Z[i][j] > 0)) {
           A_[i][j] = 1;
         }
@@ -101,8 +110,8 @@ public class Graph implements GraphInterface {
     }
 
     boolean terminate = true;
-    for (int i = 0; i < A_.length; ++i) {
-      for (j = 0; j < A_.length; ++j) {
+    for (int i = 1; i < A_.length; ++i) {
+      for (j = 1; j < A_.length; ++j) {
         if (i != j && A_[i][j] != 1) {
           terminate = false;
           i = j = A_.length; // terminate loops asap
@@ -111,8 +120,8 @@ public class Graph implements GraphInterface {
     }
 
     if (terminate) {
-      for (int i = 0; i < D.length; ++i) {
-        for (j = 0; j < D.length; ++j) {
+      for (int i = 1; i < D.length; ++i) {
+        for (j = 1; j < D.length; ++j) {
           D[i][j] = 2 * A_[i][j] - A[i][j];
         }
       }
@@ -123,8 +132,8 @@ public class Graph implements GraphInterface {
     int[][] D_ = APD(A_);
     int[][] S = matrixMultiply(A, D_, 1);
 
-    for (int i = 0; i < D.length; ++i) {
-      for (j = 0; j < D.length; ++j) {
+    for (int i = 1; i < D.length; ++i) {
+      for (j = 1; j < D.length; ++j) {
         D[i][j] = 2 * D_[i][j];
         
         if (S[i][j] < D_[i][j] * Z[i][i]) {
@@ -138,12 +147,12 @@ public class Graph implements GraphInterface {
 
   public int[][] matrixMultiply (int[][] A, int[][] B, int factor) {
     int[][] C = new int[A.length][A.length];
-    
+   
     int j = 0, k = 0;
-    for (int i = 0; i < A.length; ++i) {
-      for (j = 0; j < A.length; ++j) {
+    for (int i = 1; i < A.length; ++i) {
+      for (j = 1; j < A.length; ++j) {
         //C[i][j] = Integer.MAX_VALUE; // denotes infinity, so to say
-        for (k = 0; k < A.length; ++k) {
+        for (k = 1; k < A.length; ++k) {
           //C[i][j] = Math.min(C[i][j], A[i][k] + B[k][j]);
           C[i][j] += A[i][k] * B[k][j];
         }
@@ -168,7 +177,7 @@ public class Graph implements GraphInterface {
     int i = 0, j = 0, r = 0, u = 0, v = 0, k = 0, toKeep = 0;
     int[][] Z = null;
     Random random = new Random();
-    double bound = Math.log10(A.length);
+    double bound = Math.log10(A.length) / Math.log10(2); // log2(n)
     for (int t = 0; t <= Math.floor(bound); ++t) {
       r = ((int)Math.pow(2, t));
       for (u = 0; u < Math.ceil(4 * bound); ++u) {
@@ -176,18 +185,19 @@ public class Graph implements GraphInterface {
         int[][] BR = new int[A.length][A.length];
         int[] Rk = new int[A.length];
 
-        for (i = 0; i < r; ++i) {
-          Rk[random.nextInt(A.length)] = 1;
+        for (i = 1; i < r; ++i) {
+          k = random.nextInt(A.length - 1) + 1;
+          Rk[k] = 1;
         }
 
-        for (i = 0; i < A.length; ++i) {
-          for (k = 0; k < A.length; ++k) {
+        for (i = 1; i < A.length; ++i) {
+          for (k = 1; k < Rk.length; ++k) {
             AR[i][k] = k * Rk[k] * A[i][k];
           }
         }
 
-        for (k = 0; k < A.length; ++k) {
-          for (j = 0; j < A.length; ++j) {
+        for (k = 1; k < Rk.length; ++k) {
+          for (j = 1; j < B.length; ++j) {
             BR[k][j] = Rk[k] * B[k][j];
           }
         }
@@ -195,29 +205,31 @@ public class Graph implements GraphInterface {
         //printMatrix(AR, "AR");
         //printMatrix(BR, "BR");
 
+        // Z = AR * BR contains witnesses for all entries in P = A * B, which
+        // have a unique witness in R
         Z = matrixMultiply(AR, BR, 1);
 
         //printMatrix(Z, "Z = AR * BR");
 
-        for (i = 0; i < W.length; ++i) {
-          for (j = 0; j < W.length; ++j) {
-            if (W[i][j] < 0) {
-              for (k = 0; k < A.length; ++k) {
-                if (AR[i][k] == 1 && BR[k][j] == 1) {
-                  W[i][j] = Z[i][j];
-                  break;
-                }
-              }
+        for (i = 1; i < W.length; ++i) {
+          for (j = 1; j < W.length; ++j) {
+            // Z[i][j] is a witness of P = A * B iff
+            // A[i][k] = 1 and B[k][j] = 1, where k = Z[i][j]
+            if (W[i][j] < 0 && Z[i][j] > 0 && Z[i][j] < W.length &&
+                A[i][Z[i][j]] == 1 && B[Z[i][j]][j] == 1)
+            {
+              W[i][j] = Z[i][j];
             }
           }
         }
       }
     }
 
-    for (i = 0; i < W.length; ++i) {
-      for (j = 0; j < W.length; ++j) {
+    // trivial part
+    for (i = 1; i < W.length; ++i) {
+      for (j = 1; j < W.length; ++j) {
         if (W[i][j] < 0) {
-          for (k = 0; k < W.length; ++k) {
+          for (k = 1; k < W.length; ++k) {
             if (A[i][k] == 1 && B[k][j] == 1) {
               W[i][j] = k;
               break;
@@ -244,9 +256,9 @@ public class Graph implements GraphInterface {
     int[][] W = new int[A.length][A.length];
 
     int i = 0, j = 0, k = 0;
-    for (i = 0; i < W.length; ++i) {
-      for (j = 0; j < W.length; ++j) {
-        for (k = 0; k < W.length; ++k) {
+    for (i = 1; i < W.length; ++i) {
+      for (j = 1; j < W.length; ++j) {
+        for (k = 1; k < W.length; ++k) {
           if (A[i][k] == 1 && B[k][j] == 1) {
             W[i][j] = k;
             break;

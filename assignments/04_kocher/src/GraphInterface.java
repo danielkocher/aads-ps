@@ -24,4 +24,9 @@ public interface GraphInterface {
    *          to node j
   */
 	public int[][] APSP ();
+
+  /**
+   *
+   */
+  public int getBase ();
 }
