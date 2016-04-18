@@ -1,0 +1,42 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{commath}
+\usepackage{mathtools}
+
+\usepackage[utf8]{inputenc}
+\begin{document}
+\title{Assignment 5 \\ Advanced Algorithms \& Data Structures PS}%
+\author{Christian Müller 1123410 \\ Daniel Kocher, 0926293}%
+\maketitle
+
+{\noindent\bfseries Aufgabe 9}%
+\medskip%
+ 
+\begin{proof}
+\noindent
+
+
+Zu zeigen: Sei $m \leq i$: $x_{i}$ Vorfahre von $x_{m}$ $\Leftrightarrow$ $P_{min}(\lbrace x_{m},...,x_{i} \rbrace)=x_{i}$ \\
+
+i) $"\Leftarrow"$\\
+Annahme: $P_{min}(\lbrace x_{m},...,x_{i} \rbrace)=x_{i}$\\
+Knoten werden nach Prioritäten in den Suchbaum eingefügt $\Rightarrow$ aus der Menge $\lbrace x_{m},...,x_{i} \rbrace$ wird $x_{i}$ als erster eingefügt.\\
+Für die Knoten $x_{k}$ mit Schlüsseln $k$ die vor $x_{i}$ eingefügt wurden haben die Eigenschaft: $k < key(x_{m})$ oder $k > key(x_{i})$.\footnote[1]{Würde $key(x_{m}) \leq k \leq key(x_{i})$ gelten wäre der Knoten mit dem Schlüssel $k$ Teil der Menge $\lbrace x_{m},...,x_{i} \rbrace$ und würde wegen $P_{min}(\lbrace x_{m},...,x_{i} \rbrace)=x_{i}$ nach $x_{i}$ eingefügt werden}.\\
+Wenn $x_{j} \in \lbrace x_{m},...,x_{i-1} \rbrace$ eingefügt wird durchläuft $x_{j}$ denselben Pfad wie $x_{i}$ \footnote[2]{Es gilt für alle sich im Baum befindlichen Schlüssel $k$ 
+$k < key(x_{m}) \leq key(x_{j}) \leq key(x_{i})$  oder $k > key(x_{i}) \geq key(x_{j}) \geq key(x_{m})$ } und wird im linken Unterbaum von $x_{i}$ eingefügt. 
+Es gilt daher: $x_{j}$ ist Nachfahre von $x_{i}$ und insbesonders $x_{m}$ ist Nachfahre von $x_{i}$ $\implies$ $x_{i}$ ist Vorfahre von $x_{m}$\\
+
+ii) $"\Rightarrow"$\\
+Sei: $P_{min}(\lbrace x_{m},...,x_{i} \rbrace)=x_{j}$; Zeige: $i=j$\\
+Annahme: $x_{i}$ Vorfahre von $x_{m}$\\
+Knoten werden nach Prioritäten in den Suchbaum eingefügt $\Rightarrow$ aus der Menge $\lbrace x_{m},...,x_{i} \rbrace$ wird $x_{j}$ als erster eingefügt.\\
+Für die Knoten $x_{k}$ mit Schlüssel $k$ die vor $x_{i}$ eingefügt wurden haben die Eigenschaft: $k < key(x_{m})$ oder $k > key(x_{i})$.
+Jeder Knoten $x_{l}$ aus $\lbrace x_{m},...,x_{i} \rbrace$ mit $l \neq j$ muss beim Einfügen denselben Pfad durchlaufen wie $x_{j}$.\\
+Falls $j \neq i,m$: $x_{m}$ landet im linken Unterbaum von $x_{j}$ und $x_{i}$ im rechten Unterbaum von $x_{j}$ $\implies$ $x_{i}$ ist kein Vorfahr von $x_{m}$.\\
+Falls $j=m$: $x_{i}$ landet im rechten Unterbaum von $x_{m} \implies x_{m}$ ist Vorfahre von $x_{i}$\\
+$\implies j=i$ 
+\end{proof}
+
+
+\end{document}
