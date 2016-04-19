@@ -64,11 +64,11 @@ E[X_{k}]=E[\sum_{i<k} X_{k,i}] +E[\sum_{i>k} X_{k,i}]
 \begin{equation}
 E[X_{k}]=\sum_{i<k} E[X_{k,i}] +\sum_{i>k} E[X_{k,i}]
 \end{equation}
-F1$(i<k)$:\\
+F1$(i<k)$: gilt für $m$ Knoten des Suchbaums\\
 \begin{equation}
 E[X_{k,i}]=Pr[P_{min}(\lbrace x_{1},...,x_{i}\rbrace)=x_{i}]=\frac{1}{i}
 \end{equation}
-F2$(i>k)$:\\
+F2$(i>k)$: gilt für $n-m$ Knoten des Suchbaums\\
 \begin{equation}
 E[X_{k,i}]=Pr[P_{min}(\lbrace x_{i},...,x_{n}\rbrace)=x_{i}]=\frac{1}{n-i+1}
 \end{equation}
