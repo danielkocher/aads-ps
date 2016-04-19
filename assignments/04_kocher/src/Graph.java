@@ -24,7 +24,9 @@ public class Graph implements GraphInterface {
   }
 
   /**
-   *  
+   *  Get the base index for the node IDs.
+   *
+   *  @return Either 0 or 1, the index of the first node
    */
   public int getBase () {
     return 1;
@@ -38,8 +40,6 @@ public class Graph implements GraphInterface {
    */
   public int[][] APSP () {
     int[][] D = APD(A);
-
-    //printMatrix(D, "D");
 
     Map<Integer, int[][]> Ds = new HashMap<Integer, int[][]>() {{
       put(0, new int[D.length][D.length]);
@@ -62,11 +62,11 @@ public class Graph implements GraphInterface {
         }
       }
 
-      //printMatrix(Ds.get(s), "Ds(" + s + ")");
       Ws.put(s, BPWM(A, Ds.get(s)));
     }
 
     /*
+    // debug - print BPWMs
     for (Map.Entry<Integer, int[][]> ws: Ws.entrySet()) {
       printMatrix(ws.getValue(), "Ws(" + ws.getKey() + ")");
     }
@@ -95,8 +95,6 @@ public class Graph implements GraphInterface {
   public int[][] APD (int[][] A) {
     int[][] D = new int[A.length][A.length];
     int[][] Z = matrixMultiply(A, A, 1);
-
-    //printMatrix(Z, "Z");
 
     // A[i][j] = 1 <=> es existiert Weg der Laenge 1 oder 2 von i nach j
     int[][] A_ = new int[A.length][A.length];
@@ -145,15 +143,22 @@ public class Graph implements GraphInterface {
     return D;
   }
 
+  /**
+   *  Multiplies two given integer matrices A and B, taking a factor into account.
+   *
+   *  @param  A       The first matrix of the multiplication
+   *  @param  B       The second matrix of the multiplication
+   *  @param  factor  The factor to be applied after the multiplication
+   *
+   *  @return The resulting matrix of factor * (A * B)
+   */
   public int[][] matrixMultiply (int[][] A, int[][] B, int factor) {
     int[][] C = new int[A.length][A.length];
    
     int j = 0, k = 0;
     for (int i = 1; i < A.length; ++i) {
       for (j = 1; j < A.length; ++j) {
-        //C[i][j] = Integer.MAX_VALUE; // denotes infinity, so to say
         for (k = 1; k < A.length; ++k) {
-          //C[i][j] = Math.min(C[i][j], A[i][k] + B[k][j]);
           C[i][j] += A[i][k] * B[k][j];
         }
 
@@ -161,23 +166,28 @@ public class Graph implements GraphInterface {
       }
     }
 
-    //printMatrix(C, "C");
-
     return C;
   }
 
+  /**
+   *  Computes a boolean product witness matrix (BPWM) for the product of two
+   *  boolean matrices A and B, i.e., P = A * B, using the randomized algorithm.
+   *  Expected time complexity: O(MM(n) * log^2(n)).
+   *
+   *  @param  A The first boolean matrix
+   *  @param  B The second boolean matrix
+   *
+   *  @return A witness matrix for P = A * B
+   */
   public int[][] BPWM (int[][] A, int[][] B) {
-    //printMatrix(A, "A");
-    //printMatrix(B, "B");
-    
+    // W[i][j] < 0 <=> witness for P[i][j] still to be found
     int[][] W = matrixMultiply(A, B, -1);
 
-    //printMatrix(W, "W");
-
-    int i = 0, j = 0, r = 0, u = 0, v = 0, k = 0, toKeep = 0;
+    int i = 0, j = 0, r = 0, u = 0, v = 0, k = 0;
     int[][] Z = null;
     Random random = new Random();
     double bound = Math.log10(A.length) / Math.log10(2); // log2(n)
+    // test all r = 2^t between 1 and n
     for (int t = 0; t <= Math.floor(bound); ++t) {
       r = ((int)Math.pow(2, t));
       for (u = 0; u < Math.ceil(4 * bound); ++u) {
@@ -185,31 +195,29 @@ public class Graph implements GraphInterface {
         int[][] BR = new int[A.length][A.length];
         int[] Rk = new int[A.length];
 
+        // fill vector Rk
         for (i = 1; i < r; ++i) {
           k = random.nextInt(A.length - 1) + 1;
           Rk[k] = 1;
         }
 
+        // compute AR
         for (i = 1; i < A.length; ++i) {
           for (k = 1; k < Rk.length; ++k) {
             AR[i][k] = k * Rk[k] * A[i][k];
           }
         }
 
+        // compute BR
         for (k = 1; k < Rk.length; ++k) {
           for (j = 1; j < B.length; ++j) {
             BR[k][j] = Rk[k] * B[k][j];
           }
         }
 
-        //printMatrix(AR, "AR");
-        //printMatrix(BR, "BR");
-
         // Z = AR * BR contains witnesses for all entries in P = A * B, which
         // have a unique witness in R
         Z = matrixMultiply(AR, BR, 1);
-
-        //printMatrix(Z, "Z = AR * BR");
 
         for (i = 1; i < W.length; ++i) {
           for (j = 1; j < W.length; ++j) {
@@ -225,7 +233,9 @@ public class Graph implements GraphInterface {
       }
     }
 
-    // trivial part
+    // trivial algorithm to find remaining witnesses
+    // for all (i, j) in {1, ..., n}^2 where W[i][j] < 0,
+    // test all k in {1, ..., n}
     for (i = 1; i < W.length; ++i) {
       for (j = 1; j < W.length; ++j) {
         if (W[i][j] < 0) {
@@ -242,6 +252,12 @@ public class Graph implements GraphInterface {
     return W;
   }
 
+  /**
+   *  Prints a given integer matrix with the corresponding name upfront.
+   *
+   *  @param  A     The integer matrix to be printed
+   *  @param  name  The name of the matrix (printed before the matrix)
+   */
   public void printMatrix (int[][] A, String name) {
     System.out.println(name + ":");
     for (int i = 0; i < A.length; ++i) {
@@ -252,11 +268,22 @@ public class Graph implements GraphInterface {
     }
   }
 
+  /**
+   *  Computes the boolean product witness matrix (BPWM) for the product of two
+   *  boolean matrices A and B, i.e., P = A * B, using the trival algorithm.
+   *  Time complexity: O(n^3).
+   *
+   *  @param  A The first boolean matrix
+   *  @param  B The second boolean matrix
+   *
+   *  @param  A witness matrix for P = A * B
+   */
   public int[][] trivialBPWM (int[][] A, int[][] B) {
     int[][] W = new int[A.length][A.length];
 
-    int i = 0, j = 0, k = 0;
-    for (i = 1; i < W.length; ++i) {
+    int j = 0, k = 0;
+    // for all (i, j) in {1, ..., n}^2, test all k in {1, ..., n}
+    for (int i = 1; i < W.length; ++i) {
       for (j = 1; j < W.length; ++j) {
         for (k = 1; k < W.length; ++k) {
           if (A[i][k] == 1 && B[k][j] == 1) {
