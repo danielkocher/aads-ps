@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.6)  20 APR 2016 13:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2016.3.6)  20 APR 2016 15:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -478,39 +478,39 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--18
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 20--27
+Underfull \hbox (badness 10000) in paragraph at lines 22--30
 
  []
 
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 45--46
+Underfull \hbox (badness 10000) in paragraph at lines 50--52
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 47--48
+Underfull \hbox (badness 10000) in paragraph at lines 53--55
 
  []
 
 
-Overfull \hbox (1.68991pt too wide) detected at line 56
+Overfull \hbox (1.68991pt too wide) detected at line 63
 \OML/cmm/m/it/10 X[] \OT1/cmr/m/n/10 = []
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 67--69
+Underfull \hbox (badness 10000) in paragraph at lines 74--76
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 71--73
+Underfull \hbox (badness 10000) in paragraph at lines 78--80
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 75--77
+Underfull \hbox (badness 10000) in paragraph at lines 82--84
 
  []
 
@@ -522,7 +522,7 @@ Here is how much of TeX's memory you used:
  6695 multiletter control sequences out of 15000+600000
  10937 words of font info for 43 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 51i,9n,27p,421b,205s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 51i,10n,27p,418b,205s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ex10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.p
@@ -538,7 +538,7 @@ nts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 msy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.p
 fb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on theorie.pdf (2 pages, 164638 bytes).
+Output written on theorie.pdf (2 pages, 165938 bytes).
 PDF statistics:
  75 PDF objects out of 1000 (max. 8388607)
  54 compressed objects within 1 object stream
