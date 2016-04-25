@@ -468,8 +468,8 @@ Sei $\dot{k}$ ein Schlüssel mit key($x_1$) $<$ $\dot{k}$ $<$ key($x_2$) für al
 
 Entferne Wurzel aus Treap:
 \begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+   \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -489,12 +489,10 @@ Entferne Wurzel aus Treap:
     \label{subfig:aufg9-i-1-after}
     \caption{nach: $c_{2}$ is linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
   \end{subfigure} 
-  
-  \label{fig:aufg9-i-1} 
-\end{figure}
-\begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+  }
+  \quad
+	\scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -514,12 +512,10 @@ Entferne Wurzel aus Treap:
     \label{subfig:aufg9-i-1-after}
     \caption{nach: $g_{6}$ is linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
   \end{subfigure} 
-  
-  \label{fig:aufg9-i-1} 
-\end{figure}
-\begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+  }
+  \quad
+  \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -539,12 +535,10 @@ Entferne Wurzel aus Treap:
     \label{subfig:aufg9-i-1-after}
     \caption{nach: $k_{13}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
   \end{subfigure} 
-  
-  \label{fig:aufg9-i-1} 
-\end{figure}
-\begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+  }
+  \quad
+  \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -564,14 +558,10 @@ Entferne Wurzel aus Treap:
     \label{subfig:aufg9-i-1-after}
     \caption{nach: $j_{19}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
   \end{subfigure} 
-  
-  \label{fig:aufg9-i-1} 
-\end{figure}
-\newpage
-
-\begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+  }
+ 	\quad
+ 	\scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -592,12 +582,10 @@ Entferne Wurzel aus Treap:
     \label{subfig:aufg9-i-1-after}
     \caption{nach: $i_{22}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
   \end{subfigure} 
-  
-  \label{fig:aufg9-i-1} 
-\end{figure}
-\begin{figure}[H]
-     \centering
-  \begin{subfigure}[b]{.4\textwidth}
+}  
+\quad
+\scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
     	 \node { c \\ 2 }
@@ -616,9 +604,152 @@ Entferne Wurzel aus Treap:
       
     \end{tikzpicture}
     \label{subfig:aufg9-i-1-after}
-    \caption{nach: $h_{25}$ ist linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
+    \caption{nach: $h_{25}$ ist linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)\\
+    Der Hilfsknoten $\dot{k}_{-\infty}$ ist jetzt ein Blatt und kann einfach entfernt werden.}
   \end{subfigure} 
-  
+  }
+  \label{fig:aufg9-i-1} 
+\end{figure}
+
+
+
+\newpage
+iv.)F{\"u}hren Sie $Spalte \left( T, d, T_1, T_2 \right)$ durch, wobei $T$
+    der Treap aus dem vorigen Punkt ist.
+
+Füge Knoten $d_{-\infty}$ in T ein:
+   \begin{figure}[H]
+   \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+       child { node [left = 2.5em] { d \\ $-\infty$  }}
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }     
+      }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Vorher}
+  \end{subfigure} 
+  }
+  \quad
+ \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+   
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { d \\ $-\infty$  } 
+       child { node [right = 2.5em] { f \\ 7  }}
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }     
+      }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $d_{-\infty}$ ist linkes Kind von $f_7$ $\implies$ 			RotiereNachRechts($f_7$)}
+  \end{subfigure} 
+  }
+
+	\quad
+    
+   \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+
+      \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 2.5em] { d\\ $-\infty$ }
+      child {node [right = 5em] { g\\ 6 }
+      child { node [left= .75mm] { f \\ 7}}
+      child { node [right = .75em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }     
+      }}}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $d_{-\infty}$ ist linkes Kind von $g_6$ $\implies$ 			RotiereNachRechts($g_6$)}
+  \end{subfigure} 
+	}
+\quad
+ \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+   
+    
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    \node { d\\ $-\infty$  }
+      child { node [left = 2.5em] { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }}}
+      child {node [right = 5em] { g\\ 6 }
+      child { node [left= .75mm] { f \\ 7}}
+      child { node [right = .75em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }     
+      }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $d_{-\infty}$ ist rechtes Kind von $c_2$ $\implies$ 			RotiereNachLinks($c_2$)}
+  \end{subfigure} 
+	}
+\quad
+
+ \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+   
+    
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }};
+      
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{$T_1$}
+  \end{subfigure} 
+	}
+	\quad
+ \scalebox{.7}{
+  \begin{subfigure}[b]{.7\textwidth}
+   
+    
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    \node { g\\ 6  }            
+      child { node [left= .75mm] { f \\ 7}}
+      child { node [right = .75em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }     
+      }}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{$T_2$}
+  \end{subfigure} 
+	}
   \label{fig:aufg9-i-1} 
 \end{figure}
 \newpage
