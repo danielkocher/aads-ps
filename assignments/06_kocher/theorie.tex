@@ -41,10 +41,14 @@ Geben Sie den Treap vor und nach jeder Rotation an.
 F{\"u}r den Pseudocode bzw. die grundlegenden Vorgehensweise der Operationen
 Suchen, Einf{\"u}gen, RotiereNachLinks/Rechts, Entfernen, Vereinige und Spalte,
 sei auf die Folien vom 14.04.2016 verwiesen.
-
+\newpage
 %\clearpage
-i.)
-
+i.)F{\"u}gen Sie die Schl{\"u}ssel $f$, $g$, $h$, $e$, $b$, $a$, $c$ in einen
+    (anfangs leeren) Treap ein. Die Priorit{\"a}ten dieser Schl{\"u}ssel sind
+    wie folgt gegeben: $a:8$, $b:15$, $c:2$, $e:3$, $f:7$, $g:6$, $h:25$, $i:22$,
+    $j:19$, $k:13$.\\
+    
+Insert $g_{6}$:
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{.4\textwidth}
@@ -67,9 +71,24 @@ i.)
     \caption{Nachher}
   \end{subfigure}
   \label{fig:aufg9-i-1}
-  \caption{1. Rotation: nach links (1x) (nach Einf{\"u}gen von $f$, $g$)}
+  
 \end{figure}
-
+Insert $h_{25}$:
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { g \\ 6 }
+      child { node [left = .75mm] { f \\ 7 }}
+      child { node [right = .75mm] { h \\ 25 } };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-before}
+    \caption{Keine Rotation notwendig}
+  \end{subfigure}
+  
+\end{figure}
+Insert $e_{3}$:
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{.4\textwidth}
@@ -88,6 +107,19 @@ i.)
   \begin{subfigure}[b]{.4\textwidth}
     \centering
     \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { g \\ 6 }
+      child { node [left = .75mm] { e \\ 3 } 
+        child { node [right = .75mm] { f \\ 7 } }
+      }
+      child { node [right = .75mm] { h \\ 25 } };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-before}
+    \caption{nach: RotiereNachRechts($f_{7}$)}
+  \end{subfigure}
+  
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
       \node { e \\ 3 }
       child { node [right = 2.5em] { g \\ 6  } 
         child { node [left = .5em] { f \\ 7 } }
@@ -95,11 +127,31 @@ i.)
       };
     \end{tikzpicture}
     \label{subfig:aufg9-i-1-after}
-    \caption{Nachher}
+    \caption{Nachher (nach: RotiereNachRechts($g_{6}$))}
   \end{subfigure}
   \label{fig:aufg9-i-1}
-  \caption{2. Rotation: nach rechts (2x) (nach Einf{\"u}gen von $h$, $e$)}
+  
 \end{figure}
+\newpage
+Insert $b_{15}$:
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { e \\ 3 }
+      child { node [left = 2.5em] { b \\ 15 }}
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-before}
+    \caption{Keine Rotation notwendig}
+  \end{subfigure}
+ 
+\end{figure}
+Insert $a_{8}$:
 
 \begin{figure}[H]
   \centering
@@ -132,12 +184,13 @@ i.)
       };
     \end{tikzpicture}
     \label{subfig:aufg9-i-1-after}
-    \caption{Nachher}
+    \caption{Nachher (nach: RotiereNachRechts($b_{15}$))}
   \end{subfigure}
   \label{fig:aufg9-i-1}
-  \caption{3. Rotation: nach rechts (1x) (nach Einf{\"u}gen von $b$, $a$)}
-\end{figure}
 
+\end{figure}
+\newpage
+Insert $c_{2}$:
 \begin{figure}[H]
   \centering
   \begin{subfigure}[b]{.45\textwidth}
@@ -154,8 +207,110 @@ i.)
         child { node [right = .5em] { h \\ 25 } } 
       };
     \end{tikzpicture}
+   
     \label{subfig:aufg9-i-1-before}
     \caption{Vorher}
+  \end{subfigure}
+    \quad
+  \begin{subfigure}[b]{.45\textwidth}
+    \centering
+      \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { e \\ 3 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { c \\ 2 } 
+          child { node [left = .5em] { b \\ 15} }
+        }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: RotiereNachLinks($b_{15}$)}
+  \end{subfigure}
+  \label{fig:aufg9-i-1}
+    \quad
+  \begin{subfigure}[b]{.40\textwidth}
+    \centering
+      \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { e \\ 3 }
+      child { node [left = 2.5em] { c \\ 2 }
+        child { node [left = .5em] { a \\ 8 } 
+          child { node [right = .5em] { b \\ 15} }
+        }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: RotiereNachLinks($a_{8}$)}
+  \end{subfigure}
+  \label{fig:aufg9-i-1}
+  \quad
+  \begin{subfigure}[b]{.40\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { e \\ 3  } 
+        child { node [right = .5em] { g \\ 6 }
+        child { node [left = .5em] { f \\ 7 } }
+          child { node [right = .5em] { h \\ 25 } }
+        }
+      };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Nachher (nach: RotiereNachRechts($e_{3}$))}
+  \end{subfigure}
+  \label{fig:aufg9-i-1}
+  
+\end{figure}
+\newpage
+ii.) Entfernen Sie $e$ aus dem Treap.
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { e \\ 3  } 
+        child { node [right = .5em] { g \\ 6 }
+        child { node [left = .5em] { f \\ 7 } }
+          child { node [right = .5em] { h \\ 25 } }
+        }
+      };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Start}
+  \end{subfigure}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { e \\ 3 } 
+        	child { node [right = .5em] { f \\ 7 }}} 
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $g_{6}$ is rechtes Kind von $e_{3}$ $\implies$ RotiereNachLinks($e_{3}$)}
   \end{subfigure}
   \quad
   \begin{subfigure}[b]{.45\textwidth}
@@ -165,20 +320,308 @@ i.)
       child { node [left = 2.5em] { a \\ 8 }
         child { node [right = .5em] { b \\ 15 } }
       }
-      child { node [right = 2.5em] { e \\ 3  } 
-        child { node [left = .5em] { f \\ 7 } }
-        child { node [right = .5em] { g \\ 6 }
-          child { node [right = .5em] { h \\ 25 } }
-        }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } 
+        	child { node [left = .5em] { e \\ 3 }}} 
+        child { node [right = .5em] { h \\ 25 } } 
       };
+      
     \end{tikzpicture}
     \label{subfig:aufg9-i-1-after}
-    \caption{Nachher}
+    \caption{nach: $f_{7}$ is rechtes Kind von $e_{3}$ $\implies$ RotiereNachLinks($e_{3}$)}
   \end{subfigure}
-  \label{fig:aufg9-i-1}
-  \caption{4. Rotation: nach links (2x), nach rechts (1x) (nach Einf{\"u}gen von $c$)}
 \end{figure}
 
+\begin{figure}[H]
+  \centering
+\begin{subfigure}[b]{.45\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }       	 
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Ende}
+  \end{subfigure}
+\end{figure}
+\newpage
+iii.) F{\"u}gen Sie die Schl{\"u}ssel $i_{22}$, $j_{19}$, $k_{13}$ in einen anderen (anfangs
+    leeren) Treap ein. Vereinigen Sie anschlie{\ss}end die zwei Treaps.
+
+Insert $j_{19}$:
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { i \\ 22 }
+      child { node [right = .75mm] { j \\ 19 } };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-before}
+    \caption{Vorher}
+  \end{subfigure}
+  \quad
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { j \\ 19 }
+      child { node [left = .75mm] { i \\ 22 } };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Nachher (nach: RotiereNachLinks($i_{22}$))}
+  \end{subfigure}
+  \label{fig:aufg9-i-1} 
+\end{figure}
+Insert $k_{13}$:
+\begin{figure}[H]
+ 
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { j \\ 19 }
+      child { node [left = .75mm] { i \\ 22 } }
+      child { node [right = .75mm] { k \\ 13 } };
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Vorher}
+  \end{subfigure}
+  \quad
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { k \\ 13 }
+      child { node [left = .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }};
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Nachher (nach: RotiereNachLinks($j_{19}$))}
+  \end{subfigure}
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\newpage
+Vereinige($T_1$,$T_2$):
+\begin{figure}[H]
+ 
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }       	 
+        child { node [right = .5em] { h \\ 25 } } 
+      };
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{$T_1$}
+  \end{subfigure}
+  \quad
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+      \node { k \\ 13 }
+      child { node [left = .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }};
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{$T_2$}
+  \end{subfigure}
+  \label{fig:aufg9-i-1} 
+\end{figure}
+Sei $\dot{k}$ ein Schlüssel mit key($x_1$) $<$ $\dot{k}$ $<$ key($x_2$) für alle $x_1 \in T_1$ und $x_2 \in T_2$. Ein echter Buchstabe kann hier nicht verwendet werden, da ein solcher im deutschen Alphabet (natürliche Ordnung) nicht existiert. Es gilt also: $a < b < c < ... < \dot{k} < i < j < k < ... < z$.
+
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { $\dot{k}$ \\ $-\infty$ }
+      child { node [left = 5em] { c \\ 2 }
+      child { node [left = 2.5em] { a \\ 8 }
+        child { node [right = .5em] { b \\ 15 } }
+      }
+      child { node [right = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }       	 
+        child { node [right = .5em] { h \\ 25 } } 
+      }}
+      child { node [right = 5em] { k \\ 13 }
+      child { node [left = .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Neuer Knoten mit Schlüssel $\dot{k}$ als Wurzel.}
+  \end{subfigure} 
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\newpage
+
+Entferne Wurzel aus Treap:
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { $\dot{k}$ \\ $-\infty$ }
+       child { node [left = 2.5em] { g \\ 6  } 
+        child { node [left = .5em] { f \\ 7 } }       	 
+        child { node [right = .5em] { h \\ 25 } } 
+      }
+      child { node [right= .75mm] { k \\ 13 } 
+      child { node [left= .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $c_{2}$ is linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+      }
+      child { node [right = 5em] { $\dot{k}$ \\ $-\infty$ }
+      child { node [left= .75mm] { h \\ 25 }}
+      child { node [right= .75mm] { k \\ 13 } 
+      child { node [left= .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $g_{6}$ is linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { $\dot{k}$ \\ $-\infty$}
+      child { node [left= .75mm] { h \\ 25 }}
+      child { node [right= .75mm] { j \\ 19 } 
+      child { node [left = .75mm] { i \\ 22 } }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $k_{13}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { $\dot{k}$ \\ $-\infty$}
+      child { node [left= .75mm] { h \\ 25 } }
+      child { node [right = .75mm] { i \\ 22 } }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $j_{19}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\newpage
+
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { $\dot{k}_{-\infty}$ }
+      child { node [left= .75mm] {h \\ 25}  }
+      }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $i_{22}$ is rechtes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachLinks($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\begin{figure}[H]
+     \centering
+  \begin{subfigure}[b]{.4\textwidth}
+    \centering
+    \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }]
+    	 \node { c \\ 2 }
+      child { node [left = 5em] { a \\ 8 }
+      child { node [right = 2.5em] { b \\ 15 } }
+     }
+      child { node [right = 5em] { g\\ 6 }
+       child { node [left = 2.5em] { f \\ 7  } 
+      }
+      child { node [right = 5em] {k \\ 13  }
+      child { node [left= .75mm] { j \\ 19}
+      child { node [left= .75mm] { i \\22}
+      child { node [left= .75mm] { h \\ 25 }
+      child { node [left= .75mm] {$\dot{k}_{-\infty}$}  }
+      }}}}};
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{nach: $h_{25}$ ist linkes Kind von $\dot{k}_{-\infty}$ $\implies$ 			RotiereNachRechts($\dot{k}_{-\infty}$)}
+  \end{subfigure} 
+  
+  \label{fig:aufg9-i-1} 
+\end{figure}
+\newpage
 {\bfseries Aufgabe 12}%
 
 Der {\it linke Rand} in einem bin{\"a}ren Suchbaum $T$ ist der Pfad von der Wurzel
