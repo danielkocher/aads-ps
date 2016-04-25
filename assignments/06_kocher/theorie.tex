@@ -779,6 +779,98 @@ Hashfunktionen:
 Ist $H$ universell? Warum? Falls $H$ nicht universell ist, so modifizieren Sie
 $h_i$, $a_i$ und $b_i$, sodass Sie eine universelle Klasse erhalten.
 
-\medskip%\\
+\medskip%
+
+$H$ ist nicht universell.
+
+\begin{proof}
+Da $N$ prim ist, wissen wir, dass (1) $(N - 1)$ keine Primzahl ist (au{\ss}er
+$N = 3$) und (2) $(N - 1)$ eine gerade Zahl ist (da alle Primzahlen au{\ss}er
+$2$ ungerade sind).
+
+Weiters wissen wir, dass $a_i = 40i$ und $b_i=60i$ beides gerade Zahlen sind,
+da eine Multiplikation mit einer geraden Zahl immer eine gerade Zahl ergibt.
+
+%\begin{equation}
+%  a_i = 40i = 2c\qquad\text{und}\qquad b_i = 60i = 2d
+%\end{equation}
+
+Dies hat zur Folge, dass
+$H = \left\{ h_i \left( k \right) = \left( 40ik + 60i \right)\text{ mod } N - 1 \text{ mod } 4 \right\}$
+immer eine gerade Zahl ergibt (gerade Zahl mod gerader Zahl ergibt immer gerade
+Zahl). Dadurch wird nur der halbe Bereich von $m$ ausgenutzt (n{\"a}mlich nur
+jede zweite - gerade - Zahl), d.h. nur $\frac{m}{2}$.
+
+Damit $H$ universell ist, muss nun Folgendes f{\"u}r $\left( x, y \right)$ mit
+$x \neq y$ erf{\"u}llt sein:
+\begin{equation}
+  \frac{|\left\{ h \in H: h\left( x \right) = h\left( y \right) \right\}|}{|H|} \leq \frac{1}{m}
+  \Longleftrightarrow
+  |\left\{ h \in H: h\left( x \right) = h\left( y \right) \right\}| \leq \frac{|H|}{m}
+\end{equation}
+
+Da $i \in \left\{ 1, \ldots, N \left( N - 1 \right) \right\}$, ist
+$|H| = N \left( N - 1 \right)$. Weiters ist $m = 4$. Da nur jede zweite -
+gerade - Zahl aus dem Wertebereich von $m$ genutzt wird, ist
+$|\left\{ h \in H: h\left( x \right) = h\left( y \right) \right\}| = \frac{|H|}{2} = \frac{N \left( N - 1 \right)}{2}$.
+Eingesetzt in (2) ergibt sich dadurch
+\begin{equation}
+  \frac{N \left( N - 1 \right)}{2} \leq \frac{N \left( N - 1 \right)}{4}
+  \Longleftrightarrow
+  \frac{1}{2} \leq \frac{1}{4}
+\end{equation}
+
+(3) ist nicht erf{\"u}llt $\Rightarrow$ $H$ ist nicht universell.
+\end{proof}
+
+Damit $H$ universell ist, halten wir uns nun an den Satz von Folie 20:
+\begin{equation}
+  H = \left\{ h_{a, b} \left( x \right) | 1 \leq a < N \land 0 \leq b < N \right\}
+\end{equation}
+ist eine universelle Klasse von Hash-Funktionen.
+
+Das hei{\ss}t, wir m{\"u}ssen $a_i$, $b_i$ und $h_i$ so anpassen, dass Folgendes
+gilt:
+\begin{equation}
+  a_i \in \left\{ 1, \ldots, N - 1 \right\},
+  b_i \in \left\{ 0, \ldots, N - 1 \right\},
+  h_i \left( x \right) = \left( \left( a_ik + b_i \right)\text{ mod } N \right)\text{ mod } m
+\end{equation}
+
+Es wurde in der Vorlesung bewiesen, dass diese Klasse von Hash-Funktionen
+universell ist.
+
+\clearpage
+
+\begin{equation}
+  a_i = f \left( i, N \right),
+  f \left( i, N \right) \in \left\{ 1, \ldots, N - 1 \right\}\text{ f{\"u}r }
+  i \in \left\{ 1, \ldots, N \left( N - 1 \right) \right\}
+\end{equation}
+
+\begin{equation}
+  b_i = g \left( i, N \right),
+  g \left( i, N \right) \in \left\{ 0, \ldots, N - 1 \right\}\text{ f{\"u}r }
+  i \in \left\{ 1, \ldots, N \left( N - 1 \right) \right\}
+\end{equation}
+
+Die folgenden Funktionen $f \left( i, N \right)$ und $g \left( i, N \right)$
+erf{\"u}llen diese Bedingungen:
+
+\begin{equation}
+  a_i = 1 + \left( \left( i - 1 \right)\text{ mod } N - 1 \right)
+\end{equation}
+
+\begin{equation}
+  b_i = \left\lceil \frac{i - 1}{N} \right\rceil
+\end{equation}
+
+Daraus ergibt sich
+
+\begin{equation}
+  H = \left\{ h_i \left( x \right) = \left( \left( a_ik + b_i \right)\text{ mod } N \right)\text{ mod } m \right\}
+\end{equation}
+
+was eine universelle Klasse von Hash-Funktionen ist.
 
 \end{document}
