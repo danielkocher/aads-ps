@@ -9,7 +9,7 @@
 \usepackage{tikz}
 \usepackage[margin=1in]{geometry}
 
-\usetikzlibrary{positioning}
+\usetikzlibrary{positioning, shapes.geometric}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{8pt}
@@ -766,6 +766,124 @@ dass die Anzahl der Rotationen, die w{\"a}hrend des Einf{\"u}gens von $x$
 durchgef{\"u}hrt wurden, $C + D$ ist.
 
 \medskip%
+
+Linker Rand eines bin{\"a}ren Suchbaums: von der Wurzel zum linkesten Kind, d.h.
+verfolge ausgehend von der Wurzel immer die Kante zum linken Kind.
+\newline
+Rechter Rand eines bin{\"a}ren Suchbaums: analog (verfolge immer die Kante zum
+rechten Kind).
+
+$C$ \ldots L{\"a}nge des rechten Randes des linken Unterbaums des Knotens mit dem
+Element $x$.
+\newline
+$D$ \ldots L{\"a}nge des linken Randes des rechten Unterbaums des Knotens mit dem
+Element $x$.
+\newline
+$R$ \ldots \# der Rotationen, die w{\"a}hrend des Einf{\"u}gens von $x$
+durchgef{\"u}hrt wurden.
+
+
+Zu zeigen: $C + D = R$
+
+\begin{proof}
+Ausgehend von der Annahme, dass $C + D = R$ vor der ersten Rotation gilt,
+zeigen wir nun, dass $C + D = R$ auch nach der darauffolgenden Rotation gilt.
+
+{\bfseries I.A.:} $C + D = 0$ gilt trivialerweise, da $C = D = 0$.
+
+{\bfseries I.B.:} $C + D = R$ gilt f{\"u}r $N$ Rotation.
+
+{\bfseries I.S.:}
+Seien $C$, $D$, $C_{NR}$ und $D_{NR}$ wie folgt:
+
+$C$ \ldots L{\"a}nge des rechten Randes des linken Unterbaums des Knotens mit
+dem Element $x$ \emph{vor der Rotation}.
+\newline
+$D$ \ldots L{\"a}nge des linken Randes des rechten Unterbaums des Knotens mit
+dem Element $x$ \emph{vor der Rotation}.
+\newline
+$C_{NR}$ \ldots L{\"a}nge des rechten Randes des linken Unterbaums des Knotens
+mit dem Element $x$ \emph{nach der Rotation}.
+\newline
+$D_{NR}$ \ldots L{\"a}nge des linken Randes des rechten Unterbaums des Knotens
+mit dem Element $x$ \emph{nach der Rotation}.
+
+Es gibt nun zwei F{\"a}lle zu unterscheiden.
+
+\underline{Fall 1: Linksrotation bzgl. Knoten $x$}
+
+Vor der Rotation hat der linke Rand des rechten Unterbaums von $x$ die L{\"a}nge
+$D$. Analog hat der rechte Rand des linken Unterbaums von $x$ die L{\"a}nge $C$.
+
+Bei einer Linksrotation passiert Folgendes. Sei $y$ der Elternknoten von $x$ vor
+der Linksrotation.
+{\parskip0pt\begin{itemize}
+  \item $x$ wird auf die Position von $y$ geschoben und $y$ wird linkes Kind von
+    $x$.
+  \item Der linke Unterbaum von $x$ wird zum rechten Unterbaum von $y$.
+  \item Der rechte Unterbaum von $x$ bleibt dessen rechter Unterbaum.
+  \item Der linke Unterbaum von $y$ bleibt dessen linker Unterbaum.
+\end{itemize}}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[every node/.style = { draw, align = center, shape = circle }, level distance = 1.5cm]
+    \node (x1) { x }
+    child { node [left = .75mm] { y }
+      child[child anchor = north] { node [left = .75em, regular polygon, dashed, regular polygon sides = 3, minimum height = 1cm] { } }
+      child[child anchor = north] { node [right = .75mm, regular polygon, dotted, regular polygon sides = 3, minimum height = 1cm] { } }
+    }
+    child[child anchor = north] { node [right = .75mm, regular polygon, regular polygon sides = 3, minimum height = 1cm] { } };
+
+    \node[right = 6 of x1] { y }
+    child[child anchor = north] { node [left = .75mm, regular polygon, dashed, regular polygon sides = 3, minimum height = 1cm] { } }
+    child { node [right = .75mm] { x }
+      child[child anchor = north] { node [left = .75em, regular polygon, dotted, regular polygon sides = 3, minimum height = 1cm] { } }
+      child[child anchor = north] { node [right = .75mm, regular polygon, regular polygon sides = 3, minimum height = 1cm] { } }
+    };
+
+    \draw[->, >=stealth] (x1) ++(2.25, -0.5) node[above right = -0.5 and 0.15, draw = none] {\small Rechtsrotation} -- ++(2, 0);
+    \draw[<-, >=stealth] (x1) ++(2.25, -2.5) node[above right = -0.5 and 0.25, draw = none] {\small Linksrotation} -- ++(2, 0);
+  \end{tikzpicture}
+  \label{fig:aufg12-left-rot-x}
+  \caption{Links- und Rechtsrotation bzgl. $x$}
+\end{figure}
+
+Durch die "Nach-Unten-Verschiebung" des linken Unterbaums von $x$ um eine Ebene,
+wird der rechte Rand des linken Unterbaums des Knotens mit dem Element $x$
+ebenfalls um 1 l{\"a}nger, d.h. $C_{NR} = C + 1$. Die L{\"a}nge des linken Randes
+des rechten Unterbaums des Knotens mit dem Element $x$ bleibt hingegen
+unver{\"a}ndert, d.h. $D_{NR} = D$.
+
+F{\"u}r diesen Fall gilt also f{\"u}r $N$ Rotationen, dass $C$
+$N$-mal um 1 l{\"a}nger wird, d.h.
+$C_{NR} = C + \sum^{N - 1}_{i = 1} 1 = C + N = N$. $D_{NR}$ bleibt hingegen
+immer gleich bleibt, d.h. $D_{NR} = D = 0$.
+
+Daraus folgt: $C_{NR} + D_{NR} = N = N$ f{\"u}r $N$ Rotationen. \hfill$\Box$
+
+\underline{Fall 2: Rechtsrotation bzgl. Knoten $x$}
+
+Die selbe Argumentation kann f{\"u}r die Rechtsrotation verwendet werden. Der
+einzige Unterschied liegt in der Ver{\"a}nderung des Baumes. Bei einer
+Rechtsrotation gilt Folgendes. Sei $y$ das linke Kind von $x$ vor der
+Rechtsrotation.
+{\parskip0pt\begin{itemize}
+  \item $y$ wird der neue Elternknoten von $x$.
+  \item Der linke Unterbaum von $y$ bleibt dessen linker Unterbaum.
+  \item Der rechte Unterbaum von $y$ wird linker Unterbaum von $x$.
+  \item $x$ wird das rechte Kind von $y$.
+\end{itemize}}
+
+In diesem Fall wir der Pfad $D$ um 1 l{\"a}nger und $C$ bleibt unver{\"a}ndert,
+d.h. $D_{NR} = D + 1$ und $C_{NR} = C$.
+
+Analog zu Fall 1 ergibt sich daraus f{\"u}r $N$ Rotationen:
+$C_{NR} + D_{NR} = N = N$. \hfill$\Box$
+
+Das hei{\ss}t, dass $C + D = R$ auch f{\"u}r die Kombination von Links- und
+Rechtsrotationen gilt, da nur entweder $D$ oder $C$ um 1 l{\"a}nger werden.
+\end{proof}
 
 {\bfseries Aufgabe 13}%
 
