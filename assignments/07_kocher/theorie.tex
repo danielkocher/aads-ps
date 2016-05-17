@@ -210,5 +210,82 @@ Wir nehmen an, dass in einer Datenstruktur die $i$-te Operation Kosten $c_i$
 verursacht, wobei $c_i = i$ f{\"u}r alle $i$ der Form $2^k + 1$ ($k$ ist eine
 nat{\"u}rliche Zahl) und $c_i = 2$ sonst. Zeigen Sie, dass die amortisierten
 Kosten einer Operation immer konstant sind.
+\begin{multicols}{2}
+\begin{center}
+$c_i=\begin{cases} i$, falls $i=2^k+1$ mit $k \in \mathbb{N}  \\ 2$, sonst.$  \end{cases}$
+\end{center}
+\begin{table}[H]
+  \centering
+  \begin{tabular}{l|l}
+    $Op_i$ & $c_i$ \tabularnewline
+    \hline\hline
+    $1$ & $2$        \tabularnewline
+    \hline
+    $2$ & $2$          \tabularnewline
+    \hline
+    $3$ & $3$          \tabularnewline
+    \hline
+    $4$ & $2$         \tabularnewline
+    \hline
+    $5$ & $5$         \tabularnewline
+    \hline
+    $6$ & $2$         \tabularnewline
+    \hline
+    $7$ & $2$       \tabularnewline
+    \hline
+    $8$ & $2$         \tabularnewline
+    \hline
+    $9$ & $9$       \tabularnewline
+    \hline
+    $10$ & $2$        \tabularnewline
+    \hline
+  \end{tabular}
+  \caption{Beispiel für $n=10$ Operationen}
+  \label{tbl:final-pos}
+\end{table}
+\end{multicols}
+Aggregat-Methode mit $n$ Operationen\\
+O. B. d. A. betrachten wir den Fall $n=2^k$ mit $k \in \mathbb{N}$\\
+\begin{enumerate}
+
+\item  Gesamtkosten $C_1$ der Operationen für die $i=2^k+1$ gilt:\\
+\begin{equation}
+C_1=(2^0+1)+(2^1+1)+(2^2+1)+...+(2^{\operatorname{ld}(n)-1}+1)
+\end{equation}
+\begin{equation}
+C_1=1+{\operatorname{ld}(n)}+\sum_{i=0}^{\operatorname{ld}(n)-1} 2^{i}
+\end{equation}
+Es gilt (kann durch Induktion einfach gezeigt werden):
+\begin{equation}
+\sum_{i=0}^{n} 2^{i}=2^{n+1}-1
+\end{equation}
+Also:\\
+\begin{equation}
+C_1={\operatorname{ld}(n)}+2^{\operatorname{ld}(n)}-1
+\end{equation}
+\item Gesamtkosten $C_2$ der Operationen für die $i\neq2^k+1$ mit $k \in \mathbb{N}$ gilt:\\
+\begin{equation}
+C_2=2 \cdot ({n-\operatorname{ld}(n)})
+\end{equation}
+\end{enumerate}
+Seien $C$ die Gesamtkosten der $n$ Operationen dann:
+\begin{equation}
+C=C_1+C_2={\operatorname{ld}(n)}+2^{\operatorname{ld}(n)}-1+2 \cdot ({n-\operatorname{ld}(n)})
+\end{equation}
+\begin{equation}
+C={\operatorname{ld}(n)}+n-1+2 n-2{\operatorname{ld}(n)}
+\end{equation}
+\begin{equation}
+C=3n-{\operatorname{ld}(n)}-1
+\end{equation}
+\begin{equation}
+3n-{\operatorname{ld}(n)}-1
+\end{equation}
+\begin{equation}
+a_i=\frac{3n-{\operatorname{ld}(n)}-1}{n} < 3
+\end{equation}
+Die amortisierten Kosten einer Operation sind höchstens $3$ uns somit in $O(1)$.
+\newpage
+
 
 \end{document}
