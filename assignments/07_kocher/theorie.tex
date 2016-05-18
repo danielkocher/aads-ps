@@ -248,14 +248,19 @@ Aggregat-Methode mit $n$ Operationen\\
 O. B. d. A. betrachten wir den Fall $n=2^k$ mit $k \in \mathbb{N}$\\
 \begin{enumerate}
 
-\item  Gesamtkosten $C_1$ der Operationen für die $i=2^k+1$ gilt:\\
+\item  Gesamtkosten $C_1$ der Menge ($A_1$) der Operationen ($a_i$)  für die $i=2^j+1$ mit $j \in \mathbb{N}$ und $i\leq n$ gilt:\\
+Für alle $a_i$ aus $A_1$ gilt $ 0 \leq j \leq k-1$:
+\begin{equation}
+C_1=(2^0+1)+(2^1+1)+(2^2+1)+...+(2^{k-1}+1)
+\end{equation}
+wegen $n=2^k \implies k=\operatorname{ld}(n)$ gilt:
 \begin{equation}
 C_1=(2^0+1)+(2^1+1)+(2^2+1)+...+(2^{\operatorname{ld}(n)-1}+1)
 \end{equation}
 \begin{equation}
 C_1={\operatorname{ld}(n)}+\sum_{i=0}^{\operatorname{ld}(n)-1} 2^{i}
 \end{equation}
-Es gilt (kann durch Induktion einfach gezeigt werden):
+Es gilt: (siehe \ref{proof})
 \begin{equation}
 \sum_{i=0}^{n} 2^{i}=2^{n+1}-1
 \end{equation}
@@ -263,7 +268,8 @@ Also:\\
 \begin{equation}
 C_1={\operatorname{ld}(n)}+2^{\operatorname{ld}(n)}-1
 \end{equation}
-\item Gesamtkosten $C_2$ der Operationen für die $i\neq2^k+1$ mit $k \in \mathbb{N}$ gilt:\\
+\item Gesamtkosten $C_2$ der Menge ($A_2$) der Operationen ($a_i$) für die $i\neq2^j+1$ mit $j \in \mathbb{N}$ gilt:\\
+$|A1|={\operatorname{ld}(n)}$ und $|A_1|+|A_2|=n \implies |A_2|=n-{\operatorname{ld}(n)} $
 \begin{equation}
 C_2=2 \cdot ({n-\operatorname{ld}(n)})
 \end{equation}
@@ -286,6 +292,31 @@ a_i=\frac{3n-{\operatorname{ld}(n)}-1}{n} < 3
 \end{equation}
 Die amortisierten Kosten einer Operation sind höchstens $3$ und somit in $O(1)$.
 \newpage
+\begin{proof}
 
 
+\begin{equation}
+\sum_{i=0}^{n} 2^{i}=2^{n+1}-1
+\end{equation}
+IB: $n=0$ \\
+\begin{equation}
+\sum_{i=0}^{0} 2^{i}= 2^0 = 1 = 2^1-1 =2^{0+1}-1
+\end{equation}
+IH: Für ein beliebes aber festes $k \in \mathbb{N}$ gilt: 
+\begin{equation}
+\sum_{i=0}^{k} 2^{i}=2^{k+1}-1
+\end{equation}
+IS: $k \rightarrow k+1$\\
+Zu zeigen:
+\begin{equation}
+ \sum_{i=0}^{k+1} 2^{i}=2^{k+2}-1
+\end{equation}
+\begin{align*}
+ \sum_{i=0}^{k+1} 2^{i}=\sum_{i=0}^{k} 2^{i} +2^{k+1} \\
+ =2^{k+1}-1+2^{k+1} \\
+ =2\cdot2^{k+1}-1 \\
+ =2^{k+2}-1
+\end{align*}
+
+\end{proof}
 \end{document}
