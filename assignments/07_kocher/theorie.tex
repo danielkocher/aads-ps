@@ -48,7 +48,7 @@ Nun wird f{\"u}r $i = 0, \ldots, n - 1 = 9$
 \parskip0pt\begin{enumerate}
   \item $W_i = \left\{ x \in S: h_k \left( x \right) = i \right\}$ mit $h_k = h_3$
   \item $b_i = | W_i |$
-  \item $m_i = 2 \cdot b_i \left( b_i - 1 \right) + 1$
+  \item $m_i = 2 \cdot b_i \cdot \left( b_i - 1 \right) + 1$
 \end{enumerate}
 berechnet, siehe Table~\ref{tbl:step-2}.
 
@@ -149,7 +149,7 @@ und $N = 31$:
 Daraus ergeben sich f{\"u}r die zweite Stufe folgende Hash-Funktionen f{\"u}r
 $i \in \left\{ 2, 5, 6 \right\}$
 \begin{equation}
-  h_{k_1} \left( x \right) = h_{k_5} \left( x \right) = \left( x\text{ mod }31 \right)\text{ mod }5
+  h_{k_2} \left( x \right) = h_{k_5} \left( x \right) = \left( x\text{ mod }31 \right)\text{ mod }5
   \label{eq:hk1}
 \end{equation}
 \begin{equation}
@@ -241,7 +241,7 @@ $c_i=\begin{cases} i$, falls $i=2^k+1$ mit $k \in \mathbb{N}  \\ 2$, sonst.$  \e
     \hline
   \end{tabular}
   \caption{Beispiel für $n=10$ Operationen}
-  \label{tbl:final-pos}
+  \label{tbl:10-ops}
 \end{table}
 \end{multicols}
 Aggregat-Methode mit $n$ Operationen\\
@@ -284,7 +284,7 @@ C=3n-{\operatorname{ld}(n)}-1
 \begin{equation}
 a_i=\frac{3n-{\operatorname{ld}(n)}-1}{n} < 3
 \end{equation}
-Die amortisierten Kosten einer Operation sind höchstens $3$ uns somit in $O(1)$.
+Die amortisierten Kosten einer Operation sind höchstens $3$ und somit in $O(1)$.
 \newpage
 
 
