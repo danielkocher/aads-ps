@@ -23,9 +23,53 @@
 
 {\bfseries Aufgabe 16}%
 
-Geben Sie f{\"u}r die Operationen{\"u}ber die Datenstruktur aus der Aufgabe 15
+Geben Sie f{\"u}r die Operationen {\"u}ber die Datenstruktur aus der Aufgabe 15
 eine Potentialfunktion an und zeigen Sie mit Hilfe dieser Potentialfunktion, dass
 die amortisierten Kosten einer Operation konstant sind.
+
+\begin{center}
+$c_i=\begin{cases} i$, falls $i=2^k+1$ mit $k \in \mathbb{N}  \\ 2$, sonst.$  \end{cases}$
+\end{center}
+
+Die Potentialfunktion sei folgendermaßen definiert: 
+\begin{center}
+$\phi(D_i)=2i-2^{\lfloor{ld(i-1)}\rfloor+1}+1$
+\end{center}
+Für alle Operationen i mit $i=2^k+1$ gilt also: \\
+\begin{center}
+$\phi(D_i)=2i-2^{\lfloor{ld(i-1)}\rfloor+1}+1=2i-(2(i-1))+1=3$
+\end{center}
+Für alle Operationen i mit $i!=2^k+1$ gilt : \\
+\begin{center}
+$\phi(D_i)=2i-(i-1)+1=2i-i+2=i+2$
+\end{center}
+Überlegung:
+Unser Potential steigt also zwischen den Operationen $i=2^{j-1}+1$ und $k=2^{j}+1$ stetig an, um dann nach der Operation $u=2^{j}$ seinen Maximalwert zu erreichen, welcher von der Operation $k=2^{j}+1$ aufgebraucht wird.
+
+Für die amortisierten Kosten gilt: 
+\begin{itemize}
+\item Für alle Operationen i mit $i=2^k+1$:\\
+\begin{align*}
+\hat{c_i}=c_i+\phi(D_i)-\phi(D_{i-1})\\
+=i+(2i-(2(i-1))+1)-(2(i-1)-(i-1)+1)\\
+=i+(2i-2i+2+1)-(2(i-1)-(i-1)+1)\\
+=i+3-i\\
+=3
+\end{align*}
+\item Für alle Operationen i mit $i!=2^k+1$:\\
+\\
+Fall 1: $(i-1) \neq 2^k+1$ 
+\begin{align*}
+\hat{c_i}=c_i+\phi(D_i)-\phi(D_{i-1})\\
+=2+(2i-(i-1)+1)-(2(i-1)-(i-1)+1)\\
+=2+i+2-i\\
+=4
+\end{align*}
+Fall 2: $(i-1) = 2^k+1$ 
+
+\end{itemize}
+
+Grundsätzlich warad mei Idee sowas gwesn: 
 
 %\clearpage
 
