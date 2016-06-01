@@ -119,8 +119,8 @@ Für die amortisierten Kosten gilt:
   \item Für alle Operationen $i$ mit $i\neq2^k+1$:\\
     \begin{align*}
     \hat{c_i} = 2 + 2i - 2^{\lfloor ld(i - 1) \rfloor + 1} + 1 - \left( 2(i - 1) - 2^{\lfloor ld(i - 2) \rfloor + 1} + 1 \right) \\
-    \hat{c_i} = 2 + 2i - 2^{\lfloor ld(i - 1) \rfloor + 1} + 1 - 2i + 2 + 2^{\lfloor ld(i - 2) \rfloor + 1} - 1 \\
-    \hat{c_i} \stackrel{\mathrm{Gl.~\ref{eq:ld-equality}}}= 4 \leq 4 \Rightarrow\text{ in }O(1)
+    = 2 + 2i - 2^{\lfloor ld(i - 1) \rfloor + 1} + 1 - 2i + 2 + 2^{\lfloor ld(i - 2) \rfloor + 1} - 1 \\
+    \stackrel{\mathrm{Gl.~\ref{eq:ld-equality}}}= 4 \leq 4 \Rightarrow\text{ in }O(1)
     \end{align*}
 \end{itemize}
 
