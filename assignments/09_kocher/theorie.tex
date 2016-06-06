@@ -1,0 +1,837 @@
+\documentclass{article}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{commath}
+\usepackage{mathtools}
+\usepackage{enumerate}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{tikz}
+\usepackage[margin=1in]{geometry}
+\usepackage{multicol}
+
+\usetikzlibrary{positioning, shapes, automata, arrows}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{8pt}
+
+\usepackage[utf8]{inputenc}
+\begin{document}
+\title{Assignment 9 \\ Advanced Algorithms \& Data Structures PS}%
+\author{Christian Müller 1123410 \\ Daniel Kocher, 0926293}%
+\maketitle
+
+{\bfseries Aufgabe 18}%
+
+Sei $Q$ eine Binomial Queue, die anfangs genau einen Binomialbaum $B_1$ mit den
+Schl{\"u}sseln $13$ und $21$ enth{\"a}lt. F{\"u}gen Sie die Schl{\"u}ssel $3$,
+$7$, $15$, $18$, $8$, $14$ und $27$ in die Queue ein. L{\"o}schen Sie
+anschlie{\ss}end die Elemente $15$ und $27$ und wenden Sie
+\texttt{decreasekey(18, 4)} an. Geben Sie nach jedem Schritt die resultierende
+Queue an.
+
+\tikzstyle{elem}=[draw, circle, thick, fill=blue!20, minimum size=10mm]
+\tikzstyle{pointer}=[->, >=stealth, thick]
+\tikzstyle{pointer-sibling}=[pointer, dotted]
+\tikzstyle{pointer-child}=[pointer, solid]
+\tikzstyle{pointer-parent}=[pointer, dashed]
+
+Im Folgenden werden die einzelnen Schritte dargestellt, wobei f{\"u}r die
+Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \draw[pointer-child] (0, 0) -- ++(0.5, 0) node[right] {\ldots Child-Pointer};
+    \draw[pointer-parent] (5, 0) -- ++(0.5, 0) node[right] {\ldots Parent-Pointer};
+    \draw[pointer-sibling] (10, 0) -- ++(0.5, 0) node[right] {\ldots Sibling-Pointer};
+  \end{tikzpicture}
+\end{figure}
+
+\begin{multicols}{2}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge [pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+  \end{tikzpicture}
+  \caption{Ausgangs-Queue $Q$}
+\end{figure}
+\columnbreak
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge [pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+
+    \node[below right = 1 of e-3] (meld) {$\Longrightarrow$};
+    \node[above = 0 of meld] (meld-t) {$meld$};
+
+    \node[elem, right = 2 of e-3] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge [pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-3.east) -- (e-13.west);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $3$ ($meld$: $B_0$ vor $B_1$)} 
+\end{figure}
+\end{multicols}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-3.east) -- (e-13.west);
+    
+    \node[elem, right = 1 of e-13] (e-7) {$7$};
+    
+    \node[below right = 1 of e-7] (meld-1) {$\Longrightarrow$};
+    \node[above = 0 of meld-1] (meld-1-t) {$meld$};
+
+    \node[elem, right = 2 of e-7] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-child] (e-3.south) -- (e-7.north);
+    \node[elem, right = 1 of e-3] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-3.east) -- (e-13.west);
+
+    \node[below right = 1 of e-13] (meld-2) {$\Longrightarrow$};
+    %\node[above = 0 of meld-2] (meld-2-t) {$meld$};
+
+    \node[elem, right = 4 of e-13] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $7$ ($meld$ vereinigt zweimal: $B_0$ und $B_1$)} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[elem, right = 1 of e-3] (e-15) {$15$};
+
+    \node[right = 3 of e-7] (meld) {$\Longrightarrow$};
+    \node[above = 0 of meld] (meld-t) {$meld$};
+    
+    \node[elem, right = 5 of e-3] (e-15) {$15$};
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $15$ ($meld$: $B_0$ vor $B_2$)} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-15) {$15$};
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[elem, right = 1 of e-3] (e-18) {$18$};
+
+    \node[right = 3 of e-7] (meld) {$\Longrightarrow$};
+    \node[above = 0 of meld] (meld-t) {$meld$};
+
+    \node[elem, right = 3 of e-18] (e-15) {$15$};
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $18$ ($meld$ vereinigt einmal: $B_0$)} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-15) {$15$};
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[elem, right = 1 of e-3] (e-8) {$8$};
+
+    \node[right = 3 of e-7] (meld) {$\Longrightarrow$};
+    \node[above = 0 of meld] (meld-t) {$meld$};
+
+    \node[elem, right = 3 of e-8] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-15) {$15$};
+    \draw[pointer-sibling] (e-8.east) -- (e-15.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $8$ ($meld$: $B_0$ vor $B_1$ vor $B_2$)} 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-15) {$15$};
+    \draw[pointer-sibling] (e-8.east) -- (e-15.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[elem, right = 1 of e-3] (e-14) {$14$};
+
+    \node[right = 3 of e-7] (meld-1) {$\Longrightarrow$};
+    \node[above = 0 of meld-1] (meld-1-t) {$meld$};
+
+    \node[elem, right = 3 of e-14] (e-8) {$8$};
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-14.north);
+    \node[elem, right = 1 of e-8] (e-15) {$15$};
+    \draw[pointer-sibling] (e-8.east) -- (e-15.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-15] (e-3) {$3$};
+    \draw[pointer-sibling] (e-15.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[below = 0.5 of e-21] (meld-2) {$\Downarrow$};
+
+    \node[elem, below = 4.5 of e-15] (e-8) {$8$};
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$15$}
+      edge[pointer-parent, bend left] (e-8);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+    \node[elem, right = 3 of e-8] (e-3) {$3$};
+    \draw[pointer-sibling] (e-8.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+
+    \node[left = 1 of e-15] (meld-3) {$\Longleftarrow$};
+
+    \node[elem, left = 5 of e-8] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$8$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$15$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+  \end{tikzpicture}
+  \caption{
+    Einf{\"u}gen von $14$ ($meld$ vereinigt dreimal: $B_0$, $B_1$ and $B_2$)
+  } 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$8$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$15$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+
+    \node[elem, right = 1 of e-3] (e-27) {$27$};
+
+    \node[right = 3 of e-7] (meld) {$\Longrightarrow$};
+    \node[above = 0 of meld] (meld-t) {$meld$};
+
+    \node[elem, right = 5 of e-3] (e-27) {$27$};  
+    \node[elem, right = 5 of e-27] (e-3) {$3$};
+    \draw[pointer-sibling] (e-27.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$8$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$15$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);  
+  \end{tikzpicture}
+  \caption{
+    Einf{\"u}gen von $14$ ($meld$ vereinigt dreimal: $B_0$, $B_1$ and $B_2$)
+  } 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-27) {$27$};  
+    \node[elem, right = 5 of e-27] (e-3) {$3$};
+    \draw[pointer-sibling] (e-27.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$8$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$-\infty$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+
+    \node[right = 1 of e-7] {$\Longrightarrow$};
+
+    \node[elem, right = 3 of e-3] (e-27) {$27$};  
+    \node[elem, right = 5 of e-27] (e-3) {$3$};
+    \draw[pointer-sibling] (e-27.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$-\infty$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$8$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+
+    \node[below = 3 of e-21] {$\Downarrow$};
+
+    \node[elem, below = 8 of e-27] (e-27) {$27$};  
+    \node[elem, right = 5 of e-27] (e-3) {$-\infty$};
+    \draw[pointer-sibling] (e-27.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$3$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$8$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+  \end{tikzpicture}
+  \caption{
+    L{\"o}schen von $15$: Ersetze $15$ mit $-\infty$ und lasse diesen Knoten nach
+    oben wandern.
+  } 
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-27) {$27$};  
+    \node[elem, right = 5 of e-27] (e-3) {$-\infty$};
+    \draw[pointer-sibling] (e-27.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-13] (e-8) {$3$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-8.east) -- (e-13.west);
+    \node[elem, below = 1 of e-8] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-8);
+    \node[elem, left = 1 of e-14] (e-15) {$8$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-sibling] (e-15.east) -- (e-14.west);
+    \node[elem, below = 1 of e-15] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-15);
+    \draw[pointer-child] (e-8.south west) -- (e-15.north east);
+    \draw[pointer-child] (e-15.south) -- (e-18.north);
+
+    \node[right = 1 of e-7] (deletemin) {$\Longrightarrow$};
+    \node[above = 0 of deletemin] (deletemin-t) {$deletemin$};
+
+    \node[elem, right = 3 of e-3] (e-27) {$27$};
+
+    \node[elem, right = 1 of e-27] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-7.east) -- (e-13.west);
+    \node[elem, right = 3 of e-13] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \draw[pointer-sibling] (e-13.east) -- (e-3.west);
+
+    \node[below = 1.5 of e-18] (meld-1) {$\Downarrow$};
+    \node[right = 0 of meld-1] (meld-1-t) {$meld$};
+
+    \node[elem, below = 6.5 of e-7] (e-7) {$7$};
+    \node[elem, below = 1 of e-7] (e-27) {$27$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-child] (e-7.south) -- (e-27.north);
+    \node[elem, right = 1 of e-7] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-7.east) -- (e-13.west);
+    \node[elem, right = 3 of e-13] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \draw[pointer-sibling] (e-13.east) -- (e-3.west);
+  
+    \node[left = 1 of e-27] (meld-2) {$\Longleftarrow$};
+
+    \node[elem, left = 8 of e-7] (e-7) {$7$};
+    \node[elem, below = 1 of e-7] (e-27) {$27$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \node[elem, right = 3 of e-7] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-child] (e-3.south west) -- (e-8.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \draw[pointer-sibling] (e-7.east) -- (e-3.west);
+
+    \node[below = 1 of e-18] (meld-3) {$\Downarrow$};
+
+    \node[elem, below = 6 of e-3] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \node[elem, left = 1 of e-8] (e-7) {$7$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-7.east) -- (e-8.west);
+    \draw[pointer-child] (e-3.south west) -- (e-7.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, left = 1 of e-18] (e-27) {$27$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+  \end{tikzpicture}
+  \caption{
+    \texttt{deletemin()} ($-\infty$ hat minimalen Schl{\"u}ssel in der
+    Wurzelliste $\Rightarrow$ entferne $-\infty$ aus $Q$ (liefert $Q'$); Drehe
+    Reihenfolge der S{\"o}hne von $-\infty$ um (liefert $Q''$); $Q'.meld(Q'')$)
+  } 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \node[elem, left = 1 of e-8] (e-7) {$7$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-7.east) -- (e-8.west);
+    \draw[pointer-child] (e-3.south west) -- (e-7.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, left = 1 of e-18] (e-27) {$-\infty$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+
+    \node[right = 1 of e-14] {$\Longrightarrow$};
+
+    \node[elem, right = 8 of e-3] (e-3) {$3$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \node[elem, left = 1 of e-8] (e-7) {$-\infty$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-7.east) -- (e-8.west);
+    \draw[pointer-child] (e-3.south west) -- (e-7.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, left = 1 of e-18] (e-27) {$7$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+
+    \node[below = 2.5 of e-18] {$\Downarrow$};
+
+    \node[elem, below = 7 of e-3] (e-3) {$-\infty$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \node[elem, left = 1 of e-8] (e-7) {$3$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-7.east) -- (e-8.west);
+    \draw[pointer-child] (e-3.south west) -- (e-7.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, left = 1 of e-18] (e-27) {$7$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+  \end{tikzpicture}
+  \caption{
+    L{\"o}schen von $27$: Ersetze $27$ mit $-\infty$ und lasse diesen Knoten nach
+    oben wandern.
+  } 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem, below = 7 of e-3] (e-3) {$-\infty$};
+    \node[elem, below = 1 of e-3] (e-14) {$14$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-14] (e-8) {$8$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
+    \node[elem, left = 1 of e-8] (e-7) {$3$}
+      edge[pointer-parent, bend left] (e-3);
+    \draw[pointer-sibling] (e-7.east) -- (e-8.west);
+    \draw[pointer-child] (e-3.south west) -- (e-7.north east);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, left = 1 of e-18] (e-27) {$7$}
+      edge[pointer-parent, bend right] (e-7);
+    \node[elem, left = 1 of e-27] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-7);
+    \draw[pointer-sibling] (e-13.east) -- (e-27.west);
+    \draw[pointer-child] (e-7.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+
+    \node[right = 1 of e-14] (deletemin) {$\Longrightarrow$};
+    \node[above = 0 of deletemin] (deletemin-t) {$deletemin$};
+
+    \node[elem, right = 3 of e-3] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \draw[pointer-sibling] (e-14.east) -- (e-8.west);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, right = 3 of e-8] (e-3) {$3$};
+    \draw[pointer-sibling] (e-8.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+  \end{tikzpicture}
+  \caption{
+    \texttt{deletemin()} ($-\infty$ hat minimalen Schl{\"u}ssel in der
+    Wurzelliste $\Rightarrow$ entferne $-\infty$ aus $Q$ (liefert $Q'$); Drehe
+    Reihenfolge der S{\"o}hne von $-\infty$ um (liefert $Q''$); $Q'.meld(Q'')$).
+    In diesem Fall ist $Q'$ leer, wodurch nurmehr $Q''$ bleibt.
+  } 
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.8, every node/.style={scale=0.8}]
+    \node[elem] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \draw[pointer-sibling] (e-14.east) -- (e-8.west);
+    \node[elem, below = 1 of e-8] (e-18) {$18$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-18.north);
+    \node[elem, right = 3 of e-8] (e-3) {$3$};
+    \draw[pointer-sibling] (e-8.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);
+
+    \node[right = 1 of e-7] {$\Longrightarrow$};
+
+    \node[elem, right = 3 of e-3] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \draw[pointer-sibling] (e-14.east) -- (e-8.west);
+    \node[elem, below = 1 of e-8] (e-4) {$4$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-4.north);
+    \node[elem, right = 3 of e-8] (e-3) {$3$};
+    \draw[pointer-sibling] (e-8.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);  
+
+    \node[below = 1 of e-21]  {$\Downarrow$};
+
+    \node[elem, below = 5.5 of e-14] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$4$};
+    \draw[pointer-sibling] (e-14.east) -- (e-8.west);
+    \node[elem, below = 1 of e-8] (e-4) {$8$}
+      edge[pointer-parent, bend right] (e-8);
+    \draw[pointer-child] (e-8.south) -- (e-4.north);
+    \node[elem, right = 3 of e-8] (e-3) {$3$};
+    \draw[pointer-sibling] (e-8.east) -- (e-3.west);
+    \node[elem, below = 1 of e-3] (e-7) {$7$}
+      edge[pointer-parent, bend right] (e-3);
+    \node[elem, left = 1 of e-7] (e-13) {$13$}
+      edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-13.east) -- (e-7.west);
+    \draw[pointer-child] (e-3.south west) -- (e-13.north east);
+    \node[elem, below = 1 of e-13] (e-21) {$21$}
+      edge[pointer-parent, bend right] (e-13);
+    \draw[pointer-child] (e-13.south) -- (e-21.north);  
+  \end{tikzpicture}
+  \caption{
+    \texttt{decreasekey(18, 4)} (1. $v.entry.key = k$; 2. $v.entry$ nach oben
+    steigen lassen in dem geg. Baum, bis die Heapbedingung erf{\"u}llt ist). In
+    diesem Fall ersetzen wir $18$ durch $4$ und lassen $4$ um eine Ebene nach
+    oben steigen.
+  } 
+\end{figure}
+
+\end{document}
