@@ -849,7 +849,7 @@ und geben Sie die resultierende Datenstruktur an.
 \tikzstyle{pointer-parent}=[pointer, red]
 \tikzstyle{pointer-left}=[pointer, blue]
 \tikzstyle{pointer-right}=[pointer, green!65!black]
-\tikzstyle{pointer-min}=[pointer, <-]
+\tikzstyle{pointer-min}=[pointer, <-, ultra thick]
 
 Im Folgenden werden die einzelnen Schritte dargestellt, wobei f{\"u}r die
 Child-Parent-Left-Right Darstellung die folgenden Pfeile und Knoten verwendet
@@ -867,6 +867,10 @@ werden:
     \node[right = 0 of marked-node] {\ldots Markierter Knoten};
   \end{tikzpicture}
 \end{figure}
+
+Beim Einf{\"u}gen wurde immer rechts vom aktuellen Minimum eingef{\"u}gt, da
+ansonsten dies nicht in $O(1)$ m{\"o}glich w{\"a}re (es ist in den Folien zur VO
+nicht genau spezifiziert, an welcher Position eingef{\"u}gt wird).
 
 \begin{figure}[H]
   \centering
@@ -1466,7 +1470,7 @@ verschmolzen.
     \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
     \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
     \node[elem, below = 1.225 of e-14] (e-27) {$27$};
-    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+
     \path[pointer-left] (e-7.west) edge[in=20, out=160, looseness=7] (e-7.east);
     \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=7] (e-7.west);
     \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north east);
@@ -1501,51 +1505,375 @@ verschmolzen.
 \end{figure}
 
 Nun wird jeder Schl{\"u}ssel um 7 dekrementiert (in der Reihenfolge, in der sie
-eingef{\"u}gt wurde, d.h. $13$, $21$, $7$, $15$, $18$, $8$, $14$ und $27$).
+eingef{\"u}gt wurden, d.h. $13$, $21$, $7$, $15$, $18$, $8$, $14$ und $27$).
 
 \begin{figure}[H]
   \centering
-  \begin{tikzpicture}[trim left=-6cm, scale=0.9, every node/.style={scale=0.9}]
-    \node[elem] (e-7) {$7$};
-    \node[elem, below left = 1.5 and 3 of e-7] (e-15) {$15$};
-    \node[elem, below = 1.225 of e-7] (e-8) {$8$};
-    \node[elem, below right = 1.5 and 3 of e-7] (e-13) {$13$};
-    \node[elem, below = 1.225 of e-8] (e-18) {$18$};
-    \node[elem, below left = 1.5 and 0.5 of e-13] (e-21) {$21$};
-    \node[elem, below right = 1.5 and 0.5 of e-13] (e-14) {$14$};
-    \node[elem, below = 1 of e-14] (e-27) {$27$};
-
-    \path[pointer-left] (e-7.west) edge[in=20, out=160, looseness=7] (e-7.east);
-    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=7] (e-7.west);
-    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north east);
-    \path[pointer-parent] (e-15.north east) edge[bend right] (e-7.south west);
-    \path[pointer-child] (e-8.south) edge[bend right] (e-18.north);
-    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south);
-    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south);
-    \path[pointer-parent] (e-13.north west) edge[bend left] (e-7.south east);
-    \path[pointer-child] (e-13.south west) edge[bend right] (e-21.north);
-    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south west);
-    \path[pointer-parent] (e-14.north) edge[bend right] (e-13.south east);
-    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
-    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
-    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=1] (e-13.east);
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$21$};
+    \node[elem, right = 3 of e-6] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$15$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
     \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
     \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
-    \path[pointer-right] (e-13.east) edge[in=-160, out=-20, looseness=1] (e-15.west);
-    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=7] (e-18.east);
-    \path[pointer-right] (e-18.east) edge[in=-160, out=-20, looseness=7] (e-18.west);
-    \path[pointer-left] (e-13.west) edge[bend right] (e-8.east);
-    \path[pointer-right] (e-8.east) edge[bend right] (e-13.west);
-    \path[pointer-left] (e-21.east) edge[bend right] (e-14.west);
-    \path[pointer-right] (e-14.west) edge[bend right] (e-21.east);
-    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
-    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-21.west);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
     \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
     \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-6.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(13, 6)} ($Q.min = 6$; Subtree mit Wurzel $6$
+    wird abgetrennt; Vater von $6$ wird nicht gef{\"a}rbt, da $7$ ein Root-Knoten
+    ist).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$15$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-6.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(21, 14)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$15$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
 
     \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
   \end{tikzpicture}
-  \caption{\texttt{decreasekey($13$, $6$)}.}
+  \caption{Nach \texttt{decreasekey(7, 0)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden; $Q.min$ wird $= 0$ gesetzt).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(15, 8)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$11$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(18, 11)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$1$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$11$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(8, 1)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$1$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$11$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$7$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(14, 7)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-6) {$6$};
+    \node[elem, below = 1.225 of e-6] (e-21) {$14$};
+    \node[elem, right = 3 of e-6] (e-7) {$0$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-8) {$1$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$11$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$7$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$20$};
+    
+    \path[pointer-left] (e-6.west) edge[in=20, out=160, looseness=2] (e-7.east);
+    \path[pointer-right] (e-6.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-6.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-6.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=2] (e-6.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-6.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Nach \texttt{decreasekey(27, 20)} (Heap-Bedingung wird nicht verletzt,
+    daher kann der Key einfach aktualisiert werden).
+  }
 \end{figure}
 
 \end{document}
