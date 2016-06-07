@@ -10,7 +10,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{multicol}
 
-\usetikzlibrary{positioning, shapes, automata, arrows}
+\usetikzlibrary{positioning, shapes, automata, arrows, backgrounds}
 
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{8pt}
@@ -832,6 +832,720 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
     diesem Fall ersetzen wir $18$ durch $4$ und lassen $4$ um eine Ebene nach
     oben steigen.
   } 
+\end{figure}
+
+{\bfseries Aufgabe 18}%
+
+F{\"u}gen Sie die Elemente $13$, $21$, $3$, $7$, $15$, $18$, $8$, $14$ und $27$
+in einen (anfangs leeren) Fibonacci-Heap ein. Entfernen Sie anschlie{\ss}end das
+Minimum und geben Sie den resultierenden Fibonacci-Heap an. Dekrementieren Sie
+zum Schluss den Wert eines jeden Schl{\"u}ssels (Schritt f{\"u}r Schritt) um $7$
+und geben Sie die resultierende Datenstruktur an.
+
+\tikzstyle{elem}=[draw, circle, thick, fill=blue!20, minimum size=10mm]
+\tikzstyle{elem-marked}=[elem, fill=red!20]
+\tikzstyle{pointer}=[->, >=stealth, thick, solid]
+\tikzstyle{pointer-child}=[pointer, black]
+\tikzstyle{pointer-parent}=[pointer, red]
+\tikzstyle{pointer-left}=[pointer, blue]
+\tikzstyle{pointer-right}=[pointer, green!65!black]
+\tikzstyle{pointer-min}=[pointer, <-]
+
+Im Folgenden werden die einzelnen Schritte dargestellt, wobei f{\"u}r die
+Child-Parent-Left-Right Darstellung die folgenden Pfeile und Knoten verwendet
+werden:
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \draw[pointer-child] (0, 0) -- ++(0.5, 0) node[right] (child) {\ldots Child-/Min-Pointer};
+    \draw[pointer-parent] (5, 0) -- ++(0.5, 0) node[right] {\ldots Parent-Pointer};
+    \draw[pointer-left] (9, 0) -- ++(0.5, 0) node[right] (left) {\ldots Left-Pointer};
+    \draw[pointer-right] (13, 0) -- ++(0.5, 0) node[right] {\ldots Right-Pointer};
+    \node[elem, below left = 0.5 and 0 of child] (normal-node) {$x$};
+    \node[right = 0 of normal-node] {\ldots Normaler Knoten};
+    \node[elem-marked, below  left = 0.5 and 0 of left] (marked-node) {$x$};
+    \node[right = 0 of marked-node] {\ldots Markierter Knoten};
+  \end{tikzpicture}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.9, every node/.style={scale = 0.9}]
+    \node[elem] (e-13) {$13$};
+    \draw[pointer-min] (e-13.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=7] (e-13.east);
+    \path[pointer-right] (e-13.east) edge[in=-160, out=-20, looseness=7] (e-13.west);
+
+    \node[right = 0.75 of e-13] {$\Longrightarrow$};
+
+    \node[elem, right = 3 of e-13] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-21) {$21$};
+    \draw[pointer-min] (e-13.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=2.5] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=2.5] (e-13.west);
+
+    \node[right = 0.75 of e-21] {$\Longrightarrow$};
+
+    \node[elem, right = 2 of e-21] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=1.65] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=1.65] (e-13.west);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $13$, $21$, $3$.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale = 0.7, every node/.style={scale = 0.7}, trim left = -1cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=1] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=1] (e-13.west);
+
+    \node[right = 0.75 of e-21] {$\Longrightarrow$};
+
+    \node[elem, right = 2 of e-21] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+  \end{tikzpicture}
+  \caption{Einf{\"u}gen von $7$ und $15$.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+  \end{tikzpicture}
+  \caption{Nach Einf{\"u}gen von $18$.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -2cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+  \end{tikzpicture}
+  \caption{Nach Einf{\"u}gen von $8$.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -1.5cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-14.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-14.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+  \end{tikzpicture}
+  \caption{Nach Einf{\"u}gen von $14$.}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.9}, trim left = -1cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-3) {$3$};
+    \node[elem, right = 1 of e-3] (e-27) {$27$};
+    \node[elem, right = 1 of e-27] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    \draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-3.west);
+    \path[pointer-left] (e-3.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-3.east) edge[bend right] (e-27.west);
+    \path[pointer-left] (e-27.west) edge[bend right] (e-3.east);
+    \path[pointer-right] (e-27.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-27.east);
+    \path[pointer-right] (e-14.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-14.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+  \end{tikzpicture}
+  \caption{Nach Einf{\"u}gen von $27$.}
+\end{figure}
+
+%\clearpage
+
+Im Zuge von \texttt{deletemin()} wird \texttt{consolidate()} aufgerufen. F{\"u}r
+\texttt{consolidate()} ben{\"o}tigt man ein Array der Gr{\"o}{\ss}e
+$2\cdot\text{log}_2 n$. Entfernt man nun das Minimum ($3$), dann verbleiben $n = 8$
+Knoten. Wir ben{\"o}tigen daher ein Array der Gr{\"o}{\ss}e
+$2\cdot\text{log}_2 8 = 2\cdot 3 = 6$.
+
+Im Folgenden werden die einzelnen \texttt{consolidate()}-Schritte dargestellt,
+die nach dem Entfernen von $3$ notwendig sind. Punktierte Pointer vom Array zu
+Knoten stehen dabei daf{\"u}r, dass die betroffene Stelle im Array bereits besetzt
+ist. In diesem Fall werden die beiden Heaps, auf die die Pointer verweisen,
+verschmolzen.
+
+\tikzstyle{elem-array}=[draw, rectangle, thick, minimum size=6mm]
+\tikzstyle{pointer-conflict}=[pointer, dotted]
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -1cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-27) {$27$};
+    \node[elem, right = 1 of e-27] (e-14) {$14$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-27.west);
+    \path[pointer-left] (e-27.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-27.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-27.east);
+    \path[pointer-right] (e-14.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-14.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+
+    \node[elem-array, above = 2 of e-27] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+    \draw[pointer] (array-0.center) -- (e-27.north);
+    \draw[pointer-conflict] (array-0.center) -- (e-14.north);
+
+    \node[below = 1 of e-8] {$\Downarrow$};
+
+    \node[elem, below = 5 of e-27] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, right = 1 of e-14] (e-8) {$8$};
+    \node[elem, right = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-18] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-14.east) edge[bend right] (e-8.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-14.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-18.west);
+    \path[pointer-left] (e-18.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-15.west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+
+    \node[elem-array, above = 2 of e-14] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+    \draw[pointer] (array-1.center) -- (e-14.north);
+    \draw[pointer] (array-0.center) -- (e-8.north);
+    \draw[pointer-conflict] (array-0.center) -- (e-18.north);
+  \end{tikzpicture}
+  \caption{Nach Entfernen von $3$.}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -2.5cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, right = 2 of e-14] (e-8) {$8$};
+    \node[elem, below = 1 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-8] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=0.75] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-14.east) edge[bend right] (e-8.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-14.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-15.west);
+    \path[pointer-child] (e-8.south) edge[bend right] (e-18.north);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=7] (e-18.east);
+    \path[pointer-right] (e-18.east) edge[in=-160, out=-20, looseness=7] (e-18.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=0.75] (e-13.west);
+
+    \node[elem-array, above = 2 of e-14] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+    \draw[pointer] (array-1.center) -- (e-14.north);
+    \draw[pointer-conflict] (array-1.center) -- (e-8.north);
+
+    \node[below = 1 of e-18] {$\Downarrow$};
+
+    \node[elem, below = 7 of e-14] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-8) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, right = 1 of e-8] (e-15) {$15$};
+    \node[elem, right = 1 of e-15] (e-7) {$7$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=1] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-15.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-left] (e-15.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-7.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=1] (e-13.west);
+
+    \node[elem-array, above = 2 of e-8] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+    \draw[pointer] (array-2.center) -- (e-8.north);
+    \draw[pointer] (array-0.center) -- (e-15.north);
+    \draw[pointer-conflict] (array-0.center) -- (e-7.north);
+  \end{tikzpicture}
+  \caption{Nach Entfernen von $3$ (Cont'd [1]).}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -2.5cm]
+    \node[elem] (e-13) {$13$};
+    \node[elem, right = 1 of e-13] (e-8) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, right = 3 of e-8] (e-7) {$7$};
+    \node[elem, below = 1.25 of e-7] (e-15) {$15$};
+    \node[elem, right = 1 of e-7] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-13.west) edge[in=20, out=160, looseness=1] (e-21.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=7] (e-15.east);
+    \path[pointer-right] (e-15.east) edge[in=-160, out=-20, looseness=7] (e-15.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-21.west);
+    \path[pointer-child] (e-7.south) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-21.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=1] (e-13.west);
+
+    \node[elem-array, above = 2 of e-8] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+    \draw[pointer] (array-2.center) -- (e-8.north);
+    \draw[pointer] (array-1.center) -- (e-7.north);
+    \draw[pointer] (array-0.center) -- (e-21.north west);
+    \draw[pointer-conflict] (array-0.center) -- (e-13.north);
+
+    \node[below = 0.5 of e-27] {$\Downarrow$};
+
+    \node[elem, below = 8.5 of e-8] (e-8) {$8$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, right = 3 of e-8] (e-7) {$7$};
+    \node[elem, below = 1.25 of e-7] (e-15) {$15$};
+    \node[elem, right = 2 of e-7] (e-13) {$13$};
+    \node[elem, below = 1.25 of e-13] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[in=20, out=160, looseness=1] (e-13.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=7] (e-15.east);
+    \path[pointer-right] (e-15.east) edge[in=-160, out=-20, looseness=7] (e-15.west);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-7.east) edge[bend right] (e-13.west);
+    \path[pointer-child] (e-7.south) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-13.west) edge[bend right] (e-7.east);
+    \path[pointer-right] (e-13.east) edge[in=-160, out=-20, looseness=1] (e-8.west);
+    \path[pointer-child] (e-13.south) edge[bend right] (e-21.north);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south);
+
+    \node[elem-array, above = 2 of e-8] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+
+    \draw[pointer] (array-2.center) -- (e-8.north);
+    \draw[pointer] (array-1.center) -- (e-7.north);
+    \draw[pointer-conflict] (array-1.center) -- (e-13.north west);
+  \end{tikzpicture}
+  \caption{Nach Entfernen von $3$ (Cont'd [2]).}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left = -2.5cm]
+    \node[elem] (e-8) {$8$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+    \node[elem, right = 5 of e-8] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 0.5 of e-7] (e-15) {$15$};
+    \node[elem, below right = 1.5 and 0.5 of e-7] (e-13) {$13$};
+    \node[elem, below = 1 of e-13] (e-21) {$21$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-8.west) edge[in=20, out=160, looseness=1.25] (e-7.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-7.west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-left] (e-13.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-13.east) edge[in=-160, out=-20, looseness=2.5] (e-15.west);
+    \path[pointer-child] (e-13.south) edge[bend right] (e-21.north);
+    \path[pointer-parent] (e-13.north) edge[bend right] (e-7.south east);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south);
+    \path[pointer-left] (e-7.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=1.25] (e-8.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=2.5] (e-13.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-13.west);
+    \path[pointer-parent] (e-15.north) edge[bend right] (e-7.south west);
+
+    \node[elem-array, above = 2 of e-8] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+
+    \draw[pointer] (array-2.center) -- (e-8.north);
+    \draw[pointer-conflict] (array-2.center) -- (e-7.north west);
+
+    \node[below = 2.5 of e-15] {$\Downarrow$};
+
+    \node[elem, below right = 4 and 2 of e-27] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 3 of e-7] (e-15) {$15$};
+    \node[elem, below = 1.225 of e-7] (e-13) {$13$};
+    \node[elem, below right = 1.5 and 3 of e-7] (e-8) {$8$};
+    \node[elem, below = 1.225 of e-13] (e-21) {$21$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-7.west) edge[in=20, out=160, looseness=7] (e-7.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=7] (e-7.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north east);
+    \path[pointer-parent] (e-15.north east) edge[bend right] (e-7.south west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north west) edge[bend left] (e-7.south east);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-parent] (e-13.north) edge[bend right] (e-7.south);
+    \path[pointer-child] (e-13.south) edge[bend right] (e-21.north);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=1] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-13.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-13.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=1] (e-15.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+
+    \node[elem-array, above = 1 of e-7] (array-0) {};
+    \node[above = 0 of array-0] (array-0-t) {\footnotesize$0$};
+    \foreach\i [count = \xi from 0] in {1, ..., 5}{
+      \node[elem-array, right = -0.015 of array-\xi] (array-\i) {};
+      \node[above = 0 of array-\i] (array-\i-t) {\footnotesize$\i$};
+    }
+
+    \draw[pointer] (array-3.center) -- (e-7.north);   
+  \end{tikzpicture}
+  \caption{Nach Entfernen von $3$ (Cont'd [3]).}
+\end{figure}
+
+\clearpage
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=4cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem, below right = 4 and 2 of e-27] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 3 of e-7] (e-15) {$15$};
+    \node[elem, below = 1.225 of e-7] (e-13) {$13$};
+    \node[elem, below right = 1.5 and 3 of e-7] (e-8) {$8$};
+    \node[elem, below = 1.225 of e-13] (e-21) {$21$};
+    \node[elem, below left = 1.5 and 0.5 of e-8] (e-18) {$18$};
+    \node[elem, below right = 1.5 and 0.5 of e-8] (e-14) {$14$};
+    \node[elem, below = 1.225 of e-14] (e-27) {$27$};
+    %\draw[pointer-min] (e-3.north) -- ++(0, 0.5);
+    \path[pointer-left] (e-7.west) edge[in=20, out=160, looseness=7] (e-7.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=7] (e-7.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north east);
+    \path[pointer-parent] (e-15.north east) edge[bend right] (e-7.south west);
+    \path[pointer-child] (e-8.south west) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north west) edge[bend left] (e-7.south east);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south west);
+    \path[pointer-parent] (e-13.north) edge[bend right] (e-7.south);
+    \path[pointer-child] (e-13.south) edge[bend right] (e-21.north);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-8.south east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=1] (e-8.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-13.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-13.east);
+    \path[pointer-right] (e-13.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-18.east) edge[bend right] (e-14.west);
+    \path[pointer-left] (e-13.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-8.east) edge[in=-160, out=-20, looseness=1] (e-15.west);
+    \path[pointer-left] (e-14.west) edge[bend right] (e-18.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-18.west);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=7] (e-21.east);
+    \path[pointer-right] (e-21.east) edge[in=-160, out=-20, looseness=7] (e-21.west);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{Finaler Fibonacci-Heap nach Entfernen von $3$.}
+\end{figure}
+
+Nun wird jeder Schl{\"u}ssel um 7 dekrementiert (in der Reihenfolge, in der sie
+eingef{\"u}gt wurde, d.h. $13$, $21$, $7$, $15$, $18$, $8$, $14$ und $27$).
+
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}[trim left=-6cm, scale=0.9, every node/.style={scale=0.9}]
+    \node[elem] (e-7) {$7$};
+    \node[elem, below left = 1.5 and 3 of e-7] (e-15) {$15$};
+    \node[elem, below = 1.225 of e-7] (e-8) {$8$};
+    \node[elem, below right = 1.5 and 3 of e-7] (e-13) {$13$};
+    \node[elem, below = 1.225 of e-8] (e-18) {$18$};
+    \node[elem, below left = 1.5 and 0.5 of e-13] (e-21) {$21$};
+    \node[elem, below right = 1.5 and 0.5 of e-13] (e-14) {$14$};
+    \node[elem, below = 1 of e-14] (e-27) {$27$};
+
+    \path[pointer-left] (e-7.west) edge[in=20, out=160, looseness=7] (e-7.east);
+    \path[pointer-right] (e-7.east) edge[in=-160, out=-20, looseness=7] (e-7.west);
+    \path[pointer-child] (e-7.south west) edge[bend right] (e-15.north east);
+    \path[pointer-parent] (e-15.north east) edge[bend right] (e-7.south west);
+    \path[pointer-child] (e-8.south) edge[bend right] (e-18.north);
+    \path[pointer-parent] (e-8.north) edge[bend right] (e-7.south);
+    \path[pointer-parent] (e-18.north) edge[bend right] (e-8.south);
+    \path[pointer-parent] (e-13.north west) edge[bend left] (e-7.south east);
+    \path[pointer-child] (e-13.south west) edge[bend right] (e-21.north);
+    \path[pointer-parent] (e-21.north) edge[bend right] (e-13.south west);
+    \path[pointer-parent] (e-14.north) edge[bend right] (e-13.south east);
+    \path[pointer-child] (e-14.south) edge[bend right] (e-27.north);
+    \path[pointer-parent] (e-27.north) edge[bend right] (e-14.south);
+    \path[pointer-left] (e-15.west) edge[in=20, out=160, looseness=1] (e-13.east);
+    \path[pointer-right] (e-15.east) edge[bend right] (e-8.west);
+    \path[pointer-left] (e-8.west) edge[bend right] (e-15.east);
+    \path[pointer-right] (e-13.east) edge[in=-160, out=-20, looseness=1] (e-15.west);
+    \path[pointer-left] (e-18.west) edge[in=20, out=160, looseness=7] (e-18.east);
+    \path[pointer-right] (e-18.east) edge[in=-160, out=-20, looseness=7] (e-18.west);
+    \path[pointer-left] (e-13.west) edge[bend right] (e-8.east);
+    \path[pointer-right] (e-8.east) edge[bend right] (e-13.west);
+    \path[pointer-left] (e-21.east) edge[bend right] (e-14.west);
+    \path[pointer-right] (e-14.west) edge[bend right] (e-21.east);
+    \path[pointer-left] (e-21.west) edge[in=20, out=160, looseness=2.5] (e-14.east);
+    \path[pointer-right] (e-14.east) edge[in=-160, out=-20, looseness=2.5] (e-21.west);
+    \path[pointer-left] (e-27.west) edge[in=20, out=160, looseness=7] (e-27.east);
+    \path[pointer-right] (e-27.east) edge[in=-160, out=-20, looseness=7] (e-27.west);
+
+    \draw[pointer-min] (e-7.north) -- ++(0, 0.5);
+  \end{tikzpicture}
+  \caption{\texttt{decreasekey($13$, $6$)}.}
 \end{figure}
 
 \end{document}
