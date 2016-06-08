@@ -1075,15 +1075,19 @@ Annahme).
 
 Im Zuge von \texttt{deletemin()} wird \texttt{consolidate()} aufgerufen. F{\"u}r
 \texttt{consolidate()} ben{\"o}tigt man ein Array der Gr{\"o}{\ss}e
-$2\cdot\text{log}_2 n$. Entfernt man nun das Minimum ($3$), dann verbleiben $n = 8$
-Knoten. Wir ben{\"o}tigen daher ein Array der Gr{\"o}{\ss}e
-$2\cdot\text{log}_2 8 = 2\cdot 3 = 6$.
+$\left\lceil 2\cdot\text{log}_2 n \right\rceil$. Entfernt man nun das Minimum
+($3$), dann verbleiben $n = 8$ Knoten. Wir ben{\"o}tigen daher ein Array der
+Gr{\"o}{\ss}e
+$\left\lceil 2\cdot\text{log}_2 8 \right\rceil = \left\lceil 2\cdot 3 \right\rceil = 6$.
 
 Im Folgenden werden die einzelnen \texttt{consolidate()}-Schritte dargestellt,
 die nach dem Entfernen von $3$ notwendig sind. Punktierte Pointer vom Array zu
 Knoten stehen dabei daf{\"u}r, dass die betroffene Stelle im Array bereits besetzt
 ist. In diesem Fall werden die beiden Heaps, auf die die Pointer verweisen,
 verschmolzen.
+
+\texttt{consolidate()} startet dabei wiederum beim rechten Knoten des zuvor
+entfernten Minimums - in diesem Fall also bei Knoten $27$.
 
 \tikzstyle{elem-array}=[draw, rectangle, thick, minimum size=6mm]
 \tikzstyle{pointer-conflict}=[pointer, dotted]
