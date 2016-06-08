@@ -343,7 +343,7 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
     \draw[pointer-child] (e-15.south) -- (e-18.north);
   \end{tikzpicture}
   \caption{
-    Einf{\"u}gen von $14$ ($meld$ vereinigt dreimal: $B_0$, $B_1$ and $B_2$)
+    Einf{\"u}gen von $14$ ($meld$ vereinigt dreimal: $B_0$, $B_1$ und $B_2$)
   } 
 \end{figure}
 
@@ -404,7 +404,7 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
     \draw[pointer-child] (e-15.south) -- (e-18.north);  
   \end{tikzpicture}
   \caption{
-    Einf{\"u}gen von $14$ ($meld$ vereinigt dreimal: $B_0$, $B_1$ and $B_2$)
+    Einf{\"u}gen von $27$ ($meld$: $B_0$ vor $B_3$)
   } 
 \end{figure}
 
@@ -536,17 +536,18 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
     \node[elem, below = 1 of e-13] (e-21) {$21$}
       edge[pointer-parent, bend right] (e-13);
     \draw[pointer-child] (e-13.south) -- (e-21.north);
-    \draw[pointer-sibling] (e-7.east) -- (e-13.west);
+    %\draw[pointer-sibling] (e-7.east) -- (e-13.west);
     \node[elem, right = 3 of e-13] (e-3) {$3$};
     \node[elem, below = 1 of e-3] (e-14) {$14$}
       edge[pointer-parent, bend right] (e-3);
     \node[elem, left = 1 of e-14] (e-8) {$8$}
       edge[pointer-parent, bend right] (e-3);
+    \draw[pointer-sibling] (e-8.east) -- (e-14.west);
     \node[elem, below = 1 of e-8] (e-18) {$18$}
       edge[pointer-parent, bend right] (e-8);
     \draw[pointer-child] (e-8.south) -- (e-18.north);
     \draw[pointer-child] (e-3.south west) -- (e-8.north east);
-    \draw[pointer-sibling] (e-13.east) -- (e-3.west);
+    %\draw[pointer-sibling] (e-13.east) -- (e-3.west);
 
     \node[below = 1.5 of e-18] (meld-1) {$\Downarrow$};
     \node[right = 0 of meld-1] (meld-1-t) {$meld$};
@@ -559,7 +560,7 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
     \node[elem, below = 1 of e-13] (e-21) {$21$}
       edge[pointer-parent, bend right] (e-13);
     \draw[pointer-child] (e-13.south) -- (e-21.north);
-    \draw[pointer-sibling] (e-7.east) -- (e-13.west);
+    %\draw[pointer-sibling] (e-7.east) -- (e-13.west);
     \node[elem, right = 3 of e-13] (e-3) {$3$};
     \node[elem, below = 1 of e-3] (e-14) {$14$}
       edge[pointer-parent, bend right] (e-3);
@@ -570,7 +571,7 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
       edge[pointer-parent, bend right] (e-8);
     \draw[pointer-child] (e-8.south) -- (e-18.north);
     \draw[pointer-sibling] (e-8.east) -- (e-14.west);
-    \draw[pointer-sibling] (e-13.east) -- (e-3.west);
+    %\draw[pointer-sibling] (e-13.east) -- (e-3.west);
   
     \node[left = 1 of e-27] (meld-2) {$\Longleftarrow$};
 
@@ -594,7 +595,7 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
       edge[pointer-parent, bend right] (e-8);
     \draw[pointer-child] (e-8.south) -- (e-18.north);
     \draw[pointer-sibling] (e-8.east) -- (e-14.west);
-    \draw[pointer-sibling] (e-7.east) -- (e-3.west);
+    %\draw[pointer-sibling] (e-7.east) -- (e-3.west);
 
     \node[below = 1 of e-18] (meld-3) {$\Downarrow$};
 
@@ -834,6 +835,8 @@ Child-Sibling-Parent Darstellung die folgenden Pfeile verwendet werden:
   } 
 \end{figure}
 
+\clearpage
+
 {\bfseries Aufgabe 18}%
 
 F{\"u}gen Sie die Elemente $13$, $21$, $3$, $7$, $15$, $18$, $8$, $14$ und $27$
@@ -870,7 +873,8 @@ werden:
 
 Beim Einf{\"u}gen wurde immer rechts vom aktuellen Minimum eingef{\"u}gt, da
 ansonsten dies nicht in $O(1)$ m{\"o}glich w{\"a}re (es ist in den Folien zur VO
-nicht genau spezifiziert, an welcher Position eingef{\"u}gt wird).
+nicht genau spezifiziert, an welcher Position eingef{\"u}gt wird; daher diese
+Annahme).
 
 \begin{figure}[H]
   \centering
