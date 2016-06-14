@@ -6,17 +6,17 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	Node<E> min;
 	int size;
 
-	public Node<E> insert(E e){
-		Node<E> newNode=new Node<E>(e);
-		
+	public Node<E> insert(E e) {
+		Node<E> newNode = new Node<E>(e);
+
 		if (min == null)
-			min = newNode;		
+			min = newNode;
 		else
 			min = mergeLists(min, newNode);
 		size++;
 		return newNode;
 	}
-	
+
 	// add new element
 	@Override
 	public boolean offer(E e) {
@@ -34,32 +34,31 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		Node<E> m = min;
 		if (min == null)
 			return null;
-
-		if (min.right == min)
+		if (min.right == min) {
 			min = null;
-		else {
-
+		} else {
 			// Delete min from rootlist
 			min.left.right = min.right;
 			min.right.left = min.left;
 			// not really the minimum; just a pointer to random element of the
 			// rootlist
 			min = min.right;
-
-			// add all the children of min into the rootlist
-			// prepare children of old min by removing the parent pointer;
-			// iterate over childrens till you see the child of the old min
-			// again
-			if (m.child != null) {
-				Node<E> c = m.child.right;
-				while (c != m.child) {
-					c.parent = null;
-					c = c.right;
-				}
-				// remove the parent pointer of child node
-				c.parent = null;
-			}
 		}
+
+		// add all the children of min into the rootlist
+		// prepare children of old min by removing the parent pointer;
+		// iterate over childrens till you see the child of the old min
+		// again
+		if (m.child != null) {
+			Node<E> c = m.child.right;
+			while (c != m.child) {
+				c.parent = null;
+				c = c.right;
+			}
+			// remove the parent pointer of child node
+			c.parent = null;
+		}
+
 		// now add all the children of min into the rootlist
 		min = mergeLists(min, m.child);
 		if (min == null)
@@ -98,7 +97,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 				// (old and c)
 				c = link(c, old);
 			}
-			if (c.getKey() < min.getKey())
+			if (c.getKey() <= min.getKey())
 				min = c;
 
 		}
@@ -110,6 +109,10 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	@Override
 	public E peek() {
 		return (E) min.item;
+	}
+
+	public Node<E> getMin() {
+		return min;
 	}
 
 	public void decreaseKey(Node<E> node, double newKey) {
@@ -125,15 +128,15 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		do {
 			Node<E> parent = node.parent;
 			cut(node);
-			//move one up
+			// move one up
 			node = parent;
 		} while (node.isMarked && !inList(min, node));
 		if (!inList(min, node))
 			node.isMarked = true;
 	}
-	
+
 	public void delete(Node<E> node) {
-		decreaseKey(node,Double.NEGATIVE_INFINITY);
+		decreaseKey(node, Double.NEGATIVE_INFINITY);
 		poll();
 	}
 
@@ -152,8 +155,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		}
 
 	}
-
-	
 
 	// only iterate the rootlist the heap property of the fibonacciheap ensures
 	// that the minimum is in the root list
@@ -247,8 +248,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-	
 
 	@Override
 	public Iterator<E> iterator() {
