@@ -7,8 +7,12 @@ public class FibonacciHeapNode implements HeapEntry {
     public FibonacciHeapNode(int entry, double key) {
 	this.entry = entry;
 	this.key = key;
-
     }
+    
+    public FibonacciHeapNode(double key) {
+   	this.entry = 0;
+   	this.key = key;
+       }
 
     @Override
     public double getKey() {

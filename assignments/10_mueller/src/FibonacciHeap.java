@@ -194,8 +194,13 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
 
 
-    // append second list to first one
-    public Node<E> mergeLists(Node<E> first, Node<E> second) {
+   /**
+    * Merge to unsorted double linked ciruclar lists. 
+    * @param first
+    * @param second
+    * @return
+    */
+    private Node<E> mergeLists(Node<E> first, Node<E> second) {
 	if (first == null && second == null)
 	    return null;
 	if (first == null && second != null)
@@ -232,7 +237,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	biggerRoot.right = biggerRoot;
 	biggerRoot.left = biggerRoot;
 
-	// just append the bigger root to the child of the smaller root
+	// append the bigger root to the child of the smaller root
 	smallerRoot.child = mergeLists(smallerRoot.child, biggerRoot);
 	// bigger Root is now the child of smaller root => set parent of
 	// biggerRoot
