@@ -2,11 +2,21 @@ import java.util.AbstractQueue;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-
 public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	Node<E> min;
 	int size;
 
+	public Node<E> insert(E e){
+		Node<E> newNode=new Node<E>(e);
+		
+		if (min == null)
+			min = newNode;		
+		else
+			min = mergeLists(min, newNode);
+		size++;
+		return newNode;
+	}
+	
 	// add new element
 	@Override
 	public boolean offer(E e) {
@@ -102,11 +112,72 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		return (E) min.item;
 	}
 
-	public void decreaseKey(E node, double newKey) {
+	public void decreaseKey(Node<E> node, double newKey) {
+		if (node.getKey() <= newKey)
+			return;
+		node.setKey(newKey);
+		// search rootlist for min
+		min = updateMin(min);
+		// if the decreased node is part of the rootlist or the decrease of the
+		// key left the decreased node bigger than its parent => do nothing
+		if (inList(min, node) || newKey >= node.parent.getKey())
+			return;
+		do {
+			Node<E> parent = node.parent;
+			cut(node);
+			//move one up
+			node = parent;
+		} while (node.isMarked && !inList(min, node));
+		if (!inList(min, node))
+			node.isMarked = true;
+	}
+	
+	public void delete(Node<E> node) {
+		decreaseKey(node,Double.NEGATIVE_INFINITY);
+		poll();
+	}
+
+	public void cut(Node<E> node) {
+		if (!inList(node, min)) {
+			node.parent.degree--;
+			node.parent = null;
+
+			// delete the node we want to cut from the child list of its parent
+			node.left.right = node.right;
+			node.right.left = node.left;
+			node.right = node;
+			node.left = node;
+
+			min = mergeLists(min, node);
+		}
 
 	}
 
-	public void delete(E node) {
+	
+
+	// only iterate the rootlist the heap property of the fibonacciheap ensures
+	// that the minimum is in the root list
+	public Node<E> updateMin(Node<E> oldMin) {
+		Node<E> newMin = oldMin;
+		Node<E> currentElement = oldMin.right;
+		while (currentElement != oldMin) {
+			if (currentElement.getKey() < newMin.getKey())
+				newMin = currentElement;
+			currentElement = currentElement.right;
+		}
+		return newMin;
+	}
+
+	public boolean inList(Node<E> head, Node<E> search) {
+		if (head == search)
+			return true;
+		Node<E> currentElement = head.right;
+		while (currentElement != head) {
+			if (currentElement == search)
+				return true;
+			currentElement = currentElement.right;
+		}
+		return false;
 
 	}
 
@@ -128,8 +199,10 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		return first.getKey() < second.getKey() ? first : second;
 	}
 
-	// links to trees (both roots are part of the root list*) of same degree  by appending the bigger root to the smaller on (as a child)
-	// * also takes care of the obvious necessity to remove the root with the bigger key from the rootlist of the fibonacci heap
+	// links to trees (both roots are part of the root list*) of same degree by
+	// appending the bigger root to the smaller on (as a child)
+	// * also takes care of the obvious necessity to remove the root with the
+	// bigger key from the rootlist of the fibonacci heap
 	public Node<E> link(Node<E> first, Node<E> second) {
 		// determine which tree has the smaller root;
 		Node<E> smallerRoot, biggerRoot;
@@ -155,7 +228,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
 		smallerRoot.degree++;
 		return smallerRoot;
-
 	}
 
 	public ArrayList<Node<E>> toList(Node<E> start) {
@@ -176,42 +248,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		return 0;
 	}
 
-	public class Node<E extends HeapEntry> implements HeapEntry {
-
-		E item;
-		public Node<E> left;
-		public Node<E> right;
-		public Node<E> child;
-		public Node<E> parent;
-
-		public boolean isMarked;
-		public int degree;
-
-		public double key;
-
-		/**
-		 * Constructs a new node. Uses relaxed write because item can only be
-		 * seen after publication via casNext.
-		 */
-		Node(E item) {
-			this.item = item;
-			left = this;
-			right = this;
-		}
-
-		@Override
-		public double getKey() {
-
-			return item.getKey();
-		}
-
-		@Override
-		public void setKey(double key) {
-			item.setKey(key);
-
-		}
-
-	}
+	
 
 	@Override
 	public Iterator<E> iterator() {
