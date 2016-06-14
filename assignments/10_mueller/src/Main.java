@@ -10,7 +10,7 @@ public class Main {
 		Random rand = new Random();
 		int randomIntegers[] = new int[n];
 		for (int i = 0; i < n; i++)
-			randomIntegers[i] = 10;
+			randomIntegers[i] = rand.nextInt(100);
 			
 		// FibHeap
 		long start = System.currentTimeMillis();

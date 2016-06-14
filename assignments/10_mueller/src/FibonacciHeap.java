@@ -123,15 +123,18 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		min = updateMin(min);
 		// if the decreased node is part of the rootlist or the decrease of the
 		// key left the decreased node bigger than its parent => do nothing
-		if (inList(min, node) || newKey >= node.parent.getKey())
+		if (node.parent == null || newKey >= node.parent.getKey())
 			return;
 		do {
 			Node<E> parent = node.parent;
 			cut(node);
 			// move one up
 			node = parent;
-		} while (node.isMarked && !inList(min, node));
-		if (!inList(min, node))
+		} while (node.isMarked && node.parent != null);
+
+		// mark the parent of cutted node if its not in the rootlist (just lost
+		// a son)
+		if (node.parent != null)
 			node.isMarked = true;
 	}
 
@@ -141,7 +144,8 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	}
 
 	public void cut(Node<E> node) {
-		if (!inList(node, min)) {
+		node.isMarked = false;
+		if (node.parent != null) {
 			node.parent.degree--;
 			node.parent = null;
 
@@ -151,6 +155,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 			node.right = node;
 			node.left = node;
 
+			// add the cutted node to the root list
 			min = mergeLists(min, node);
 		}
 
@@ -169,18 +174,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		return newMin;
 	}
 
-	public boolean inList(Node<E> head, Node<E> search) {
-		if (head == search)
-			return true;
-		Node<E> currentElement = head.right;
-		while (currentElement != head) {
-			if (currentElement == search)
-				return true;
-			currentElement = currentElement.right;
-		}
-		return false;
-
-	}
 
 	// append second list to first one
 	public Node<E> mergeLists(Node<E> first, Node<E> second) {
