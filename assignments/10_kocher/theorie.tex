@@ -17,14 +17,14 @@
 
 \usepackage[utf8]{inputenc}
 \begin{document}
-\title{Assignment 9 \\ Advanced Algorithms \& Data Structures PS}%
+\title{Assignment 11 \\ Advanced Algorithms \& Data Structures PS}%
 \author{Christian Müller 1123410 \\ Daniel Kocher, 0926293}%
 \maketitle
 
 {\bfseries Aufgabe 20}%
 
 Sei $Q$ ein anfangs leerer Fibonacci-Heap. Geben Sie eine Folge von Schl{\"u}sseln
-sowie eine Folge von Operationen auf die von Ihnen gewa{\"a}hlte Folge von
+sowie eine Folge von Operationen auf die von Ihnen gew{\"a}hlte Folge von
 Schl{\"u}sseln an, sodass der resultierende Fibonacci-Heap aus zwei B{\"a}umen
 $B_1$ und $B_2$ mit jeweils $\frac{n}{2}$ Knoten besteht, wobei
 {\parskip0pt
@@ -56,16 +56,17 @@ ein, wobei diese drei Knoten kleiner als das bisherige Minimum sind. Danach
 f{\"u}hren wir eine $deletemin$ Operation durch. Dies hat zur Folge, dass im Zuge
 der $consolidate$ Operation, die verbleibenden Knoten (ohne $B_1$)
 zusammengef{\"u}hrt werden, da beide Rang $1$ besitzen. Im Anschluss wird die
-Operation $decreasekey(i, j)$ ausgef{\"u}hrt, wobei $i =$ der gr{\"o}{\ss}ten der
-zuvor eingef{\"u}gten Schl{\"u}ssel, und $j = $ der kleinster der zuvor
+Operation $decreasekey(i, j)$ ausgef{\"u}hrt, wobei $i =$ der gr{\"o}{\ss}te der
+zuvor eingef{\"u}gten Schl{\"u}ssel, und $j = $ der kleinste der zuvor
 eingef{\"u}gten Schl{\"u}ssel ist. Dadurch wird der Knoten von $B_2$ abgeschnitten
 und als neues Minimum in den Fibonacci-Heap eingef{\"u}gt. Das anschlie{\ss}ende
 $deletemin$ entfernt diesen Knoten dann und es verbleiben $B_1$ (unver{\"a}ndert)
 und $B_2$ (entarteter Baum). Diese Vorgehensweise kann nun so oft wiederholt
 werden bis sich $\frac{n}{2}$ linear verkettete Elemente in $B_2$ befinden. Alle
-eingef{\"u}gten Schl{\"u}ssel m{\"u}ssen kleiner sein, als der Schl{\"u}ssel des
-Wurzelknotens von $B_1$. Damit wird verhindert, dass wir w{\"a}hrend der
-Konstruktion von $B_2$ den Baum $B_1$ ver{\"a}ndern (wie im Hinweis erw{\"a}hnt).
+eingef{\"u}gten Schl{\"u}ssel m{\"u}ssen kleiner sein, als das Minimum des
+aktuellen Fibonacci-Heaps. Damit wird (1) verhindert, dass wir w{\"a}hrend der
+Konstruktion von $B_2$ den Baum $B_1$ ver{\"a}ndern (wie im Hinweis erw{\"a}hnt),
+und (2) erzwungen, dass $B_2$ in eine linear verkettete Liste entartet.
 
 \clearpage
 
@@ -94,6 +95,10 @@ $insert(16)$, $insert(17)$, $insert(18)$, $deletemin()$, $decreasekey(18, 16)$, 
 $insert(14)$, $insert(15)$, $insert(16)$, $deletemin()$, $decreasekey(16, 14)$, $deletemin()$, \newline
 $insert(12)$, $insert(13)$, $insert(14)$, $deletemin()$, $decreasekey(14, 12)$, $deletemin()$, \newline
 $insert(10)$, $insert(11)$, $insert(12)$, $deletemin()$, $decreasekey(12, 10)$, $deletemin()$.
+
+F{\"u}r das Einf{\"u}gen wird angenommen, dass wir immer rechts vom aktuellen
+Minimum einf{\"u}gen. Dieselbe Annahme wurde bei \texttt{consolidate} getroffen,
+d.h. es wird beim rechten Zwilling der zuvor entfernten Minimums begonnen.
 
 \tikzstyle{elem}=[draw, circle, thick, fill=blue!20, minimum size=10mm]
 \tikzstyle{elem-marked}=[elem, fill=red!20]
@@ -205,7 +210,7 @@ werden:
 
 Konstruktion von $B_1$ ist abgeschlossen und die Bedingung aus der Angabe ist erf{\"u}llt.
 $\Longrightarrow \frac{n}{2} = 16$. Das bedeutet, wird ben{\"o}tigen f{\"u}r $B_2$
-einen entarteten Baum mit $16$ Elementen (d.h. eine linear verkettete List mit
+einen entarteten Baum mit $16$ Elementen (d.h. eine linear verkettete Liste mit
 $16$ Elementen).
 
 Beispielhaft seien hier die ersten 3 Zeilen aus der Konstruktion von $B_2$
