@@ -4,7 +4,7 @@ import java.util.Random;
 public class Main {
 	public static void main(String[] args) {
 		FibonacciHeap<FibonacciHeapNode> fibHeap = new FibonacciHeap<FibonacciHeapNode>();
-		Node<FibonacciHeapNode> node = fibHeap.insert(new FibonacciHeapNode(5));
+		Node<FibonacciHeapNode> node = fibHeap.insert(new FibonacciHeapNode(0,5));
 		
 		int n = (int) Math.pow(10, 4);
 		Random rand = new Random();
@@ -15,7 +15,7 @@ public class Main {
 		// FibHeap
 		long start = System.currentTimeMillis();
 		for (int i = 0; i < n; i++)
-			fibHeap.offer(new FibonacciHeapNode(randomIntegers[i]));
+			fibHeap.offer(new FibonacciHeapNode(0,randomIntegers[i]));
 		System.out.println(System.currentTimeMillis() - start);
 
 	
@@ -30,8 +30,10 @@ public class Main {
 //		
 		fibHeap = new FibonacciHeap<FibonacciHeapNode>();
 		
-		for (int i = 0; i < n; i++)
-			fibHeap.offer(new FibonacciHeapNode(randomIntegers[i]));
+		for (int i = 0; i < n; i++){
+			Node<FibonacciHeapNode> lastInserted=fibHeap.insert(new FibonacciHeapNode(i,randomIntegers[i]));
+			fibHeap.decreaseKey(lastInserted, randomIntegers[n-i-1]);
+		}
 		start = System.currentTimeMillis();
 		for (int i = 0; i < n; i++){
 			System.out.println(fibHeap.poll());
