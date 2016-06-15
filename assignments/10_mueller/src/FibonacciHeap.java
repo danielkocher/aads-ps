@@ -60,12 +60,12 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
     @Override
     public E poll() {
 	Node<E> m = min;
-	System.out.println(min);
+	//System.out.println(min);
 	if (min == null)
 	    return null;
 	if (min.right == min) {
 	    min = null;
-	    System.out.println("is alone:" + m.child);
+	    //System.out.println("is alone:" + m.child);
 	} else {
 	    // Delete minimum from rootlist
 	    min.left.right = min.right;
@@ -88,7 +88,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // remove the parent pointer of child node
 	    c.parent = null;
 	}
-	System.out.println(min + " " + m);
+	//System.out.println(min + " " + m);
 	// now add all the children of old minimum into the rootlist
 	min = mergeLists(min, m.child);
 	if (min==null)
@@ -104,7 +104,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
      * Ensures that no two roots (trees) in the fibonacci have the same degree.
      */
     private void consolidate() {
-	System.out.println("Consolidate");
+	//System.out.println("Consolidate");
 	// visit all the elements of the rootlist
 	ArrayList<Node<E>> a = new ArrayList<Node<E>>();
 	int sizeOfColArray = (int) Math.ceil(2 * (Math.log10(size) / Math.log10(2)));
@@ -161,7 +161,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // move one up
 	    node = parent;
 	} while (node.isMarked && node.parent != null);
-	System.out.println("Min node: "+min+" "+min.child);
+	//System.out.println("Min node: "+min+" "+min.child);
 	// mark the parent of cutted node if its not in the rootlist (just lost
 	// a son)
 	if (node.parent != null)
@@ -170,9 +170,9 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
     public void delete(Node<E> node) {
 	decreaseKey(node, Double.NEGATIVE_INFINITY);
-	System.out.println("Minimum "+min);
+	//System.out.println("Minimum "+min);
 	poll();
-	System.out.println("Minimum: " + min);
+	//System.out.println("Minimum: " + min);
     }
 
     public void cut(Node<E> node) {
@@ -199,7 +199,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // add the cutted node to the root list
 	    min = mergeLists(min, node);
 	    
-	    System.out.println("Min node: "+min);
+	    //System.out.println("Min node: "+min);
 	}
 
     }
@@ -253,6 +253,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	// biggerRoot
 	biggerRoot.parent = smallerRoot;
 	biggerRoot.isMarked = false;
+	smallerRoot.isMarked = false;
 
 	smallerRoot.degree++;
 	return smallerRoot;
