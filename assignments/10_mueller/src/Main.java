@@ -10,21 +10,21 @@ public class Main {
 
 	int n = (int) Math.pow(10, 1);
 
-	System.out.println("n offer");
-	simulateInsert(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
-	simulateInsert(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
-
-	System.out.println("n poll");
-	simulatePoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
-	simulatePoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
-
-	System.out.println("n/2 offer; n/2 poll");
-	simulateInsertPoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
-	simulateInsertPoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
-
-	System.out.println("n/2 offer; n/2 alternate offer and poll");
-	simulateAlternateInsertPoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
-	simulateAlternateInsertPoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
+//	System.out.println("n offer");
+//	simulateInsert(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
+//	simulateInsert(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
+//
+//	System.out.println("n poll");
+//	simulatePoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
+//	simulatePoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
+//
+//	System.out.println("n/2 offer; n/2 poll");
+//	simulateInsertPoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
+//	simulateInsertPoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
+//
+//	System.out.println("n/2 offer; n/2 alternate offer and poll");
+//	simulateAlternateInsertPoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
+//	simulateAlternateInsertPoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
 
 	System.out.println("All");
 	simulateAll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
@@ -184,7 +184,9 @@ public class Main {
 //		queue.decreaseKey(decNode,decNode.getKey()-10);
 //		break;
 //	    case 3:
+	    	
 		Node<FibonacciHeapNode> delNode=insertedNodes.get(rand.nextInt(insertedNodes.size()));
+		System.out.println("delte: "+delNode.getKey());
 		queue.delete(delNode);
 		insertedNodes.remove(delNode);
 

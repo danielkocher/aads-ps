@@ -64,11 +64,9 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	if (min == null)
 	    return null;
 	if (min.right == min) {
-	    // child of old minimum will be in the rootlist for sure
 	    min = null;
 	    System.out.println("is alone:" + m.child);
 	} else {
-	  
 	    // Delete minimum from rootlist
 	    min.left.right = min.right;
 	    min.right.left = min.left;
@@ -96,7 +94,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	if (min==null)
 	    return m.item;
 	consolidate();
-
 	size--;
 	// we do not want to return the current minimum of the heap but the
 	// removed one
@@ -148,7 +145,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
      * @param newKey new key of specified node
      */
     public void decreaseKey(Node<E> node, double newKey) {
-	if (node.getKey() <= newKey)
+	if (node.getKey() <= newKey )
 	    return;
 	node.setKey(newKey);
 	//update minimum if needed
@@ -164,7 +161,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // move one up
 	    node = parent;
 	} while (node.isMarked && node.parent != null);
-
+	System.out.println("Min node: "+min+" "+min.child);
 	// mark the parent of cutted node if its not in the rootlist (just lost
 	// a son)
 	if (node.parent != null)
@@ -173,24 +170,27 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
     public void delete(Node<E> node) {
 	decreaseKey(node, Double.NEGATIVE_INFINITY);
+	System.out.println("Minimum "+min);
 	poll();
 	System.out.println("Minimum: " + min);
     }
 
     public void cut(Node<E> node) {
 	node.isMarked = false;
-	System.out.println("Cutting");
+	
 	if (node.parent != null) {
 	    //parent loses one son
 	    node.parent.degree--;
 	   
+	    if (node.parent.child == node)
+		node.parent.child = (node.right != node) ? node.right : null;
+	    
 	    // delete the node we want to cut from the child list of its parent
 	    node.left.right = node.right;
 	    node.right.left = node.left;
 	    //
-	    if (node.parent.child == node)
-		node.parent.child = (node.right != node) ? node.right : null;
-	    System.out.println(node.parent.child);
+	   
+	   
 	    node.right = node;
 	    node.left = node;
 	    //node will be added into the rootlist therfore delete its parent
@@ -198,6 +198,8 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
 	    // add the cutted node to the root list
 	    min = mergeLists(min, node);
+	    
+	    System.out.println("Min node: "+min);
 	}
 
     }
