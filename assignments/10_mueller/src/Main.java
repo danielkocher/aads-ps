@@ -8,7 +8,7 @@ public class Main {
     public static void main(String[] args) {
 	AbstractQueue<FibonacciHeapNode> queue;
 
-	int n = (int) Math.pow(10, 5);
+	int n = (int) Math.pow(10, 3);
 
 	System.out.println("n offer");
 	simulateInsert(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
@@ -26,8 +26,8 @@ public class Main {
 	simulateAlternateInsertPoll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
 	simulateAlternateInsertPoll(new PriorityQueue<FibonacciHeapNode>(), n, "Priority Queue");
 
-	//System.out.println("All");
-	//simulateAll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
+	System.out.println("All");
+	simulateAll(new FibonacciHeap<FibonacciHeapNode>(), n, "Fibonacci Heap");
 
 	/**System.out.println("n/2 offer, n/2 poll");
 	System.out.print("Fibonacci Heap: ");
@@ -159,7 +159,7 @@ public class Main {
 	ArrayList<Node<FibonacciHeapNode>> insertedNodes = new ArrayList<Node<FibonacciHeapNode>>();
 	ArrayList<Boolean> nodeDeleted = new ArrayList<Boolean>();
 	
-	System.out.print(dataStruct + ": ");
+	//System.out.print(dataStruct + ": ");
 	
 	long start = System.currentTimeMillis();
 	for (int i = 0; i < 2*n; i++)
@@ -186,14 +186,14 @@ public class Main {
 //	    case 3:
 	    	
 		Node<FibonacciHeapNode> delNode=insertedNodes.get(rand.nextInt(insertedNodes.size()));
-		System.out.println("delete: "+delNode.getKey());
+		//System.out.println("delete: "+delNode.getKey());
 		queue.delete(delNode);
 		insertedNodes.remove(delNode);
 
 //	    }
 	   
-	    printArrayList(insertedNodes);
-	    System.out.println("--------------");
+	    //printArrayList(insertedNodes);
+	    //System.out.println("--------------");
 	}
 	System.out.println(System.currentTimeMillis() - start);
 
