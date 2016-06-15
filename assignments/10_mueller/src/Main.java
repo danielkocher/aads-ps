@@ -155,7 +155,7 @@ public class Main {
 	Random rand = new Random();
 	FibonacciHeapNode randomHeapNodes[] = new FibonacciHeapNode[2*n];
 	for (int i = 0; i < 2*n; i++)
-	    randomHeapNodes[i] = new FibonacciHeapNode(rand.nextInt(50));
+	    randomHeapNodes[i] = new FibonacciHeapNode(i);
 	ArrayList<Node<FibonacciHeapNode>> insertedNodes = new ArrayList<Node<FibonacciHeapNode>>();
 	ArrayList<Boolean> nodeDeleted = new ArrayList<Boolean>();
 	

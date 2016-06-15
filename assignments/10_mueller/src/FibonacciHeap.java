@@ -68,7 +68,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    min = null;
 	    System.out.println("is alone:" + m.child);
 	} else {
-	    System.out.println("is alone:" + m.child);
+	  
 	    // Delete minimum from rootlist
 	    min.left.right = min.right;
 	    min.right.left = min.left;
@@ -93,6 +93,8 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	System.out.println(min + " " + m);
 	// now add all the children of old minimum into the rootlist
 	min = mergeLists(min, m.child);
+	if (min==null)
+	    return m.item;
 	consolidate();
 
 	size--;
@@ -105,6 +107,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
      * Ensures that no two roots (trees) in the fibonacci have the same degree.
      */
     private void consolidate() {
+	System.out.println("Consolidate");
 	// visit all the elements of the rootlist
 	ArrayList<Node<E>> a = new ArrayList<Node<E>>();
 	int sizeOfColArray = (int) Math.ceil(2 * (Math.log10(size) / Math.log10(2)));
@@ -131,11 +134,11 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 		// now we have to link the two trees that share the same degree
 		// (old and c)
 		c = link(c, old);
+	
 	    }
 	    //find new minimum of fibonacci heap;
 	    if (c.getKey() <= min.getKey())
 		min = c;
-
 	}
     }
 
@@ -176,6 +179,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
     public void cut(Node<E> node) {
 	node.isMarked = false;
+	System.out.println("Cutting");
 	if (node.parent != null) {
 	    //parent loses one son
 	    node.parent.degree--;
@@ -183,10 +187,10 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // delete the node we want to cut from the child list of its parent
 	    node.left.right = node.right;
 	    node.right.left = node.left;
-
+	    //
 	    if (node.parent.child == node)
 		node.parent.child = (node.right != node) ? node.right : null;
-
+	    System.out.println(node.parent.child);
 	    node.right = node;
 	    node.left = node;
 	    //node will be added into the rootlist therfore delete its parent
