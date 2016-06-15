@@ -47,8 +47,9 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
     public boolean offer(E e) {
 	if (min == null)
 	    min = new Node<E>(e);
-	else
+	else {
 	    min = mergeLists(min, new Node<E>(e));
+	}
 	size++;
 	return true;
     }
@@ -59,11 +60,15 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
     @Override
     public E poll() {
 	Node<E> m = min;
+	System.out.println(min);
 	if (min == null)
 	    return null;
 	if (min.right == min) {
+	    // child of old minimum will be in the rootlist for sure
 	    min = null;
+	    System.out.println("is alone:" + m.child);
 	} else {
+	    System.out.println("is alone:" + m.child);
 	    // Delete minimum from rootlist
 	    min.left.right = min.right;
 	    min.right.left = min.left;
@@ -85,13 +90,9 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // remove the parent pointer of child node
 	    c.parent = null;
 	}
-
+	System.out.println(min + " " + m);
 	// now add all the children of old minimum into the rootlist
 	min = mergeLists(min, m.child);
-	
-	if (min == null)
-	    return m.item;
-	
 	consolidate();
 
 	size--;
@@ -99,6 +100,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	// removed one
 	return m.item;
     }
+
     /**
      * Ensures that no two roots (trees) in the fibonacci have the same degree.
      */
@@ -137,7 +139,6 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	}
     }
 
-  
     /**
      * Set the key of the specified node to a new value smaller than its old value.
      * @param node 
@@ -148,8 +149,8 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    return;
 	node.setKey(newKey);
 	//update minimum if needed
-	if(node.getKey()<min.getKey())
-	    min=node;
+	if (node.getKey() < min.getKey())
+	    min = node;
 	// if the decreased node is part of the rootlist or the decrease of the
 	// key left the decreased node bigger than its parent => do nothing
 	if (node.parent == null || newKey >= node.parent.getKey())
@@ -170,6 +171,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
     public void delete(Node<E> node) {
 	decreaseKey(node, Double.NEGATIVE_INFINITY);
 	poll();
+	System.out.println("Minimum: " + min);
     }
 
     public void cut(Node<E> node) {
@@ -183,6 +185,10 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	    // delete the node we want to cut from the child list of its parent
 	    node.left.right = node.right;
 	    node.right.left = node.left;
+
+	    if (node.parent.child == node)
+		node.parent.child = (node.right != node) ? node.right : null;
+
 	    node.right = node;
 	    node.left = node;
 
@@ -192,9 +198,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
     }
 
-
-
-   /**
+    /**
     * Merge to unsorted double linked ciruclar lists. 
     * @param first
     * @param second
@@ -263,7 +267,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
     @Override
     public int size() {
 	// TODO Auto-generated method stub
-	return 0;
+	return size;
     }
 
     @Override
