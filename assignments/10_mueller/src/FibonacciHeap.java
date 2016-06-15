@@ -179,9 +179,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 	if (node.parent != null) {
 	    //parent loses one son
 	    node.parent.degree--;
-	    //node will be added into the rootlist therfore delete its parent
-	    node.parent = null;
-
+	   
 	    // delete the node we want to cut from the child list of its parent
 	    node.left.right = node.right;
 	    node.right.left = node.left;
@@ -191,6 +189,8 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E> {
 
 	    node.right = node;
 	    node.left = node;
+	    //node will be added into the rootlist therfore delete its parent
+	    node.parent = null;
 
 	    // add the cutted node to the root list
 	    min = mergeLists(min, node);
