@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.4.24)  19 JUN 2016 15:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.4.24)  19 JUN 2016 17:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1102,17 +1102,17 @@ Package epstopdf Info: Source file: <drawing.eps>
 (epstopdf)                    size: 51085 bytes
 (epstopdf)             Command: <repstopdf --outfile=drawing-eps-converted-to.p
 df drawing.eps>
-(epstopdf)             \includegraphics on input line 37.
+(epstopdf)             \includegraphics on input line 39.
 Package epstopdf Info: Output file is already uptodate.
 
 <drawing-eps-converted-to.pdf, id=4, 785.93625pt x 310.15875pt>
 File: drawing-eps-converted-to.pdf Graphic file (type pdf)
 
 <use drawing-eps-converted-to.pdf>
-Package pdftex.def Info: drawing-eps-converted-to.pdf used on input line 37.
+Package pdftex.def Info: drawing-eps-converted-to.pdf used on input line 39.
 (pdftex.def)             Requested size: 392.96716pt x 155.079pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--42
+Underfull \hbox (badness 10000) in paragraph at lines 42--44
 
  []
 
@@ -1120,19 +1120,102 @@ Underfull \hbox (badness 10000) in paragraph at lines 40--42
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./drawing-eps-converted-to
 .pdf>]
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
+Underfull \hbox (badness 10000) in paragraph at lines 63--64
 
  []
 
-[2] (./theorie.aux) ) 
+[2]
+Underfull \hbox (badness 10000) in paragraph at lines 96--98
+
+ []
+
+Package epstopdf Info: Source file: <first.eps>
+(epstopdf)                    date: 2016-06-19 16:21:43
+(epstopdf)                    size: 16158 bytes
+(epstopdf)             Output file: <first-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-19 16:25:38
+(epstopdf)                    size: 11121 bytes
+(epstopdf)             Command: <repstopdf --outfile=first-eps-converted-to.pdf
+ first.eps>
+(epstopdf)             \includegraphics on input line 106.
+Package epstopdf Info: Output file is already uptodate.
+<first-eps-converted-to.pdf, id=98, 251.94125pt x 435.6275pt>
+File: first-eps-converted-to.pdf Graphic file (type pdf)
+
+<use first-eps-converted-to.pdf>
+Package pdftex.def Info: first-eps-converted-to.pdf used on input line 106.
+(pdftex.def)             Requested size: 75.58295pt x 130.68925pt.
+Package epstopdf Info: Source file: <second.eps>
+(epstopdf)                    date: 2016-06-19 15:55:00
+(epstopdf)                    size: 21273 bytes
+(epstopdf)             Output file: <second-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-19 16:19:33
+(epstopdf)                    size: 13965 bytes
+(epstopdf)             Command: <repstopdf --outfile=second-eps-converted-to.pd
+f second.eps>
+(epstopdf)             \includegraphics on input line 113.
+Package epstopdf Info: Output file is already uptodate.
+
+<second-eps-converted-to.pdf, id=99, 251.94125pt x 435.6275pt>
+File: second-eps-converted-to.pdf Graphic file (type pdf)
+
+<use second-eps-converted-to.pdf>
+Package pdftex.def Info: second-eps-converted-to.pdf used on input line 113.
+(pdftex.def)             Requested size: 75.58295pt x 130.68925pt.
+Package epstopdf Info: Source file: <third.eps>
+(epstopdf)                    date: 2016-06-19 16:21:06
+(epstopdf)                    size: 23862 bytes
+(epstopdf)             Output file: <third-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-19 16:21:19
+(epstopdf)                    size: 15806 bytes
+(epstopdf)             Command: <repstopdf --outfile=third-eps-converted-to.pdf
+ third.eps>
+(epstopdf)             \includegraphics on input line 122.
+Package epstopdf Info: Output file is already uptodate.
+
+<third-eps-converted-to.pdf, id=100, 251.94125pt x 435.6275pt>
+File: third-eps-converted-to.pdf Graphic file (type pdf)
+
+<use third-eps-converted-to.pdf>
+Package pdftex.def Info: third-eps-converted-to.pdf used on input line 122.
+(pdftex.def)             Requested size: 75.58295pt x 130.68925pt.
+Package epstopdf Info: Source file: <fourth.eps>
+(epstopdf)                    date: 2016-06-19 16:13:44
+(epstopdf)                    size: 28014 bytes
+(epstopdf)             Output file: <fourth-eps-converted-to.pdf>
+(epstopdf)                    date: 2016-06-19 16:20:05
+(epstopdf)                    size: 17596 bytes
+(epstopdf)             Command: <repstopdf --outfile=fourth-eps-converted-to.pd
+f fourth.eps>
+(epstopdf)             \includegraphics on input line 129.
+Package epstopdf Info: Output file is already uptodate.
+
+<fourth-eps-converted-to.pdf, id=101, 251.94125pt x 435.6275pt>
+File: fourth-eps-converted-to.pdf Graphic file (type pdf)
+
+<use fourth-eps-converted-to.pdf>
+Package pdftex.def Info: fourth-eps-converted-to.pdf used on input line 129.
+(pdftex.def)             Requested size: 75.58295pt x 130.68925pt.
+ [3 <./first-eps-converted-to.pdf> <./second-eps-converted-to.pdf> <./third-eps
+-converted-to.pdf> <./fourth-eps-converted-to.pdf>]
+Underfull \hbox (badness 10000) in paragraph at lines 142--143
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 147--149
+
+ []
+
+[4] (./theorie.aux) ) 
 Here is how much of TeX's memory you used:
- 17582 strings out of 493029
- 359887 string characters out of 6136234
+ 17600 strings out of 493029
+ 360414 string characters out of 6136234
  438889 words of memory out of 5000000
- 20747 multiletter control sequences out of 15000+600000
+ 20763 multiletter control sequences out of 15000+600000
  10591 words of font info for 42 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,8n,67p,421b,286s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,8n,67p,421b,353s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 mi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pf
@@ -1144,10 +1227,10 @@ dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texlive/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1
 /public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publi
 c/amsfonts/cm/cmsy7.pfb>
-Output written on theorie.pdf (2 pages, 164012 bytes).
+Output written on theorie.pdf (4 pages, 216690 bytes).
 PDF statistics:
- 133 PDF objects out of 1000 (max. 8388607)
- 46 compressed objects within 1 object stream
+ 189 PDF objects out of 1000 (max. 8388607)
+ 66 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 38 words of extra memory for PDF output out of 10000 (max. 10000000)
 

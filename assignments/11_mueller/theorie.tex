@@ -28,10 +28,12 @@ Gegeben sei folgende Sequenz $I$ von Objekten
 \begin{equation}
 \frac{1}{16}+\epsilon,...,\frac{1}{16}+\epsilon,\frac{1}{8}+\epsilon,...,\frac{1}{8}+\epsilon,\frac{1}{4}+\epsilon,...,\frac{1}{4}+\epsilon,\frac{1}{2}+\epsilon,...,\frac{1}{2}+\epsilon
 \end{equation}
-wobei jede Teilsequenz (gleiche Objekte) die Länge $16m $ hat.\\ Es gilt $m\in N: $ $0 \equiv m \pmod{15}$ $\wedge$ $0 \equiv m \pmod{7}$ $\wedge$ $0 \equiv m \pmod{3}$ und $\epsilon < 10^{-6}$.
+wobei jede Teilsequenz (Objekte der gleichen Größe) die Länge $16m $ hat.\\ Es gilt $m\in N: $ $0 \equiv m \pmod{15}$ $\wedge$ $0 \equiv m \pmod{7}$ $\wedge$ $0 \equiv m \pmod{3}$ und $\epsilon < 10^{-6}$.
 \begin{itemize}
 	\item Geben Sie $FF(I)$ sowie die zugehörige Packung an.
+	\item Wenden Sie First-Fit-Decreasing auf I an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.
 \end{itemize}
+
 \begin{figure}[H]
 \begin{center}
 	\includegraphics[scale=.5]{drawing}
@@ -90,9 +92,65 @@ FF(I)=m+\frac{m}{15}+2m+\frac{2m}{7}+5m+\frac{m}{3}+16m\\
 =24m+\frac{72m}{105}
 \end{align*}
 Für das Einfügen der Sequenz $I$ ($64m$ Elemente) werden $24m+\lceil\frac{72m}{105}\rceil$ Container benötigt.
+\newpage
+Wenden Sie First-Fit-Decreasing auf I an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.\\
+Sortiere Sequenz $I$ sodass die Elemente in absteigender Reihenfolge vorliegen:\\
+\begin{equation}
+\frac{1}{2}+\epsilon,...,\frac{1}{2}+\epsilon,\frac{1}{4}+\epsilon,...,\frac{1}{4}+\epsilon,\frac{1}{8}+\epsilon,...,\frac{1}{8}+\epsilon,\frac{1}{16}+\epsilon,...,\frac{1}{16}+\epsilon
+\end{equation}
+wobei jede Teilsequenz (Objekte der gleichen Größe) die Länge $16m $ hat.\\ Es gilt $m\in N: $ $0 \equiv m \pmod{15}$ $\wedge$ $0 \equiv m \pmod{7}$ $\wedge$ $0 \equiv m \pmod{3}$ und $\epsilon < 10^{-6}$.
+\begin{multicols}{2}
+Nach Einfügen der $16m$ $\frac{1}{2}+\epsilon$ Objekte. 
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=.3]{first}
+\end{center}
+\end{figure}
+\columnbreak%
+Nach Einfügen der $16m$ $\frac{1}{4}+\epsilon$ Objekte. 
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=.3]{second}
+\end{center}
+\end{figure}
+\end{multicols}
 
+\begin{multicols}{2}
+Nach Einfügen der $16m$ $\frac{1}{8}+\epsilon$ Objekte. 
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=.3]{third}
+\end{center}
+\end{figure}
+\columnbreak%
+Nach Einfügen der $16m$ $\frac{1}{16}+\epsilon$ Objekte. 
+\begin{figure}[H]
+\begin{center}
+	\includegraphics[scale=.3]{fourth}
+\end{center}
+\end{figure}
+\end{multicols}
 
-
-
+Keine zwei (gleich großen) Elemente einer $16m$ Objekte langen Teilsequenz stehen im selben Block.
+\begin{align*}
+(\frac{1}{2}+\epsilon)+(\frac{1}{2}+\epsilon) > 1\\
+\implies (\frac{1}{2}+\epsilon)+2*(\frac{1}{4}+\epsilon)\\ 
+=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+2*(\frac{1}{8}+\epsilon)\\
+=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+(\frac{1}{8}+\epsilon)+2*(\frac{1}{16}+\epsilon) > 1
+\end{align*}
+\newpage
+Bei der angegebenen Belegung wird die Kapazität keines Blocks überschritten:\\
+\begin{align*}
+(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+(\frac{1}{8}+\epsilon)+(\frac{1}{16}+\epsilon)\\
+=(\frac{8}{16}+\epsilon)+(\frac{4}{16}+\epsilon)+(\frac{2}{16}+\epsilon)+(\frac{1}{16}+\epsilon)\\
+=(\frac{15}{16}+4\epsilon)<1 
+\end{align*}
+da:\\
+\begin{equation}
+	\epsilon<\frac{1}{10^{6}} \implies 4\epsilon<\frac{1}{16}
+\end{equation}
+\begin{align*}
+FFD(I)=OPT(I)=16m
+\end{align*}
 
 \end{document}
