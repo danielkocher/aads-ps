@@ -7,10 +7,17 @@
 \usepackage{subcaption}
 \usepackage{float}
 \usepackage{tikz}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=.8in]{geometry}
 \usepackage{multicol}
 \usepackage{epstopdf}
+\usepackage[linesnumbered]{algorithm2e}
 
+\newenvironment{algorithmic}{%
+\renewenvironment{algocf}[1][h]{}{}% pass over the floating stuff
+\algorithm
+}{%
+\endalgorithm
+}
 
 \usetikzlibrary{positioning, shapes, automata, arrows, backgrounds, shapes.geometric}
 
@@ -24,6 +31,7 @@
 \maketitle
 
 {\bfseries Aufgabe 21}%
+
 Gegeben sei folgende Sequenz $I$ von Objekten
 \begin{equation}
 \frac{1}{16}+\epsilon,...,\frac{1}{16}+\epsilon,\frac{1}{8}+\epsilon,...,\frac{1}{8}+\epsilon,\frac{1}{4}+\epsilon,...,\frac{1}{4}+\epsilon,\frac{1}{2}+\epsilon,...,\frac{1}{2}+\epsilon
@@ -31,7 +39,7 @@ Gegeben sei folgende Sequenz $I$ von Objekten
 wobei jede Teilsequenz (Objekte der gleichen Größe) die Länge $16m $ hat.\\ Es gilt $m\in N: $ $0 \equiv m \pmod{15}$ $\wedge$ $0 \equiv m \pmod{7}$ $\wedge$ $0 \equiv m \pmod{3}$ und $\epsilon < 10^{-6}$.
 \begin{itemize}
 	\item Geben Sie $FF(I)$ sowie die zugehörige Packung an.
-	\item Wenden Sie First-Fit-Decreasing auf I an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.
+	\item Wenden Sie First-Fit-Decreasing auf $I$ an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.
 \end{itemize}
 
 \begin{figure}[H]
@@ -152,5 +160,93 @@ da:\\
 \begin{align*}
 FFD(I)=OPT(I)=16m
 \end{align*}
+
+\clearpage%
+
+{\bfseries Aufgabe 22}%
+
+Geben Sie ein dynamisches Programm f{\"u}r die Berechnung von $\binom{n}{i}$ an.
+
+\emph{Hinweis:} In der Vorlesung haben wir gezeigt, dass die Anzahl der Knoten
+mit Tiefe $i$ in einem Binomialbaum $B_n$ genau $\binom{n}{i}$ entspricht.
+Benutzen Sie die Argumente aus dem Beweis dieser Aussage.
+
+Aus dem Beweis in der VO zu Binonmial Queues bzw. Binomialb{\"a}umen (
+\emph{Es gibt genau $\binom{n}{i}$ Knoten mit Tiefe $i$ in $B_n$}) entnehmen wir
+folgende Argumente:
+
+\begin{equation}
+\binom{n}{0} = 1 \text{ und } \binom{n}{n} = 1
+\end{equation}
+
+\begin{equation}
+\binom{n}{i} = \binom{n - 1}{i} + \binom{n - 1}{i - 1}
+\end{equation}
+
+Diese beiden Gleichungen sind bereits eine rekursive Darstellung des
+Binomialkoeffizienten $\binom{n}{i}$. F{\"u}r das dynamische Programm definieren 
+wir nun analog dazu:
+
+\begin{verbatim}
+binom(n, 0) = 1
+binom(n, n) = 1
+
+binom(n, i) = binom(n - 1, i) + binom(n - 1, i - 1)
+\end{verbatim}
+
+Weiters ben{\"o}tigen wir eine $(n + 1)\times (i + 1)$-Matrix \texttt{coeff[][]},
+in der wir bereits berechnete Ergebnisse speichern (Memorization-Array).
+
+Mit diesen Bestandteilen l{\"a}sst sich das dynamische Programm formulieren. Das
+dynamische Programm hat quadratische Laufzeit (in $n$) - im Gegensatz zu einer
+naiven L{\"o}sung, welche exponentielle Laufzeit (in $n$) h{\"a}tte.
+
+\begin{minipage}{.315\textwidth}
+\begin{algorithm}[H]
+    \small
+%
+    \SetKwProg{Fn}{Function}{}{}%
+    \SetKwInOut{Input}{Input}%
+    \SetKwInOut{Output}{Output}%
+%
+    \Input{$n$: \texttt{integer}, $i$: \texttt{integer}}%
+    \Output{$\binom{n}{i}$: \texttt{integer}}%
+    \Fn{binom($n$, $i$)}{%
+        \For{$k \leftarrow 0$ \KwTo $n$}{
+            \For{$l \leftarrow 0$ \KwTo $i$}{
+                coeff[$k$][$l$] $\leftarrow$ $\infty$\;
+            }
+        }
+
+        \For{$k \leftarrow 0$ \KwTo $n$}{
+            coeff[$k$][$0$] $\leftarrow$ 1\;
+            \For{$l \leftarrow 1$ \KwTo $i$}{
+                coeff[$0$][$l$] $\leftarrow$ 0\;
+            }
+        }
+
+        \Return lookupBinom($n$, $i$)\;
+    }%
+\end{algorithm}
+\end{minipage}
+\begin{minipage}{.635\textwidth}
+\begin{algorithm}[H]
+    \small
+%
+    \SetKwProg{Fn}{Function}{}{}%
+    \SetKwInOut{Input}{Input}%
+    \SetKwInOut{Output}{Output}%
+    %
+    \Input{$n$: \texttt{integer}, $i$: \texttt{integer}}%
+    \Output{$\binom{n}{i}$: \texttt{integer}}%
+    \Fn{lookupBinom($n$, $i$)}{%
+        \If{coeff[$n$][$i$] = $\infty$}{
+            coeff[$n$][$i$] $\leftarrow$ lookupBinom($n - 1$, $i$) + lookupBinom($n - 1$, $i - 1$)\;
+        }
+
+        \Return coeff[$n$][$i$]\;
+    }%
+\end{algorithm}
+\end{minipage}
 
 \end{document}
