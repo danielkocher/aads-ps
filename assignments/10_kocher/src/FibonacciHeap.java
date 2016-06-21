@@ -116,7 +116,7 @@ public class FibonacciHeap<E extends HeapEntry> extends AbstractQueue<E>
       //System.out.println("Minimum = " + min.getEntry().getKey());
       //System.out.println("Before consolidate():\n" + toString());
 
-      if (size > 0) {
+      if (size > 0 && min != null) {
         consolidate();
       }
     }
