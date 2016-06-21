@@ -12,43 +12,6 @@ public class Main {
     List<FibonacciHeapNode<Entry<Double>>> insertedNodes =
       new ArrayList<FibonacciHeapNode<Entry<Double>>>();
     Entry<Double> entry = null;
-
-    /*
-    final int N = ((int)Math.pow(10, 1));
-    Random random = new Random(42);
-    double key = 0.0;
-    double data = 0.0;
-    double min = Double.POSITIVE_INFINITY;
-    int randMin = 0;
-    int randMax = 100;
-    for (int i = 0; i < N; ++i) {
-      for (int j = 0; j < 5; ++j) {
-        key = (double)random.nextInt(randMax - randMin + 1);
-        data = (double)random.nextInt(randMax - randMin + 1);
-
-        System.out.println("add(" + key + ")");
-        if (key < min) {
-          min = key;
-        }
-
-        entry = new Entry<Double>(key, data);
-        fibonacciHeap.add(entry);
-        insertedEntries.add(entry);
-      }
-
-      System.out.println("Before poll()");
-      System.out.println(fibonacciHeap);
-      
-      System.out.println("After poll() (= " + fibonacciHeap.poll().getKey() + ")");
-      System.out.println(fibonacciHeap);
-    }
-
-    double oldKey = entry.getKey();
-    fibonacciHeap.decreaseKey(entry, Double.NEGATIVE_INFINITY);
-    System.out.println("After decreaseKey(" + oldKey + ", " + entry.getKey() + ")");
-    System.out.println(fibonacciHeap);
-    */
-
     
     // N offer
     int minN = ((int)Math.pow(10, 3));
