@@ -171,9 +171,9 @@ Geben Sie ein dynamisches Programm f{\"u}r die Berechnung von $\binom{n}{i}$ an.
 mit Tiefe $i$ in einem Binomialbaum $B_n$ genau $\binom{n}{i}$ entspricht.
 Benutzen Sie die Argumente aus dem Beweis dieser Aussage.
 
-Aus dem Beweis in der VO zu Binonmial Queues bzw. Binomialb{\"a}umen (
-\emph{Es gibt genau $\binom{n}{i}$ Knoten mit Tiefe $i$ in $B_n$}) entnehmen wir
-folgende Argumente:
+Aus dem Beweis in der VO zu Binomial Queues bzw. Binomialb{\"a}umen
+(\emph{Es gibt genau $\binom{n}{i}$ Knoten mit Tiefe $i$ in $B_n$}) entnehmen
+wir folgende Argumente:
 
 \begin{equation}
 \binom{n}{0} = 1 \text{ und } \binom{n}{n} = 1
@@ -195,7 +195,8 @@ binom(n, i) = binom(n - 1, i) + binom(n - 1, i - 1)
 \end{verbatim}
 
 Weiters ben{\"o}tigen wir eine $(n + 1)\times (i + 1)$-Matrix \texttt{coeff[][]},
-in der wir bereits berechnete Ergebnisse speichern (Memorization-Array).
+in der wir bereits berechnete Ergebnisse speichern (Memorization-Array). $+ 1$,
+da $i$ bzw. $n$ auch den Wert $0$ annehmen k{\"o}nnen.
 
 Mit diesen Bestandteilen l{\"a}sst sich das dynamische Programm formulieren. Das
 dynamische Programm hat quadratische Laufzeit (in $n$) - im Gegensatz zu einer
