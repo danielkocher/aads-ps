@@ -24,9 +24,10 @@ public class Binom {
 
     for (k = 0; k <= n; ++k) {
       coeff[k][0] = 1;
-      for (l = 1; l <= i; ++l) {
+    }
+
+    for (l = 1; l <= i; ++l) {
         coeff[0][l] = 0;
-      }
     }
 
     return lookupBinom(n, i);
@@ -51,4 +52,5 @@ public class Binom {
 		return b[m];
 
 	}
+
 }
