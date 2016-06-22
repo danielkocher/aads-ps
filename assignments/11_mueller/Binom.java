@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Binom {
   private static int[][] coeff = null;
 
@@ -40,16 +42,21 @@ public class Binom {
 	}
 
 
-	public static int binom2(int n, int k){
-		
+	public static int binom2(int n, int i){
+		if(i>n)
+			return 0;
 		int[] b=new int[n+1];
 		b[0]=1;
-		for (int i=0;i<=n;i++){
-			b[i]=1;
-			for(int j=i-1;j>0;j--)
-				b[j]+=b[j-1]M
+		//after k iterations b[] contains the k-th row of the bin triangle
+		//=> after n iterations b[] contains the n-th row of the bin triangle
+		// just return the i-th element of the array to obtain the value of n "over" i.
+		for (int k=1;k<=n;k++){
+			b[k]=1;
+			for(int j=k-1;j>0;j--)
+				b[j]+=b[j-1];
+			System.out.println(Arrays.toString(b));
 		}
-		return b[m];
+		return b[i];
 
 	}
 
