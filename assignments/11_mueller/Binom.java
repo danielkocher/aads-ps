@@ -6,7 +6,8 @@ public class Binom {
     int i = 0;
     for (int n = 0; n < threshold; ++n) {
       for (i = 0; i < threshold; ++i) {
-        System.out.println("n = " + n + ", i = " + i + ": binom = " + binom(n, i));
+        System.out.println("n = " + n + ", i = " + i + ": binom1 = " + binom(n, i));
+	System.out.println("n = " + n + ", i = " + i + ": binom2 = " + binom2(n, i));
       }
     }
   }
@@ -31,11 +32,23 @@ public class Binom {
     return lookupBinom(n, i);
   }
 
-  public static int lookupBinom (final int n, final int i) {
-    if (coeff[n][i] == Integer.MAX_VALUE) {
-      coeff[n][i] = lookupBinom(n - 1, i) + lookupBinom(n - 1, i - 1);
-    }
+	public static int lookupBinom (final int n, final int i) {
+		if (coeff[n][i] == Integer.MAX_VALUE)
+			coeff[n][i] = lookupBinom(n - 1, i) + lookupBinom(n - 1, i - 1);
+		return coeff[n][i];
+	}
 
-    return coeff[n][i];
-  }
+
+	public static int binom2(int n, int k){
+		
+		int[] b=new int[n+1];
+		b[0]=1;
+		for (int i=0;i<=n;i++){
+			b[i]=1;
+			for(int j=i-1;j>0;j--)
+				b[j]+=b[j-1]M
+		}
+		return b[m];
+
+	}
 }
