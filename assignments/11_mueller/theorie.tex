@@ -65,7 +65,7 @@ Nach $m$ Runden gilt für alle Blöcke $B_{j}$ mit $1\leq j \leq m+\frac{m}{15}$
 \begin{equation}
 B_{j} + (\frac{1}{16}+\epsilon) > 1
 \end{equation}
-Aufgrund der gegebenen Einfügereihenfolge  bedeutet das also, dass diesen Blöcken kein weiteres Element der Restsequenz mehr hinzugefügt werden kann da diese alle eine Größe haben die $(\frac{1}{16}+\epsilon)$ übersteigt.
+Aufgrund der gegebenen Einfügereihenfolge  bedeutet das also, dass diesen Blöcken kein weiteres Element der Restsequenz mehr hinzugefügt werden kann, da diese alle eine Größe haben, die $(\frac{1}{16}+\epsilon)$ übersteigt.
 
 
 Aufteilung der $16m$ Elemente der Größe  $\frac{1}{8}+\epsilon$. \\
@@ -97,12 +97,12 @@ Analog für $\frac{1}{4}+\epsilon$ und $\frac{1}{2}+\epsilon$
 FF(I)=m+\frac{m}{15}+2m+\frac{2m}{7}+5m+\frac{m}{3}+16m\\
 =24m+\frac{m}{15}+\frac{2m}{7}+\frac{m}{3}\\
 =24m+\frac{7m+30m+35m}{105}\\
-=24m+\frac{72m}{105}
+=24m+\frac{24m}{35}
 \end{align*}
-Für das Einfügen der Sequenz $I$ ($64m$ Elemente) werden $24m+\lceil\frac{72m}{105}\rceil$ Container benötigt.
+Für das Einfügen der Sequenz $I$ ($64m$ Elemente) werden $24m+\lceil\frac{24m}{35}\rceil$ Container benötigt.
 \newpage
-Wenden Sie First-Fit-Decreasing auf I an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.\\
-Sortiere Sequenz $I$ sodass die Elemente in absteigender Reihenfolge vorliegen:\\
+Wenden Sie First-Fit-Decreasing auf $I$ an. Geben Sie die zugehörige Packung sowie $FFD(I)$ an.\\
+Sortiere Sequenz $I$, sodass die Elemente in absteigender Reihenfolge vorliegen:\\
 \begin{equation}
 \frac{1}{2}+\epsilon,...,\frac{1}{2}+\epsilon,\frac{1}{4}+\epsilon,...,\frac{1}{4}+\epsilon,\frac{1}{8}+\epsilon,...,\frac{1}{8}+\epsilon,\frac{1}{16}+\epsilon,...,\frac{1}{16}+\epsilon
 \end{equation}
@@ -142,9 +142,9 @@ Nach Einfügen der $16m$ $\frac{1}{16}+\epsilon$ Objekte.
 Keine zwei (gleich großen) Elemente einer $16m$ Objekte langen Teilsequenz stehen im selben Block.
 \begin{align*}
 (\frac{1}{2}+\epsilon)+(\frac{1}{2}+\epsilon) > 1\\
-\implies (\frac{1}{2}+\epsilon)+2*(\frac{1}{4}+\epsilon)\\ 
-=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+2*(\frac{1}{8}+\epsilon)\\
-=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+(\frac{1}{8}+\epsilon)+2*(\frac{1}{16}+\epsilon) > 1
+\implies (\frac{1}{2}+\epsilon)+2\cdot(\frac{1}{4}+\epsilon)\\ 
+=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+2\cdot(\frac{1}{8}+\epsilon)\\
+=(\frac{1}{2}+\epsilon)+(\frac{1}{4}+\epsilon)+(\frac{1}{8}+\epsilon)+2\cdot(\frac{1}{16}+\epsilon) > 1
 \end{align*}
 \newpage
 Bei der angegebenen Belegung wird die Kapazität keines Blocks überschritten:\\
