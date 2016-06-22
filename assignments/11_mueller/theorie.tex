@@ -221,9 +221,9 @@ naiven L{\"o}sung, welche exponentielle Laufzeit (in $n$) h{\"a}tte.
 
         \For{$k \leftarrow 0$ \KwTo $n$}{
             coeff[$k$][$0$] $\leftarrow$ 1\;
-            \For{$l \leftarrow 1$ \KwTo $i$}{
-                coeff[$0$][$l$] $\leftarrow$ 0\;
-            }
+        }
+        \For{$l \leftarrow 1$ \KwTo $i$}{
+            coeff[$0$][$l$] $\leftarrow$ 0\;
         }
 
         \Return lookupBinom($n$, $i$)\;
