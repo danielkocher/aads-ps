@@ -212,4 +212,40 @@ A'''' = A' \cdot A''' \Rightarrow (41 \times 4)\text{-Matrix} \cdot (4 \times 12
 
 Damit ergeben sich die Gesamtkosten dieser Klammerung mit $6560 + 3400 + 1632 + 1968 = \textbf{13560}$.
 
+Rekursion $Opt-Klam(A, s, 1, n)$ :
+\begin{figure}[H]
+  \centering
+\begin{subfigure}[b]{.45\textwidth}
+    \centering
+    $X \cdot Y=(A_1A_2)((A_3A_4)A_5)$
+    \begin{tikzpicture}
+      \node { (1,5) }
+      	child { node [left = 5em] { *(1,2)  }  
+        child { node [left = 2.5em] { (1,1) }
+        edge from parent [->] node[right] {\small $X=A_1$} }       	 
+        child { node [right = 2.5em] { (2,2)  }
+        edge from parent [->] node[right] {\small $Y=A_2$} }
+        edge from parent [->] node[right] {\small $X=(A_1A_2)$}
+      }
+      	child { node [right = 5em] { (3,5)  } 
+        child { node [left = 2.5em] { (3,4) }
+        child { node [left = .5em] { (3,3) }
+   		edge from parent [->] node[right] {\small $X=A_3$} }
+        child { node [right = .5em] { (4,4)} 
+        edge from parent [->] node[right] {\small $Y=A_4$}}
+         edge from parent [->] node[right] {\small $X=(A_3A_4)$}}       	 
+        child { node [right = 2.5em] { (5,5) }
+        edge from parent [->] node[right] {\small $Y=A_5$} } 
+        edge from parent [->] node[right] {\small $Y=((A_3A_4)A_5)$}
+      };
+      
+    \end{tikzpicture}
+    \label{subfig:aufg9-i-1-after}
+    \caption{Ende}
+  \end{subfigure}
+\end{figure}
+*: bedeutet $Opt-Klam(A, s, 1, n)$ \\
+$X=Opt-Klam(A,s,1,s[1,2]=1)=A_1$\\
+$Y=Opt-Klam(A,s,s[1,2]+1=2,2)=A_2$\\
+Return $(XY)$
 \end{document}

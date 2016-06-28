@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.4.24)  29 JUN 2016 00:25
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2016.4.24)  29 JUN 2016 01:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -510,10 +510,163 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen183
 \Gm@dimlist=\toks41
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2015/08/19 v1.8n multicolumn formatting (FMi)
+\c@tracingmulticols=\count130
+\mult@box=\box41
+\multicol@leftmargin=\dimen184
+\c@unbalance=\count131
+\c@collectmore=\count132
+\doublecol@number=\count133
+\multicoltolerance=\count134
+\multicolpretolerance=\count135
+\full@width=\dimen185
+\page@free=\dimen186
+\premulticols=\dimen187
+\postmulticols=\dimen188
+\multicolsep=\skip53
+\multicolbaselineskip=\skip54
+\partial@page=\box42
+\last@line=\box43
+\maxbalancingoverflow=\dimen189
+\mult@rightbox=\box44
+\mult@grightbox=\box45
+\mult@gfirstbox=\box46
+\mult@firstbox=\box47
+\@tempa=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\c@columnbadness=\count136
+\c@finalcolumnbadness=\count137
+\last@try=\dimen190
+\multicolovershoot=\dimen191
+\multicolundershoot=\dimen192
+\mult@nat@firstbox=\box65
+\colbreak@box=\box66
+\mc@col@check@num=\count138
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf.sty
+Package: epstopdf 2010/02/09 v2.5 Conversion with epstopdf on the fly (HO)
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/algorithm2e/algorithm2e.sty
+Package: algorithm2e 2013/01/06 v5.00 algorithms environments
+\c@AlgoLine=\count139
+\algocf@hangindent=\skip55
+
+(/usr/share/texlive/texmf-dist/tex/latex/tools/xspace.sty
+Package: xspace 2014/10/28 v1.13 Space after command names (DPC,MH)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/relsize/relsize.sty
+Package: relsize 2013/03/29 ver 4.1
+)
+********************************************************
+Package `algorithm2e' Release 5.1 -- october 19 2015 --
+- algorithm2e-announce@lirmm.fr mailing list for announcement about releases
+- algorithm2e-discussion@lirmm.fr mailing list for discussion about package
+subscribe by emailing sympa@lirmm.fr with 'subscribe <list> <firstname name>'
+- Author: Christophe Fiorio (christophe.fiorio@umontpellier.fr)
+********************************************************
+\skiptotal=\skip56
+\skiplinenumber=\skip57
+\skiprule=\skip58
+\skiphlne=\skip59
+\skiptext=\skip60
+\skiplength=\skip61
+\algomargin=\skip62
+\skipalgocfslide=\skip63
+\algowidth=\dimen193
+\inoutsize=\dimen194
+\inoutindent=\dimen195
+\interspacetitleruled=\dimen196
+\interspacealgoruled=\dimen197
+\interspacetitleboxruled=\dimen198
+\algocf@ruledwidth=\skip64
+\algocf@inoutbox=\box67
+\algocf@inputbox=\box68
+\AlCapSkip=\skip65
+\AlCapHSkip=\skip66
+\algoskipindent=\skip67
+\algocf@nlbox=\box69
+\algocf@hangingbox=\box70
+\algocf@untilbox=\box71
+\algocf@skipuntil=\skip68
+\algocf@capbox=\box72
+\algoheightruledefault=\skip69
+\algoheightrule=\skip70
+\algotitleheightruledefault=\skip71
+\algotitleheightrule=\skip72
+\c@algocfline=\count140
+\c@algocfproc=\count141
+\c@algocf=\count142
+\algocf@algoframe=\box73
+\algocf@algobox=\box74
+)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarypositioning.code.tex
 File: tikzlibrarypositioning.code.tex 2008/10/06 v3.0.1a (rcs-revision 1.7)
 )
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.code.tex
+File: tikzlibraryshapes.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibraryshapes.geometric.code.tex
 File: tikzlibraryshapes.geometric.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
@@ -524,6 +677,83 @@ s.geometric.code.tex
 File: pgflibraryshapes.geometric.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
 
 ))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.misc.code.tex
+File: tikzlibraryshapes.misc.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.misc.code.tex
+File: pgflibraryshapes.misc.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.5)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.symbols.code.tex
+File: tikzlibraryshapes.symbols.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.symbols.code.tex
+File: pgflibraryshapes.symbols.code.tex 2013/09/11 v3.0.1a (rcs-revision 1.6)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.arrows.code.tex
+File: tikzlibraryshapes.arrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.arrows.code.tex
+File: pgflibraryshapes.arrows.code.tex 2008/06/26 v3.0.1a (rcs-revision 1.1)
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.callouts.code.tex
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.callouts.code.tex))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryshapes.multipart.code.tex
+File: tikzlibraryshapes.multipart.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
+s.multipart.code.tex
+File: pgflibraryshapes.multipart.code.tex 2010/01/07 v3.0.1a (rcs-revision 1.2)
+
+\pgfnodepartlowerbox=\box75
+\pgfnodeparttwobox=\box76
+\pgfnodepartthreebox=\box77
+\pgfnodepartfourbox=\box78
+\pgfnodeparttwentybox=\box79
+\pgfnodepartnineteenbox=\box80
+\pgfnodeparteighteenbox=\box81
+\pgfnodepartseventeenbox=\box82
+\pgfnodepartsixteenbox=\box83
+\pgfnodepartfifteenbox=\box84
+\pgfnodepartfourteenbox=\box85
+\pgfnodepartthirteenbox=\box86
+\pgfnodeparttwelvebox=\box87
+\pgfnodepartelevenbox=\box88
+\pgfnodeparttenbox=\box89
+\pgfnodepartninebox=\box90
+\pgfnodeparteightbox=\box91
+\pgfnodepartsevenbox=\box92
+\pgfnodepartsixbox=\box93
+\pgfnodepartfivebox=\box94
+)))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryautomata.code.tex
+File: tikzlibraryautomata.code.tex 2008/07/14 v3.0.1a (rcs-revision 1.3)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibraryarrows.code.tex
+File: tikzlibraryarrows.code.tex 2008/01/09 v3.0.1a (rcs-revision 1.1)
+
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryarrows.code.
+tex
+File: pgflibraryarrows.code.tex 2013/09/23 v3.0.1a (rcs-revision 1.16)
+\arrowsize=\dimen199
+))
+(/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
+zlibrarybackgrounds.code.tex
+File: tikzlibrarybackgrounds.code.tex 2013/07/18 v3.0.1a (rcs-revision 1.3)
+\pgf@layerbox@background=\box95
+\pgf@layerboxsaved@background=\box96
+)
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2015/03/17 v1.2c Input encoding file
 \inpenc@prehook=\toks42
@@ -833,320 +1063,40 @@ Now handling font encoding U ...
    defining Unicode char U+2026 (decimal 8230)
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
-)) (./theorie.aux
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-before' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `sub@subfig:aufg9-i-1-after' multiply defined.
-
-
-LaTeX Warning: Label `fig:aufg9-i-1' multiply defined.
-
-)
+)) (./theorie.aux)
 \openout1 = `theorie.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 18.
-LaTeX Font Info:    ... okay on input line 18.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 28.
+LaTeX Font Info:    ... okay on input line 28.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
- ABD: EveryShipout initializing macros
+
+ABD: EveryShipout initializing macros
 (/usr/share/texlive/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count130
-\scratchdimen=\dimen184
-\scratchbox=\box41
-\nofMPsegments=\count131
-\nofMParguments=\count132
+\scratchcounter=\count143
+\scratchdimen=\dimen256
+\scratchbox=\box97
+\nofMPsegments=\count144
+\nofMParguments=\count145
 \everyMPshowfont=\toks44
-\MPscratchCnt=\count133
-\MPscratchDim=\dimen185
-\MPnumerator=\count134
-\makeMPintoPDFobject=\count135
+\MPscratchCnt=\count146
+\MPscratchDim=\dimen257
+\MPnumerator=\count147
+\makeMPintoPDFobject=\count148
 \everyMPtoPDFconversion=\toks45
-) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
-Package pdftexcmds Info: LuaTeX not detected.
-Package pdftexcmds Info: \pdf@primitive is available.
-Package pdftexcmds Info: \pdf@ifprimitive is available.
-Package pdftexcmds Info: \pdfdraftmode found.
-)
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
-Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
-
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
-Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
-Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
-))
-(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
-Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
-Package grfext Info: Graphics extension search list:
-(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 452.
-
-(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
-e
-))
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -1155,15 +1105,15 @@ e
 * layout: <same size as paper>
 * layoutoffset:(h,v)=(0.0pt,0.0pt)
 * modes: 
-* h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
-* v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
+* h-part:(L,W,R)=(57.81621pt, 498.66258pt, 57.81621pt)
+* v-part:(T,H,B)=(57.81621pt, 679.33757pt, 57.81621pt)
 * \paperwidth=614.295pt
 * \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
+* \textwidth=498.66258pt
+* \textheight=679.33757pt
+* \oddsidemargin=-14.45378pt
+* \evensidemargin=-14.45378pt
+* \topmargin=-51.45378pt
 * \headheight=12.0pt
 * \headsep=25.0pt
 * \topskip=10.0pt
@@ -1181,126 +1131,67 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 21.
+LaTeX Font Info:    Try loading font information for U+msa on input line 31.
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 21.
+LaTeX Font Info:    Try loading font information for U+msb on input line 31.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 79.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-Underfull \hbox (badness 10000) in paragraph at lines 46--50
-
- []
-
-[2] [3]
-Overfull \hbox (19.17311pt too wide) in paragraph at lines 247--249
- [][] 
- []
-
-
-Overfull \hbox (19.17314pt too wide) in paragraph at lines 266--268
- [][] 
- []
-
-[4]
-Underfull \hbox (badness 1043) in paragraph at lines 313--313
-[]\OT1/cmr/m/n/9 (a) |Nach: $\OML/cmm/m/it/9 g[]$ \OT1/cmr/m/n/9 ist rechtes Ki
-nd von $\OML/cmm/m/it/9 e[]$ $ \OT1/cmr/m/n/9 =[]\OMS/cmsy/m/n/9 ) $
- []
-
-[5] [6]
-Overfull \hbox (1.13329pt too wide) in paragraph at lines 424--426
- [][] 
- []
-
-
-Overfull \hbox (71.13336pt too wide) in paragraph at lines 461--463
- [][] 
- []
-
-[7]
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 492--612
-[][]  []
- []
-
-
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 492--612
-[]  []
- []
-
-
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 492--612
-[]  []
- []
-
-[8]
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 644--669
-[][]  [] 
- []
-
-
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 693--718
-[][]  []
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 693--718
-
- []
-
-
-Overfull \hbox (12.15636pt too wide) in paragraph at lines 733--754
-[][]  []
- []
-
-[9]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 818.
-
- (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 818.
- [10] [11] [12]
-[13
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 79.
+ [1
 
-] (./theorie.aux)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-LaTeX Warning: There were multiply-defined labels.
+]
+Overfull \hbox (26.07259pt too wide) in paragraph at lines 191--194
+[]\OT1/cmr/m/n/10 Damit ergibt sich nach Aufruf von $\OML/cmm/m/it/10 Opt \OMS/
+cmsy/m/n/10 ^^@ \OML/cmm/m/it/10 Klam\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 A; s; \O
+T1/cmr/m/n/10 1\OML/cmm/m/it/10 ; n\OT1/cmr/m/n/10 )$ fol-gende op-ti-male Klam
+-merung: $[] []$. 
+ []
 
- ) 
+
+Overfull \hbox (95.9265pt too wide) in paragraph at lines 220--244
+ [] 
+ []
+
+[3
+
+] (./theorie.aux) ) 
 Here is how much of TeX's memory you used:
- 17012 strings out of 493029
- 332205 string characters out of 6136234
- 405616 words of memory out of 5000000
- 20236 multiletter control sequences out of 15000+600000
- 12482 words of font info for 49 fonts, out of 8000000 for 9000
+ 18635 strings out of 493029
+ 378126 string characters out of 6136234
+ 458299 words of memory out of 5000000
+ 21798 multiletter control sequences out of 15000+600000
+ 12755 words of font info for 50 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,24n,63p,421b,2095s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></us
-r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
-e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/share/texlive/texmf-dis
-t/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on theorie.pdf (13 pages, 223803 bytes).
+ 55i,18n,67p,422b,1483s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr7.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmr9.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+sy7.pfb>
+Output written on theorie.pdf (3 pages, 143127 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 85 compressed objects within 1 object stream
+ 69 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
