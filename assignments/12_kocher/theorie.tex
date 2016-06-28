@@ -80,7 +80,7 @@ eingetragen wurden.
   \hline\hline
   $5$                     & $13560$ & $6952$  & $5032$  & $10200$ & $0$ \tabularnewline
   \hline
-  $4$                     & $27754$ & $8840$  & $3400$  & $0$     & -   \tabularnewline
+  $4$                     & $15536$ & $8840$  & $3400$  & $0$     & -   \tabularnewline
   \hline
   $3$                     & $10660$ & $4000$  & $0$     & -       & -   \tabularnewline
   \hline
@@ -156,7 +156,7 @@ m[1, 4] = \min\limits_{1 \leq k < 4} \left\{ m[1, k] + m[k + 1, 4] + p_0p_kp_4 \
 \begin{equation}
 m[1, 4] = \min\begin{cases}
   m[1, 1] + m[2, 4] + p_0p_1p_4 = 0 + 8840 + 55760 = 64600 (k = 1) \\
-  m[1, 2] + m[3, 4] + p_0p_2p_4 = 6560 + 3400 + 17794 = \textbf{27754 (k = 2)} \\
+  m[1, 2] + m[3, 4] + p_0p_2p_4 = 6560 + 3400 + 5576 = \textbf{15536 (k = 2)} \\
   m[1, 3] + m[4, 4] + p_0p_3p_4 = 10660 + 0 + 34850 = 45510 (k = 3)
 \end{cases}
 \end{equation}
@@ -182,11 +182,11 @@ m[1, 5] = \min\begin{cases}
   m[1, 1] + m[2, 5] + p_0p_1p_5 = 0 + 6952 + 19680 = 26632 (k = 1) \\
   m[1, 2] + m[3, 5] + p_0p_2p_5 = 6560 + 5032 + 1968 = \textbf{13560 (k = 2)} \\
   m[1, 3] + m[4, 5] + p_0p_3p_5 = 10660 + 10200 + 12300 = 33160 (k = 3) \\
-  m[1, 4] + m[5, 5] + p_0p_4p_5 = 27754 + 0 + 16728 = 44482 (k = 4)
+  m[1, 4] + m[5, 5] + p_0p_4p_5 = 15536 + 0 + 16728 = 32264 (k = 4)
 \end{cases}
 \end{equation}
 
-Damit ergibt sich durch Aufruf von $Opt-Klam(A, s, 1, n)$ folgende optimale
+Damit ergibt sich nach Aufruf von $Opt-Klam(A, s, 1, n)$ folgende optimale
 Klammerung:
 $\left( \left( A_1 \right) \left( A_2 \right) \right) \left( \left( \left( A_3 \right) \left( A_4 \right) \right) \left( A_5 \right) \right)$.
 
